@@ -20,4 +20,5 @@
     <string name="btn_camera">Camera</string>
     <string name="btn_gallery">Gallery</string>
     <string name="btn_detection">Upload Gambar</string>
+    <string name="tv_bar_detection">Deteksi Jenis Plastik</string>
 </resources>
