@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/app_navigation.xml"
+    app:startDestination="@id/navigation_dashboard">
+
+    <fragment
+        android:id="@+id/navigation_dashboard"
+        android:name="com.dicoding.plasticode.ui.dashboard.fragment.DashboardFragment"
+        tools:layout="@layout/fragment_dashboard"
+        android:label="@string/tv_nav_dashboard"/>
+
+    <fragment
+        android:id="@+id/navigation_deteksi"
+        android:name="com.dicoding.plasticode.ui.lokasi.LokasiFragment"
+        tools:layout="@layout/fragment_lokasi"
+        android:label="@string/tv_nav_deteksi"/>
+
+    <fragment
+        android:id="@+id/navigation_lokasi"
+        android:name="com.dicoding.plasticode.ui.lokasi.LokasiFragment"
+        tools:layout="@layout/fragment_lokasi"
+        android:label="@string/tv_nav_lokasi"/>
+    <fragment
+        android:id="@+id/detectionFragment"
+        android:name="com.dicoding.plasticode.ui.detection.fragment.DetectionFragment"
+        android:label="fragment_detection"
+        tools:layout="@layout/fragment_detection" />
+
+</navigation>

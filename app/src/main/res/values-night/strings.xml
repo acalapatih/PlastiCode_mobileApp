@@ -1,5 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">PlastiCode</string>
     <string name="tv_judul">PlastiCode</string>
     <string name="desc_ic_pengaturan">Pengaturan</string>
     <string name="desc_ic_menu">Menu</string>
@@ -10,11 +10,8 @@
     <string name="desc_iv_lokasi">Gambar Lokasi Daur Ulang</string>
     <string name="tv_nama_lokasi">Nama Lokasi</string>
     <string name="tv_alamat_lokasi">Alamat tempat daur ulang Alamat tempat daur ulang Alamat tempat daur ulang</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="tv_nav_dashboard">Dashboard</string>
     <string name="tv_nav_deteksi">Deteksi</string>
     <string name="tv_nav_lokasi">Lokasi</string>
     <string name="tv_bar_lokasi">Lokasi Daur Ulang</string>
-    <string name="detection_image_box">image box</string>
 </resources>
