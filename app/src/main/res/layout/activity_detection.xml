@@ -22,34 +22,37 @@
         />
 
 
-    <com.dicoding.plasticode.ui.custom.CameraButton
+    <Button
         android:id="@+id/camera_button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="96dp"
         android:layout_marginBottom="20dp"
         android:layout_marginTop="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/upload_button"
+        android:text="CAMERA"
+        app:layout_constraintBottom_toTopOf="@+id/deteksi_button"
         app:layout_constraintStart_toStartOf="parent" />
 
 
-    <com.dicoding.plasticode.ui.custom.GalleryButton
+    <Button
         android:id="@+id/gallery_button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="96dp"
         android:layout_marginBottom="20dp"
+        android:text="Gallery"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/upload_button"
+        app:layout_constraintBottom_toTopOf="@+id/deteksi_button"
         app:layout_constraintVertical_bias="1.0" />
 
-    <com.dicoding.plasticode.ui.custom.UploadButton
-        android:id="@+id/upload_button"
+    <Button
+        android:id="@+id/deteksi_button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
         android:layout_marginEnd="50dp"
         android:layout_marginBottom="150dp"
+        android:text="Deteksi"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
