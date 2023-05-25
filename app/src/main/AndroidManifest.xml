@@ -12,9 +12,6 @@
         android:theme="@style/Theme.PlastiCode"
         tools:targetApi="31">
         <activity
-            android:name=".ui.detection.activity.DetectionActivity"
-            android:exported="false" />
-        <activity
             android:name=".ui.dashboard.activity.DashboardActivity"
             android:exported="false" />
         <activity

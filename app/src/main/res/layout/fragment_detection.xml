@@ -57,52 +57,61 @@
             app:layout_constraintTop_toTopOf="parent"
             />
 
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/camera_button"
-            style="@style/btn_green_rounded"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:id="@+id/layout_follow"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="48dp"
-            android:layout_marginBottom="20dp"
-            android:layout_marginTop="20dp"
-            android:enabled="true"
-            android:paddingStart="30dp"
-            android:paddingEnd="30dp"
-            android:textSize="18sp"
-            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="@+id/preview_img"
+            app:layout_constraintEnd_toEndOf="@+id/preview_img"
             app:layout_constraintTop_toBottomOf="@+id/preview_img"
-            tools:text="Camera" />
+            >
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/camera_button"
+                style="@style/btn_green_rounded"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="10dp"
+                android:enabled="true"
+                android:paddingStart="30dp"
+                android:paddingEnd="30dp"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/preview_img"
+                android:text="@string/btn_camera" />
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/gallery_button"
-            style="@style/btn_green_rounded"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="48dp"
-            android:layout_marginTop="20dp"
-            android:paddingStart="30dp"
-            android:paddingEnd="30dp"
-            android:textSize="18sp"
-            app:layout_constraintTop_toBottomOf="@+id/preview_img"
-            app:layout_constraintEnd_toEndOf="parent"
-            tools:text="Gallery" />
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/gallery_button"
+                style="@style/btn_green_rounded"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:paddingStart="30dp"
+                android:paddingEnd="30dp"
+                android:textSize="18sp"
+                app:layout_constraintTop_toBottomOf="@+id/preview_img"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:text="@string/btn_gallery" />
+
+        </LinearLayout>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/deteksi_button"
             style="@style/btn_green_rounded"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:padding="10dp"
-            android:textSize="18sp"
+            android:layout_marginTop="10dp"
             android:layout_marginStart="50dp"
             android:layout_marginEnd="50dp"
+            android:paddingHorizontal="60dp"
+            android:paddingVertical="10dp"            android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintTop_toBottomOf="@+id/camera_button"
-            tools:text="Upload Gambar" />
+            app:layout_constraintTop_toBottomOf="@+id/layout_follow"
+            android:text="@string/btn_detection" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

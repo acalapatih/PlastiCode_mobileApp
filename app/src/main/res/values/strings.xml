@@ -17,4 +17,7 @@
     <string name="tv_nav_lokasi">Lokasi</string>
     <string name="tv_bar_lokasi">Lokasi Daur Ulang</string>
     <string name="detection_image_box">image box</string>
+    <string name="btn_camera">Camera</string>
+    <string name="btn_gallery">Gallery</string>
+    <string name="btn_detection">Upload Gambar</string>
 </resources>
