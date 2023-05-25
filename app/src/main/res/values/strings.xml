@@ -16,4 +16,5 @@
     <string name="tv_nav_deteksi">Deteksi</string>
     <string name="tv_nav_lokasi">Lokasi</string>
     <string name="tv_bar_lokasi">Lokasi Daur Ulang</string>
+    <string name="detection_image_box">image box</string>
 </resources>
