@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">PlastiCode</string>
+    <string name="detection_image_box">Image Box</string>
 </resources>
