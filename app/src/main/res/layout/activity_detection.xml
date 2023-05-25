@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -9,11 +10,11 @@
         android:id="@+id/preview_img"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:contentDescription="@string/detection_image_box"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginBottom="40dp"
+        android:contentDescription="image box"
         app:srcCompat="@drawable/ic_img_box"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,37 +23,46 @@
         />
 
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/camera_button"
+        style="@style/btn_green_rounded"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="96dp"
+        android:layout_marginStart="48dp"
         android:layout_marginBottom="20dp"
-        android:layout_marginTop="20dp"
-        android:text="CAMERA"
+        android:enabled="true"
+        android:paddingStart="30dp"
+        android:paddingEnd="30dp"
+        android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/deteksi_button"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="Camera" />
 
-
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/gallery_button"
+        style="@style/btn_green_rounded"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="96dp"
+        android:layout_marginEnd="48dp"
         android:layout_marginBottom="20dp"
-        android:text="Gallery"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:paddingStart="30dp"
+        android:paddingEnd="30dp"
+        android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/deteksi_button"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="Gallery" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/deteksi_button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
         android:layout_marginEnd="50dp"
         android:layout_marginBottom="150dp"
-        android:text="Deteksi"
+        tools:text="Upload Gambar"
+        android:textSize="18sp"
+        android:padding="10dp"
+        style="@style/btn_green_rounded"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
