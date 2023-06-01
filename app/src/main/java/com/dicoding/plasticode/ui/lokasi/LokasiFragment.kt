@@ -42,7 +42,7 @@ class LokasiFragment : Fragment() {
         println("LOKASI KU === $myLocation")
         viewModel.getLokasi(
             requireContext(),
-            myLocation,
+            "-6.1754083,106.8245787",
             Constant.MAPS_RADIUS,
             Constant.MAPS_KEYWORD,
             Constant.MAPS_API_KEY
@@ -69,14 +69,16 @@ class LokasiFragment : Fragment() {
     }
 
     private fun showLokasi(data: List<GetLokasiResponse.ResultsItem>) {
-        lokasiAdapter = LokasiAdapter(requireContext(), data)
-        binding.rvLokasiDaurUlang.adapter = lokasiAdapter
+        with(binding) {
+            tvEmptyLokasi.isVisible = data.isEmpty()
+            lokasiAdapter = LokasiAdapter(requireContext(), data)
+            rvLokasiDaurUlang.adapter = lokasiAdapter
+        }
     }
 
     private fun showLoading(value: Boolean) {
         with(binding) {
             progressBar.isVisible = value
-            tvEmptyLokasi.isVisible = !value
         }
     }
 
