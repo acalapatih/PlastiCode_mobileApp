@@ -1,13 +1,12 @@
 package com.dicoding.plasticode.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.WindowManager
-import com.dicoding.plasticode.R
-import com.dicoding.plasticode.databinding.ActivityMainBinding
+import androidx.appcompat.app.AppCompatActivity
 import com.dicoding.plasticode.ui.dashboard.activity.DashboardActivity
+import com.dicoding.plasticode.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
