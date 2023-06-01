@@ -21,4 +21,5 @@
     <string name="btn_gallery">Gallery</string>
     <string name="btn_detection">Upload Gambar</string>
     <string name="tv_bar_detection">Deteksi Jenis Plastik</string>
+    <string name="tv_empty_lokasi">Maaf Belum Ada Lokasi Daur Ulang Plastik di Tempat Anda</string>
 </resources>
