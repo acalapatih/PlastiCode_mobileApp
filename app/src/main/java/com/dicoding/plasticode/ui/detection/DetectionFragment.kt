@@ -54,7 +54,7 @@ class DetectionFragment : Fragment() {
             myFile?.let {
                 rotateFile(it, isBackCamera)
                 getFile = it
-                binding.previewImg.setImageBitmap(BitmapFactory.decodeFile(it.path))
+                binding.ivDeteksi.setImageBitmap(BitmapFactory.decodeFile(it.path))
             }
         }
     }
@@ -68,7 +68,7 @@ class DetectionFragment : Fragment() {
             selectedImg.let {
                 val myFile = uriToFile(it, requireContext())
                 getFile = myFile
-                binding.previewImg.setImageURI(it)
+                binding.ivDeteksi.setImageURI(it)
             }
         }
 

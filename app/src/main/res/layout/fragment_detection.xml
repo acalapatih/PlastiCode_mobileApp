@@ -42,7 +42,7 @@
             app:layout_constraintTop_toBottomOf="@id/tv_bar_hasil_deteksi"/>
 
         <ImageView
-            android:id="@+id/iv_hasil_deteksi"
+            android:id="@+id/iv_deteksi"
             android:layout_width="0dp"
             android:layout_height="400dp"
             android:layout_marginStart="40dp"
@@ -61,9 +61,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            app:layout_constraintStart_toStartOf="@+id/iv_hasil_deteksi"
-            app:layout_constraintEnd_toEndOf="@+id/iv_hasil_deteksi"
-            app:layout_constraintTop_toBottomOf="@+id/iv_hasil_deteksi"
+            app:layout_constraintStart_toStartOf="@+id/iv_deteksi"
+            app:layout_constraintEnd_toEndOf="@+id/iv_deteksi"
+            app:layout_constraintTop_toBottomOf="@+id/iv_deteksi"
             >
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/camera_button"
@@ -78,7 +78,7 @@
                 android:paddingEnd="30dp"
                 android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/iv_hasil_deteksi"
+                app:layout_constraintTop_toBottomOf="@+id/iv_deteksi"
                 android:text="@string/btn_camera" />
 
             <androidx.appcompat.widget.AppCompatButton
@@ -90,7 +90,7 @@
                 android:paddingStart="30dp"
                 android:paddingEnd="30dp"
                 android:textSize="18sp"
-                app:layout_constraintTop_toBottomOf="@+id/iv_hasil_deteksi"
+                app:layout_constraintTop_toBottomOf="@+id/iv_deteksi"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:text="@string/btn_gallery" />
 
