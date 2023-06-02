@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dicoding.plasticode.databinding.FragmentLokasiBinding
 import com.dicoding.plasticode.response.GetLokasiResponse
-import com.dicoding.plasticode.ui.dashboard.activity.DashboardActivity
+import com.dicoding.plasticode.ui.dashboard.DashboardActivity
 import com.dicoding.plasticode.utils.Constant
 
 class LokasiFragment : Fragment() {
@@ -42,7 +42,7 @@ class LokasiFragment : Fragment() {
         println("LOKASI KU === $myLocation")
         viewModel.getLokasi(
             requireContext(),
-            "-6.1754083,106.8245787",
+            myLocation,
             Constant.MAPS_RADIUS,
             Constant.MAPS_KEYWORD,
             Constant.MAPS_API_KEY

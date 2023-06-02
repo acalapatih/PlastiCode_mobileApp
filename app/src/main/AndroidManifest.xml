@@ -6,6 +6,12 @@
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-feature android:name="android.hardware.camera" />
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="18" />
 
     <application
         android:allowBackup="true"
@@ -19,9 +25,31 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyCb_tmoxSbjjPLPp2UUXE9aIidqEjMT-AE" />
+        <activity
+            android:name=".ui.detection.detail.DetectionDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.detection.result.DetectionResultActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.detection.camera.CameraActivity"
+            android:exported="false" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyCb_tmoxSbjjPLPp2UUXE9aIidqEjMT-AE" />
 
         <activity
-            android:name=".ui.dashboard.activity.DashboardActivity"
+            android:name=".ui.pengaturan.PengaturanActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.riwayat.RiwayatActivity"
+            android:exported="false"/>
+        <activity
+            android:name=".ui.menu.MenuActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.dashboard.DashboardActivity"
             android:exported="false" />
         <activity
             android:name=".ui.MainActivity"
