@@ -4,6 +4,7 @@ import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.BitmapFactory
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,6 +13,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -19,7 +21,12 @@ import com.dicoding.plasticode.R
 import com.dicoding.plasticode.databinding.FragmentDetectionBinding
 import com.dicoding.plasticode.ui.dashboard.activity.DashboardActivity
 import com.dicoding.plasticode.ui.detection.camera.CameraActivity
+import com.dicoding.plasticode.utils.reduceFileImage
 import com.dicoding.plasticode.utils.rotateFile
+import com.dicoding.plasticode.utils.uriToFile
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
 import java.io.File
 
 
@@ -51,6 +58,23 @@ class DetectionFragment : Fragment() {
         }
     }
 
+    private val launcherIntentGallery = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ){ result ->
+        if (result.resultCode == AppCompatActivity.RESULT_OK){
+            val selectedImg = result.data?.data as Uri
+
+            selectedImg.let {
+                val myFile = uriToFile(it, requireContext())
+                getFile = myFile
+                binding.previewImg.setImageURI(it)
+            }
+        }
+
+    }
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         baseActivity = activity as DashboardActivity
@@ -79,7 +103,10 @@ class DetectionFragment : Fragment() {
         super.onCreate(savedInstanceState)
 
         val cameraXButton = view.findViewById<Button>(R.id.camera_button)
+        val galleryButton = view.findViewById<Button>(R.id.gallery_button)
         cameraXButton.setOnClickListener { runCameraX() }
+        galleryButton.setOnClickListener { runGallery() }
+
     }
 
     @Deprecated("Deprecated in Java", ReplaceWith(
@@ -104,9 +131,29 @@ class DetectionFragment : Fragment() {
         ContextCompat.checkSelfPermission(activity!!.baseContext, it) == PackageManager.PERMISSION_GRANTED
     }
 
+    private fun runGallery() {
+        val intent = Intent()
+        intent.action = Intent.ACTION_GET_CONTENT
+        intent.type = "image/*"
+        val chooser = Intent.createChooser(intent, "Choose a Picture")
+        launcherIntentGallery.launch(chooser)
+    }
+
     private fun runCameraX() {
         val intent = Intent(requireContext(), CameraActivity::class.java)
         launcherIntentCameraX.launch(intent)
+    }
+
+    private fun uploadFile() {
+        if (getFile != null) {
+            val file = reduceFileImage(getFile as File)
+            val requestImageFile = file.asRequestBody("image/jpeg".toMediaType())
+            val imageMultipart: MultipartBody.Part = MultipartBody.Part.createFormData(
+                "photo",
+                file.name,
+                requestImageFile
+            )
+        }
     }
 
     private fun initObserver() {
