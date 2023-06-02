@@ -28,6 +28,7 @@ class DashboardActivity : AppCompatActivity() {
     private lateinit var locationManager: LocationManager
     private lateinit var locationListener: LocationListener
     private lateinit var getLocation: String
+    private lateinit var menu: Menu
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,7 +69,7 @@ class DashboardActivity : AppCompatActivity() {
 
     private fun initBottomNav() {
         navView = binding.navView
-
+        menu = navView.menu
         navController = findNavController(R.id.nav_host_fragment_activity_home)
         navView.setupWithNavController(navController)
         navController.setGraph(R.navigation.app_navigation)
@@ -76,19 +77,23 @@ class DashboardActivity : AppCompatActivity() {
         when (intent.getStringExtra("action")) {
             "dashboard" -> {
                 navController.navigate(R.id.navigation_dashboard)
+                menu.findItem(R.id.navigation_dashboard).setIcon(R.drawable.ic_dashboard_selected)
+                menu.findItem(R.id.navigation_deteksi).setIcon(R.drawable.ic_deteksi)
+                menu.findItem(R.id.navigation_lokasi).setIcon(R.drawable.ic_lokasi)
             }
             "deteksi" -> {
                 navController.navigate(R.id.navigation_deteksi)
+                menu.findItem(R.id.navigation_dashboard).setIcon(R.drawable.ic_dashboard)
+                menu.findItem(R.id.navigation_deteksi).setIcon(R.drawable.ic_deteksi_selected)
+                menu.findItem(R.id.navigation_lokasi).setIcon(R.drawable.ic_lokasi)
             }
             else -> {
                 navController.navigate(R.id.navigation_lokasi)
+                menu.findItem(R.id.navigation_dashboard).setIcon(R.drawable.ic_dashboard)
+                menu.findItem(R.id.navigation_deteksi).setIcon(R.drawable.ic_deteksi)
+                menu.findItem(R.id.navigation_lokasi).setIcon(R.drawable.ic_lokasi_selected)
             }
         }
-
-        val menu: Menu = navView.menu
-        menu.findItem(R.id.navigation_dashboard).setIcon(R.drawable.ic_dashboard_selected)
-        menu.findItem(R.id.navigation_deteksi).setIcon(R.drawable.ic_deteksi)
-        menu.findItem(R.id.navigation_lokasi).setIcon(R.drawable.ic_lokasi)
 
         navView.setOnItemSelectedListener{ item ->
             when(item.itemId) {

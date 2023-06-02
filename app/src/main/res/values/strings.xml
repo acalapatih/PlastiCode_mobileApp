@@ -28,8 +28,6 @@
     </string>
 
     <!--    Deteksi Hasil Dan Detail-->
-    <string name="masa_pakai">Berulang Kali</string>
-    <string name="tingkat_bahaya">Bahaya</string>
     <string name="lokasi_button">Cek Lokasi Daur Ulang</string>
     <string name="jargon5">Nah untuk memudahkanmu mendaur ulang sampah plastik, kamu bisa mendatangi lokasi lokasi-lokasi berikut ini sob, klik tombol di bawah yaa.</string>
     <string name="jargon4">3. Melakukan daur ulang sampah plastik</string>
@@ -38,14 +36,25 @@
     <string name="jargon1">Untuk mengurangi polusi sampah plastik, kamu bisa melakukan beberapa hal dibawah ini sob.</string>
     <string name="headline_jargon">Yuk Kurangi Sampah Plastik dari Sekarang</string>
     <string name="nav_detail_deteksi">Detail Hasil Deteksi</string>
-    <string name="jenis_plastik">Jenis Plastik :</string>
-    <string name="masa_pakai_deteksi">Masa Pakai :</string>
-    <string name="tingkat_bahaya_deteksi">Tingkat Bahaya :</string>
-    <string name="input_jenis">PET / PETE</string>
-    <string name="aman">Aman</string>
-    <string name="sekali_pakai">Sekali Pakai</string>
-    <string name="button_lihat_detail">Lihat Detail</string>
+    <string name="tv_tingkat_bahaya">Aman</string>
+    <string name="btn_lihat_detail">Lihat Detail</string>
     <string name="jenis_sampah">HDPE</string>
     <string name="tv_welcome">Hai,</string>
     <string name="tv_nama_user">User12345</string>
+    <string name="tv_label_jenis_plastik">Jenis Plastik</string>
+    <string name="tv_label_masa_pakai">Masa Pakai</string>
+    <string name="tv_label_tingkat_bahaya">Tingkat Bahaya</string>
+    <string name="tv_jenis_plastik">PET/PETE</string>
+    <string name="tv_judul_hasil_deteksi">Hasil Deteksi</string>
+    <string name="desc_tv_ic_back">Kembali</string>
+    <string name="tv_judul_riwayat_deteksi">Riwayat Deteksi</string>
+    <string name="tv_empty_riwayat">Belum ada Deteksi yang Dilakukan</string>
+    <string name="tv_masa_pakai">Sekali Pakai</string>
+    <string name="tv_judul_menu">Menu</string>
+    <string name="tv_email_user">user12345@gmail.com</string>
+    <string name="desc_ic_riwayat">Riwayat Deteksi</string>
+    <string name="tv_riwayat_deteksi">Riwayat Deteksi</string>
+    <string name="tv_pengaturan">Pengaturan</string>
+    <string name="desc_ic_logout">Keluar</string>
+    <string name="tv_logout">Keluar</string>
 </resources>
