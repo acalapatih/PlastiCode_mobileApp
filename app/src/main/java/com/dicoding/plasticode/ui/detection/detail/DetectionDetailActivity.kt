@@ -1,10 +1,9 @@
 package com.dicoding.plasticode.ui.detection.detail
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.dicoding.plasticode.databinding.ActivityDetectionDetailBinding
-import com.dicoding.plasticode.ui.lokasi.LokasiFragment
+import com.dicoding.plasticode.ui.dashboard.activity.DashboardActivity
 
 class DetectionDetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetectionDetailBinding
@@ -18,7 +17,6 @@ class DetectionDetailActivity : AppCompatActivity() {
     }
 
     private fun location(){
-        val intent = Intent(this@DetectionDetailActivity, LokasiFragment::class.java)
-        startActivity(intent)
+        DashboardActivity.start(this, "lokasi")
     }
 }

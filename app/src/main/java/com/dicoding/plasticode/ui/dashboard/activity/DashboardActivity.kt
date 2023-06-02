@@ -80,7 +80,7 @@ class DashboardActivity : AppCompatActivity() {
             "deteksi" -> {
                 navController.navigate(R.id.navigation_deteksi)
             }
-            else -> {
+            "lokasi" -> {
                 navController.navigate(R.id.navigation_lokasi)
             }
         }
