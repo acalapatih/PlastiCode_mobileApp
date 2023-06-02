@@ -12,6 +12,7 @@ class DetectionDetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityDetectionDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        supportActionBar?.hide()
 
         binding.lokasiButton.setOnClickListener { location() }
     }
