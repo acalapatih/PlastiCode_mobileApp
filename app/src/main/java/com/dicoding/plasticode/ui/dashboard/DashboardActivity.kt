@@ -1,4 +1,4 @@
-package com.dicoding.plasticode.ui.dashboard.activity
+package com.dicoding.plasticode.ui.dashboard
 
 import android.Manifest
 import android.content.Context
@@ -80,7 +80,7 @@ class DashboardActivity : AppCompatActivity() {
             "deteksi" -> {
                 navController.navigate(R.id.navigation_deteksi)
             }
-            "lokasi" -> {
+            else -> {
                 navController.navigate(R.id.navigation_lokasi)
             }
         }

@@ -4,31 +4,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.lokasi.LokasiFragment">
-
-    <TextView
-        android:id="@+id/tv_bar_lokasi"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="15dp"
-        android:fontFamily="@font/poppins_semibold"
-        android:text="@string/tv_bar_lokasi"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    tools:context=".ui.riwayat.RiwayatActivity">
 
     <ImageView
-        android:id="@+id/ic_menu"
+        android:id="@+id/ic_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
-        android:contentDescription="@string/desc_ic_menu"
-        android:src="@drawable/ic_menu"
-        app:layout_constraintBottom_toBottomOf="@id/tv_bar_lokasi"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/tv_bar_lokasi" />
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/ic_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/desc_tv_ic_back" />
+
+    <TextView
+        android:id="@+id/tv_bar_riwayat_deteksi"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="@string/tv_judul_riwayat_deteksi"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@id/ic_back"
+        app:layout_constraintStart_toEndOf="@id/ic_back"
+        app:layout_constraintTop_toTopOf="@id/ic_back" />
 
     <View
         android:id="@+id/line_bar"
@@ -37,7 +37,7 @@
         android:layout_marginTop="15dp"
         android:alpha="0.5"
         android:background="@color/grey_808080"
-        app:layout_constraintTop_toBottomOf="@id/tv_bar_lokasi" />
+        app:layout_constraintTop_toBottomOf="@id/tv_bar_riwayat_deteksi" />
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -50,7 +50,7 @@
             android:layout_height="match_parent">
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_lokasi_daur_ulang"
+                android:id="@+id/rv_riwayat_deteksi"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:nestedScrollingEnabled="false"
@@ -60,7 +60,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.0"
-                tools:listitem="@layout/recycler_view_lokasi" />
+                tools:listitem="@layout/recycler_view_riwayat" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -77,13 +77,13 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tv_empty_lokasi"
+        android:id="@+id/tv_empty_riwayat"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:fontFamily="@font/poppins"
-        android:text="@string/tv_empty_lokasi"
+        android:text="@string/tv_empty_riwayat"
         android:textAlignment="center"
         android:textColor="@color/grey_808080"
         android:textSize="18sp"

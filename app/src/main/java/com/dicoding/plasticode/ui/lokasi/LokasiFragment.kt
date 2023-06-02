@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dicoding.plasticode.databinding.FragmentLokasiBinding
 import com.dicoding.plasticode.response.GetLokasiResponse
-import com.dicoding.plasticode.ui.dashboard.activity.DashboardActivity
+import com.dicoding.plasticode.ui.dashboard.DashboardActivity
 import com.dicoding.plasticode.utils.Constant
 
 class LokasiFragment : Fragment() {
@@ -69,14 +69,16 @@ class LokasiFragment : Fragment() {
     }
 
     private fun showLokasi(data: List<GetLokasiResponse.ResultsItem>) {
-        lokasiAdapter = LokasiAdapter(requireContext(), data)
-        binding.rvLokasiDaurUlang.adapter = lokasiAdapter
+        with(binding) {
+            tvEmptyLokasi.isVisible = data.isEmpty()
+            lokasiAdapter = LokasiAdapter(requireContext(), data)
+            rvLokasiDaurUlang.adapter = lokasiAdapter
+        }
     }
 
     private fun showLoading(value: Boolean) {
         with(binding) {
             progressBar.isVisible = value
-            tvEmptyLokasi.isVisible = !value
         }
     }
 

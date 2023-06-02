@@ -15,4 +15,22 @@
     <string name="tv_nav_lokasi">Lokasi</string>
     <string name="tv_bar_lokasi">Lokasi Daur Ulang</string>
     <string name="tv_empty_lokasi">Maaf Belum Ada Lokasi Daur Ulang Plastik di Tempat Anda</string>
+    <string name="tv_welcome">Hai,</string>
+    <string name="tv_nama_user">User12345</string>
+    <string name="tv_label_jenis_plastik">Jenis Plastik</string>
+    <string name="tv_label_masa_pakai">Masa Pakai</string>
+    <string name="tv_label_tingkat_bahaya">Tingkat Bahaya</string>
+    <string name="tv_jenis_plastik">PET/PETE</string>
+    <string name="tv_judul_hasil_deteksi">Hasil Deteksi</string>
+    <string name="desc_tv_ic_back">Kembali</string>
+    <string name="tv_judul_riwayat_deteksi">Riwayat Deteksi</string>
+    <string name="tv_empty_riwayat">Belum ada Deteksi yang Dilakukan</string>
+    <string name="tv_masa_pakai">Sekali Pakai</string>
+    <string name="tv_judul_menu">Menu</string>
+    <string name="tv_email_user">user12345@gmail.com</string>
+    <string name="desc_ic_riwayat">Riwayat Deteksi</string>
+    <string name="tv_riwayat_deteksi">Riwayat Deteksi</string>
+    <string name="tv_pengaturan">Pengaturan</string>
+    <string name="desc_ic_logout">Keluar</string>
+    <string name="tv_logout">Keluar</string>
 </resources>

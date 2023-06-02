@@ -19,7 +19,6 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.dicoding.plasticode.R
 import com.dicoding.plasticode.databinding.FragmentDetectionBinding
-import com.dicoding.plasticode.ui.dashboard.activity.DashboardActivity
 import com.dicoding.plasticode.ui.detection.camera.CameraActivity
 import com.dicoding.plasticode.ui.detection.result.DetectionResultActivity
 import com.dicoding.plasticode.utils.reduceFileImage
@@ -29,6 +28,7 @@ import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import java.io.File
+import com.dicoding.plasticode.ui.dashboard.DashboardActivity
 
 
 class DetectionFragment : Fragment() {

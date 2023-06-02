@@ -5,7 +5,7 @@ import android.os.Handler
 import android.os.Looper
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
-import com.dicoding.plasticode.ui.dashboard.activity.DashboardActivity
+import com.dicoding.plasticode.ui.dashboard.DashboardActivity
 import com.dicoding.plasticode.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {

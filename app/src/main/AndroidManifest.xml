@@ -37,7 +37,16 @@
             android:value="AIzaSyCb_tmoxSbjjPLPp2UUXE9aIidqEjMT-AE" />
 
         <activity
-            android:name=".ui.dashboard.activity.DashboardActivity"
+            android:name=".ui.pengaturan.PengaturanActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.riwayat.RiwayatActivity"
+            android:exported="false"/>
+        <activity
+            android:name=".ui.menu.MenuActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.dashboard.DashboardActivity"
             android:exported="false" />
         <activity
             android:name=".ui.MainActivity"
@@ -47,13 +56,13 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity> <!-- <activity -->
-        <!-- android:name=".ui.lokasi.maps.MapsActivity" -->
-        <!-- android:exported="true"> -->
-        <!-- </activity> -->
+        </activity>
         <activity
             android:name=".ImageClassActivity"
             android:exported="false" />
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyCb_tmoxSbjjPLPp2UUXE9aIidqEjMT-AE" />
     </application>
 
 </manifest>
