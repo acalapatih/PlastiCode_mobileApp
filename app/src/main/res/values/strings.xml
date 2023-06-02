@@ -46,7 +46,6 @@
     <string name="sekali_pakai">Sekali Pakai</string>
     <string name="button_lihat_detail">Lihat Detail</string>
     <string name="jenis_sampah">HDPE</string>
-    <string name="tv_empty_lokasi">Maaf Belum Ada Lokasi Daur Ulang Plastik di Tempat Anda</string>
     <string name="tv_welcome">Hai,</string>
     <string name="tv_nama_user">User12345</string>
 </resources>

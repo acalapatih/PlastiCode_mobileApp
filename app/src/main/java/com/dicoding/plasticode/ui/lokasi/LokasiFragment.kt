@@ -11,9 +11,6 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dicoding.plasticode.databinding.FragmentLokasiBinding
 import com.dicoding.plasticode.response.GetLokasiResponse
-import com.dicoding.plasticode.ui.dashboard.activity.DashboardActivity
-import com.dicoding.plasticode.utils.Constant
-import com.dicoding.plasticode.response.GetLokasiResponse
 import com.dicoding.plasticode.ui.dashboard.DashboardActivity
 import com.dicoding.plasticode.utils.Constant
 
