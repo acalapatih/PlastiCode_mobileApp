@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.detection.result.DetectionResultActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_bar_detection"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Hasil Deteksi"
+            android:fontFamily="@font/poppins_semibold"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="15dp"
+            android:layout_marginStart="20dp"/>
+
+        <ImageView
+            android:id="@+id/ic_menu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_menu"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:contentDescription="@string/desc_ic_menu"
+            app:layout_constraintTop_toTopOf="@id/tv_bar_detection"
+            app:layout_constraintBottom_toBottomOf="@id/tv_bar_detection"
+            android:layout_marginEnd="20dp"/>
+
+        <View
+            android:id="@+id/line_bar"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/grey_808080"
+            android:alpha="0.5"
+            android:layout_marginTop="15dp"
+            app:layout_constraintTop_toBottomOf="@id/tv_bar_detection"/>
+
+        <ImageView
+            android:id="@+id/preview_img"
+            android:layout_width="0dp"
+            android:layout_height="400dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="70dp"
+            android:layout_marginEnd="40dp"
+            android:layout_marginBottom="40dp"
+            android:contentDescription="@string/detection_image_box"
+            app:srcCompat="@drawable/ic_img_box"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
+        <TextView
+            android:id="@+id/tv_jenis_plastik"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/jenis_plastik"
+            android:fontFamily="@font/poppins"
+            android:layout_marginStart="40dp"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/preview_img" />
+
+        <TextView
+            android:id="@+id/tv_input_jenis"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/input_jenis"
+            android:fontFamily="@font/poppins_semibold"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:layout_marginStart="10dp"
+            app:layout_constraintStart_toEndOf="@+id/tv_jenis_plastik"
+            app:layout_constraintTop_toBottomOf="@+id/preview_img"
+            />
+
+        <TextView
+            android:id="@+id/tv_masapakai"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/masa_pakai_deteksi"
+            android:fontFamily="@font/poppins"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="10dp"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_jenis_plastik" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/tv_input_masapakai"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/badge_blue_rounded"
+            android:fontFamily="@font/poppins_semibold"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:text="@string/sekali_pakai"
+            android:textColor="@color/white"
+            app:layout_constraintStart_toEndOf="@+id/tv_masapakai"
+            app:layout_constraintTop_toBottomOf="@+id/tv_input_jenis" />
+
+        <TextView
+            android:id="@+id/tv_tingkat_bahaya"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/tingkat_bahaya_deteksi"
+            android:fontFamily="@font/poppins"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="10dp"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_masapakai" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/tv_input_bahaya"
+            android:layout_width="130dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/badge_green_rounded"
+            android:fontFamily="@font/poppins_semibold"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:text="@string/aman"
+            android:textColor="@color/white"
+            app:layout_constraintStart_toEndOf="@+id/tv_tingkat_bahaya"
+            app:layout_constraintTop_toBottomOf="@+id/tv_input_masapakai" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/detail_button"
+            style="@style/btn_green_rounded"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="60dp"
+            android:paddingVertical="10dp"
+            android:textSize="18sp"
+            android:layout_marginTop="40dp"
+            app:layout_constraintStart_toStartOf="@+id/tv_tingkat_bahaya"
+            app:layout_constraintEnd_toEndOf="@+id/preview_img"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintTop_toBottomOf="@+id/tv_input_bahaya"
+            android:text="@string/button_lihat_detail" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+</ScrollView>
