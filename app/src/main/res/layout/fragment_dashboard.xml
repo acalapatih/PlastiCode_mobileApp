@@ -21,20 +21,9 @@
             android:text="@string/tv_judul"
             android:textColor="@color/black"
             android:textSize="26sp"
-            app:layout_constraintEnd_toStartOf="@id/ic_pengaturan"
+            app:layout_constraintEnd_toStartOf="@id/ic_menu"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/ic_pengaturan"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
-            android:contentDescription="@string/desc_ic_pengaturan"
-            android:src="@drawable/ic_pengaturan"
-            app:layout_constraintBottom_toBottomOf="@id/tv_judul"
-            app:layout_constraintEnd_toStartOf="@id/ic_menu"
-            app:layout_constraintTop_toTopOf="@id/tv_judul" />
 
         <ImageView
             android:id="@+id/ic_menu"
