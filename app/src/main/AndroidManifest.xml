@@ -8,10 +8,10 @@
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="18" />
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -22,6 +22,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PlastiCode"
         tools:targetApi="31">
+        <activity
+            android:name=".ui.detection.detail.DetectionDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.detection.result.DetectionResultActivity"
+            android:exported="false" />
         <activity
             android:name=".ui.detection.camera.CameraActivity"
             android:exported="false" />
@@ -41,14 +47,13 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-<!--        <activity-->
-<!--            android:name=".ui.lokasi.maps.MapsActivity"-->
-<!--            android:exported="true">-->
-<!--        </activity>-->
+        </activity> <!-- <activity -->
+        <!-- android:name=".ui.lokasi.maps.MapsActivity" -->
+        <!-- android:exported="true"> -->
+        <!-- </activity> -->
         <activity
             android:name=".ImageClassActivity"
-            android:exported="false"/>
+            android:exported="false" />
     </application>
 
 </manifest>

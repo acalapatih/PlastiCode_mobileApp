@@ -21,6 +21,7 @@ import com.dicoding.plasticode.R
 import com.dicoding.plasticode.databinding.FragmentDetectionBinding
 import com.dicoding.plasticode.ui.dashboard.activity.DashboardActivity
 import com.dicoding.plasticode.ui.detection.camera.CameraActivity
+import com.dicoding.plasticode.ui.detection.result.DetectionResultActivity
 import com.dicoding.plasticode.utils.reduceFileImage
 import com.dicoding.plasticode.utils.rotateFile
 import com.dicoding.plasticode.utils.uriToFile
@@ -86,8 +87,6 @@ class DetectionFragment : Fragment() {
                 REQUEST_CODE_PERMISSION
             )
         }
-
-
     }
 
     override fun onCreateView(
@@ -104,8 +103,10 @@ class DetectionFragment : Fragment() {
 
         val cameraXButton = view.findViewById<Button>(R.id.camera_button)
         val galleryButton = view.findViewById<Button>(R.id.gallery_button)
+        val deteksiButton = view.findViewById<Button>(R.id.deteksi_button)
         cameraXButton.setOnClickListener { runCameraX() }
         galleryButton.setOnClickListener { runGallery() }
+        deteksiButton.setOnClickListener { runDetection() }
 
     }
 
@@ -129,6 +130,11 @@ class DetectionFragment : Fragment() {
 
     private fun allPermissionGranted() = REQUIRED_PERMISSION.all {
         ContextCompat.checkSelfPermission(activity!!.baseContext, it) == PackageManager.PERMISSION_GRANTED
+    }
+
+    private fun runDetection() {
+        val intent = Intent(requireContext(), DetectionResultActivity::class.java)
+        startActivity(intent)
     }
 
     private fun runGallery() {
