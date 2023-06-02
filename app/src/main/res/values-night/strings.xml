@@ -26,4 +26,11 @@
     <string name="tv_judul_riwayat_deteksi">Riwayat Deteksi</string>
     <string name="tv_empty_riwayat">Belum ada Deteksi yang Dilakukan</string>
     <string name="tv_masa_pakai">Sekali Pakai</string>
+    <string name="tv_judul_menu">Menu</string>
+    <string name="tv_email_user">user12345@gmail.com</string>
+    <string name="desc_ic_riwayat">Riwayat Deteksi</string>
+    <string name="tv_riwayat_deteksi">Riwayat Deteksi</string>
+    <string name="tv_pengaturan">Pengaturan</string>
+    <string name="desc_ic_logout">Keluar</string>
+    <string name="tv_logout">Keluar</string>
 </resources>

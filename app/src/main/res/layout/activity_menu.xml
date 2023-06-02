@@ -6,4 +6,118 @@
     android:layout_height="match_parent"
     tools:context=".ui.menu.MenuActivity">
 
+    <ImageView
+        android:id="@+id/ic_close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/ic_close"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/desc_tv_ic_back" />
+
+    <TextView
+        android:id="@+id/tv_bar_menu"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="@string/tv_judul_menu"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@id/ic_close"
+        app:layout_constraintStart_toEndOf="@id/ic_close"
+        app:layout_constraintTop_toTopOf="@id/ic_close" />
+
+    <View
+        android:id="@+id/line_bar"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="15dp"
+        android:alpha="0.5"
+        android:background="@color/grey_808080"
+        app:layout_constraintTop_toBottomOf="@id/tv_bar_menu" />
+
+    <TextView
+        android:id="@+id/tv_nama_user"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/tv_nama_user"
+        android:fontFamily="@font/poppins_semibold"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        app:layout_constraintTop_toBottomOf="@id/line_bar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textAlignment="center"
+        android:layout_marginHorizontal="50dp"
+        android:layout_marginTop="70dp"/>
+
+    <TextView
+        android:id="@+id/tv_email_user"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/tv_email_user"
+        android:fontFamily="@font/poppins"
+        android:textSize="18sp"
+        android:textColor="@color/black"
+        app:layout_constraintTop_toBottomOf="@id/tv_nama_user"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textAlignment="center"
+        android:layout_marginHorizontal="50dp"
+        android:layout_marginTop="5dp"/>
+
+    <TextView
+        android:id="@+id/tv_riwayat_deteksi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/tv_riwayat_deteksi"
+        android:gravity="center_vertical"
+        android:textColor="@color/black"
+        android:fontFamily="@font/poppins"
+        android:textSize="14sp"
+        android:drawablePadding="14dp"
+        android:layout_marginTop="50dp"
+        android:contentDescription="@string/desc_ic_riwayat"
+        app:layout_constraintTop_toBottomOf="@id/tv_email_user"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="30dp"
+        app:drawableLeftCompat="@drawable/ic_riwayat" />
+
+    <TextView
+        android:id="@+id/tv_pengaturan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/tv_pengaturan"
+        android:gravity="center_vertical"
+        android:textColor="@color/black"
+        android:fontFamily="@font/poppins"
+        android:textSize="14sp"
+        android:drawablePadding="10dp"
+        android:layout_marginTop="15dp"
+        android:contentDescription="@string/desc_ic_pengaturan"
+        app:layout_constraintTop_toBottomOf="@id/tv_riwayat_deteksi"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="30dp"
+        app:drawableLeftCompat="@drawable/ic_pengaturan" />
+
+    <TextView
+        android:id="@+id/tv_logout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/tv_logout"
+        android:gravity="center_vertical"
+        android:textColor="@color/black"
+        android:fontFamily="@font/poppins"
+        android:textSize="14sp"
+        android:drawablePadding="15dp"
+        android:layout_marginTop="15dp"
+        android:contentDescription="@string/desc_ic_logout"
+        app:layout_constraintTop_toBottomOf="@id/tv_pengaturan"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="30dp"
+        app:drawableLeftCompat="@drawable/ic_logout" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
