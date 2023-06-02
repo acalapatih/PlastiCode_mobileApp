@@ -2,10 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -16,12 +16,22 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PlastiCode"
         tools:targetApi="31">
+        <activity
+            android:name=".PengaturanActivity"
+            android:exported="false" />
+        <activity
+            android:name=".RiwayatActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MenuActivity"
+            android:exported="false" />
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyCb_tmoxSbjjPLPp2UUXE9aIidqEjMT-AE" />
 
         <activity
-            android:name=".ui.dashboard.activity.DashboardActivity"
+            android:name=".ui.dashboard.DashboardActivity"
             android:exported="false" />
         <activity
             android:name=".ui.MainActivity"
@@ -34,11 +44,10 @@
         </activity>
         <activity
             android:name=".ui.lokasi.maps.MapsActivity"
-            android:exported="true">
-        </activity>
+            android:exported="true" />
         <activity
             android:name=".ImageClassActivity"
-            android:exported="false"/>
+            android:exported="false" />
     </application>
 
 </manifest>

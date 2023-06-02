@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.dicoding.plasticode.databinding.FragmentDetectionBinding
-import com.dicoding.plasticode.ui.dashboard.activity.DashboardActivity
+import com.dicoding.plasticode.ui.dashboard.DashboardActivity
 
 
 class DetectionFragment : Fragment() {

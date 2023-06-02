@@ -1,4 +1,4 @@
-package com.dicoding.plasticode.ui.dashboard.activity
+package com.dicoding.plasticode.ui.dashboard
 
 import android.Manifest
 import android.content.Context
