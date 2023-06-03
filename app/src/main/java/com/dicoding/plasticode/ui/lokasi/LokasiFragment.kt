@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.dicoding.plasticode.databinding.FragmentLokasiBinding
 import com.dicoding.plasticode.response.GetLokasiResponse
 import com.dicoding.plasticode.ui.dashboard.DashboardActivity
+import com.dicoding.plasticode.ui.menu.MenuActivity
 import com.dicoding.plasticode.utils.Constant
 
 class LokasiFragment : Fragment() {
@@ -50,6 +51,7 @@ class LokasiFragment : Fragment() {
 
         initView()
         initObserver()
+        initListener()
     }
 
     private fun initView() {
@@ -83,6 +85,8 @@ class LokasiFragment : Fragment() {
     }
 
     private fun initListener() {
-        TODO("Not yet implemented")
+        binding.icMenu.setOnClickListener {
+            MenuActivity.start(requireContext())
+        }
     }
 }

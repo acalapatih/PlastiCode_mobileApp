@@ -52,7 +52,8 @@ class DashboardActivity : AppCompatActivity() {
                 val locationBundle = Bundle()
                 locationBundle.putString("myLocation", getLocation)
 
-                println("LOKASI == $locationBundle")
+                val dashboardFragment = DashboardFragment()
+                dashboardFragment.arguments = locationBundle
 
                 val lokasiFragment = LokasiFragment()
                 lokasiFragment.arguments = locationBundle
