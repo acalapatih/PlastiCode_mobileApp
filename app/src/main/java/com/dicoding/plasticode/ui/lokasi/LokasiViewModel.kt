@@ -13,6 +13,9 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class LokasiViewModel : ViewModel() {
+    private val _getResponse = MutableLiveData<GetLokasiResponse>()
+    val getResponse: LiveData<GetLokasiResponse> = _getResponse
+
     private val _getLokasi = MutableLiveData<List<GetLokasiResponse.ResultsItem>>()
     val getLokasi: LiveData<List<GetLokasiResponse.ResultsItem>> = _getLokasi
 
@@ -29,6 +32,7 @@ class LokasiViewModel : ViewModel() {
             ) {
                 _isLoading.value = false
                 if (response.isSuccessful) {
+                    _getResponse.value = response.body()
                     _getLokasi.value = response.body()?.results ?: emptyList()
                     Log.d(TAG, response.body()?.status.toString())
                 } else {
