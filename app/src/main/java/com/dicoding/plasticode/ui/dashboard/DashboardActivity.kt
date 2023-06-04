@@ -1,22 +1,15 @@
 package com.dicoding.plasticode.ui.dashboard
 
-import android.Manifest
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
-import android.location.Location
-import android.location.LocationListener
-import android.location.LocationManager
 import android.os.Bundle
 import android.view.Menu
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.dicoding.plasticode.R
 import com.dicoding.plasticode.databinding.ActivityDashboardBinding
-import com.dicoding.plasticode.ui.lokasi.LokasiFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 
@@ -25,9 +18,6 @@ class DashboardActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDashboardBinding
     private lateinit var navController: NavController
     private lateinit var navView: BottomNavigationView
-    private lateinit var locationManager: LocationManager
-    private lateinit var locationListener: LocationListener
-    private lateinit var getLocation: String
     private lateinit var menu: Menu
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,36 +26,7 @@ class DashboardActivity : AppCompatActivity() {
         setContentView(binding.root)
         supportActionBar?.hide()
 
-        initLocation()
         initBottomNav()
-    }
-
-    private fun initLocation() {
-        locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
-
-        locationListener = object : LocationListener {
-            override fun onLocationChanged(location: Location) {
-                val latitude = location.latitude
-                val longitude = location.longitude
-                getLocation = "$latitude,$longitude"
-
-                val locationBundle = Bundle()
-                locationBundle.putString("myLocation", getLocation)
-
-                val dashboardFragment = DashboardFragment()
-                dashboardFragment.arguments = locationBundle
-
-                val lokasiFragment = LokasiFragment()
-                lokasiFragment.arguments = locationBundle
-            }
-
-            @Deprecated("Deprecated in Java")
-            override fun onStatusChanged(provider: String, status: Int, extras: Bundle) {}
-
-            override fun onProviderEnabled(provider: String) {}
-
-            override fun onProviderDisabled(provider: String) {}
-        }
     }
 
     private fun initBottomNav() {
@@ -124,40 +85,6 @@ class DashboardActivity : AppCompatActivity() {
                 }
             }
         }
-    }
-
-    override fun onStart() {
-        super.onStart()
-        if (ActivityCompat.checkSelfPermission(
-                this,
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED &&
-            ActivityCompat.checkSelfPermission(
-                this,
-                Manifest.permission.ACCESS_COARSE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            ActivityCompat.requestPermissions(
-                this,
-                arrayOf(
-                    Manifest.permission.ACCESS_FINE_LOCATION,
-                    Manifest.permission.ACCESS_COARSE_LOCATION
-                ),
-                1
-            )
-            return
-        }
-        locationManager.requestLocationUpdates(
-            LocationManager.GPS_PROVIDER,
-            0,
-            0f,
-            locationListener
-        )
-    }
-
-    override fun onStop() {
-        super.onStop()
-        locationManager.removeUpdates(locationListener)
     }
 
     companion object {

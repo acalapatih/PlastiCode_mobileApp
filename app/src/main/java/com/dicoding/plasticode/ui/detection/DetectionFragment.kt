@@ -110,6 +110,7 @@ class DetectionFragment : Fragment() {
             "androidx.fragment.app.Fragment"
         )
     )
+    @Suppress("Deprecation")
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,

@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.addCallback
+import com.dicoding.plasticode.R
 import com.dicoding.plasticode.databinding.ActivityDetectionResultBinding
 import com.dicoding.plasticode.ui.detection.detail.DetectionDetailActivity
 import com.dicoding.plasticode.ui.menu.MenuActivity
@@ -17,7 +18,12 @@ class DetectionResultActivity : AppCompatActivity() {
         setContentView(binding.root)
         supportActionBar?.hide()
 
+//        initObserver()
         initListener()
+    }
+
+    private fun initObserver() {
+        TODO()
     }
 
     private fun initListener() {

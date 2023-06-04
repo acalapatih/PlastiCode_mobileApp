@@ -34,4 +34,12 @@
     <string name="desc_ic_logout">Keluar</string>
     <string name="tv_logout">Keluar</string>
     <string name="tv_lihat_lokasi">Lihat Semua</string>
+    <string name="tv_judul_pengaturan">Pengaturan</string>
+    <string name="tv_label_ganti_mode">Ganti Mode Latar</string>
+    <string name="desc_ic__light">Light Mode</string>
+    <string name="tv_label_ganti_bahasa">Ganti Bahasa</string>
+    <string name="tv_ganti_bahasa">Bahasa Indonesia</string>
+    <string name="desc_ic_dark">Dark Mode</string>
+    <string name="tv_empty_hasil">Gambar yang ada masukkan salah</string>
+    <string name="tv_gagal_lokasi">Gagal Memuat Data</string>
 </resources>

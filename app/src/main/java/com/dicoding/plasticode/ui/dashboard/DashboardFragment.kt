@@ -1,11 +1,17 @@
 package com.dicoding.plasticode.ui.dashboard
 
+import android.Manifest
+import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.location.LocationManager
 import android.net.Uri
 import android.os.Bundle
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
@@ -18,48 +24,178 @@ import com.dicoding.plasticode.response.GetLokasiResponse
 import com.dicoding.plasticode.ui.lokasi.LokasiViewModel
 import com.dicoding.plasticode.ui.menu.MenuActivity
 import com.dicoding.plasticode.utils.Constant
+import com.google.android.gms.location.*
+
 
 class DashboardFragment : Fragment() {
 
     private var _binding: FragmentDashboardBinding? = null
     private val binding get() = _binding!!
-    private lateinit var baseActivity: DashboardActivity
     private val viewModel by viewModels<LokasiViewModel>()
+    private lateinit var locationManager: LocationManager
     private lateinit var myLocation: String
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        baseActivity = activity as DashboardActivity
-    }
+    private lateinit var client: FusedLocationProviderClient
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        myLocation = arguments?.getString("myLocation").toString()
         _binding = FragmentDashboardBinding.inflate(inflater, container, false)
         return binding.root
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        viewModel.getLokasi(
-            requireContext(),
-            myLocation,
-            Constant.MAPS_RADIUS,
-            Constant.MAPS_KEYWORD,
-            Constant.MAPS_API_KEY
-        )
+        client = LocationServices.getFusedLocationProviderClient(requireActivity())
 
-        initObserver()
+        initLocation()
         initListener()
     }
 
+    @Suppress("Deprecation")
+    private fun initLocation() {
+        if (ContextCompat.checkSelfPermission(
+                activity!!,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            )
+            == PackageManager.PERMISSION_GRANTED
+            && ContextCompat.checkSelfPermission(
+                activity!!,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            )
+            == PackageManager.PERMISSION_GRANTED
+        ) {
+            getCurrentLocation()
+        } else {
+            requestPermissions(
+                arrayOf(
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION
+                ),
+                100
+            )
+        }
+    }
+
+    @Deprecated("Deprecated in Java")
+    @Suppress("Deprecation")
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+
+        if (requestCode == 100 && (grantResults.isNotEmpty()) &&
+            (grantResults[0] + grantResults[1] == PackageManager.PERMISSION_GRANTED)) {
+            getCurrentLocation()
+        } else {
+            Toast.makeText(requireContext(), "Permission Denied", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    @Suppress("Deprecation", "MissingPermission")
+    private fun getCurrentLocation() {
+        locationManager = activity?.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+
+        if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) ||
+            locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
+            client.lastLocation.addOnCompleteListener { task ->
+                val location = task.result
+
+                if (location != null) {
+                    myLocation = "${location.latitude},${location.longitude}"
+
+                    viewModel.getLokasi(
+                        requireContext(),
+                        myLocation,
+                        Constant.MAPS_RADIUS,
+                        Constant.MAPS_KEYWORD,
+                        Constant.MAPS_API_KEY
+                    )
+                    initObserver()
+                } else {
+                    val locationRequest = LocationRequest()
+                        .setPriority(
+                            LocationRequest.PRIORITY_HIGH_ACCURACY
+                        )
+                        .setInterval(10000)
+                        .setFastestInterval(
+                            1000
+                        )
+                        .setNumUpdates(1)
+
+                    val locationCallback: LocationCallback = object : LocationCallback() {
+                        override fun onLocationResult(
+                            locationResult: LocationResult
+                        ) {
+                            val location1 = locationResult
+                                .lastLocation
+                            if (location1 != null) {
+                                myLocation = "${location1.latitude},${location1.longitude}"
+
+                                viewModel.getLokasi(
+                                    requireContext(),
+                                    myLocation,
+                                    Constant.MAPS_RADIUS,
+                                    Constant.MAPS_KEYWORD,
+                                    Constant.MAPS_API_KEY
+                                )
+                                initObserver()
+                            }
+                        }
+                    }
+                    client.requestLocationUpdates(
+                        locationRequest,
+                        locationCallback,
+                        Looper.myLooper()
+                    )
+                }
+            }
+        }
+    }
+
     private fun initObserver() {
-        viewModel.getLokasi.observe(viewLifecycleOwner) {
-            showLokasi(it)
+        binding.root.isRefreshing = false
+        viewModel.getResponse.observe(viewLifecycleOwner) { response ->
+            println("STATUS == ${response.status}")
+            when (response.status) {
+                "ZERO_RESULTS" -> {
+                    with(binding) {
+                        ivLokasi.isVisible = false
+                        tvNamaLokasi.isVisible = false
+                        tvAlamatLokasi.isVisible = false
+                        tvLihatLokasi.isVisible = false
+                        tvEmptyLokasi.text = context?.getString(R.string.tv_empty_lokasi)
+                        tvEmptyLokasi.isVisible = true
+                    }
+                }
+                "INVALID_REQUEST" -> {
+                    with(binding) {
+                        ivLokasi.isVisible = false
+                        tvNamaLokasi.isVisible = false
+                        tvAlamatLokasi.isVisible = false
+                        tvLihatLokasi.isVisible = false
+                        tvEmptyLokasi.text = context?.getString(R.string.tv_gagal_lokasi)
+                        tvEmptyLokasi.isVisible = true
+                    }
+                }
+                else -> {
+                    with(binding) {
+                        ivLokasi.isVisible = true
+                        tvNamaLokasi.isVisible = true
+                        tvAlamatLokasi.isVisible = true
+                        tvLihatLokasi.isVisible = true
+                        tvEmptyLokasi.isVisible = false
+                    }
+                    viewModel.getLokasi.observe(viewLifecycleOwner) {
+                        showLokasi(it)
+                    }
+                }
+            }
         }
         viewModel.isLoading.observe(viewLifecycleOwner) {
             showLoading(it)
@@ -67,24 +203,6 @@ class DashboardFragment : Fragment() {
     }
 
     private fun showLokasi(data: List<GetLokasiResponse.ResultsItem>) {
-        if (data.isEmpty()) {
-            with(binding) {
-                ivLokasi.isVisible = false
-                tvNamaLokasi.isVisible = false
-                tvAlamatLokasi.isVisible = false
-                tvLihatLokasi.isVisible = false
-                tvEmptyLokasi.isVisible = true
-            }
-        } else {
-            with(binding) {
-                ivLokasi.isVisible = true
-                tvNamaLokasi.isVisible = true
-                tvAlamatLokasi.isVisible = true
-                tvLihatLokasi.isVisible = true
-                tvEmptyLokasi.isVisible = false
-            }
-        }
-
         data.forEach { dataLokasi ->
             with(binding) {
                 val photo: List<GetLokasiResponse.PhotosItem?>? = dataLokasi.photos
@@ -136,6 +254,9 @@ class DashboardFragment : Fragment() {
             }
             tvLihatLokasi.setOnClickListener {
                 DashboardActivity.start(requireContext(), "lokasi")
+            }
+            root.setOnRefreshListener {
+                getCurrentLocation()
             }
         }
     }
