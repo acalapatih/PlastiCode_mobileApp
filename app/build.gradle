@@ -60,8 +60,11 @@ dependencies {
     //Coroutines
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4"
 
+    //Refresh Swipe Layout
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.2.0-alpha01"
+
     //Android Ktx
-    implementation "androidx.activity:activity-ktx:1.7.1"
+    implementation "androidx.activity:activity-ktx:1.7.2"
     implementation "androidx.fragment:fragment-ktx:1.5.7"
 
     //Retrofit
@@ -95,6 +98,7 @@ dependencies {
     //GoogleMaps
     implementation 'com.google.android.gms:play-services-maps:18.1.0'
     implementation 'com.google.android.gms:play-services-nearby:18.5.0'
+    implementation 'com.google.android.gms:play-services-location:21.0.1'
 
     //TensorFlowLite
     implementation 'org.tensorflow:tensorflow-lite-support:0.1.0'

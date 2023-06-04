@@ -19,8 +19,10 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.dicoding.plasticode.R
 import com.dicoding.plasticode.databinding.FragmentDetectionBinding
+import com.dicoding.plasticode.ui.dashboard.DashboardActivity
 import com.dicoding.plasticode.ui.detection.camera.CameraActivity
 import com.dicoding.plasticode.ui.detection.result.DetectionResultActivity
+import com.dicoding.plasticode.ui.menu.MenuActivity
 import com.dicoding.plasticode.utils.reduceFileImage
 import com.dicoding.plasticode.utils.rotateFile
 import com.dicoding.plasticode.utils.uriToFile
@@ -28,7 +30,6 @@ import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import java.io.File
-import com.dicoding.plasticode.ui.dashboard.DashboardActivity
 
 
 class DetectionFragment : Fragment() {
@@ -101,20 +102,15 @@ class DetectionFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val cameraXButton = view.findViewById<Button>(R.id.camera_button)
-        val galleryButton = view.findViewById<Button>(R.id.gallery_button)
-        val deteksiButton = view.findViewById<Button>(R.id.deteksi_button)
-        cameraXButton.setOnClickListener { runCameraX() }
-        galleryButton.setOnClickListener { runGallery() }
-        deteksiButton.setOnClickListener { runDetection() }
-
+        initListener()
     }
 
     @Deprecated("Deprecated in Java", ReplaceWith(
-        "super.onRequestPermissionsResult(requestCode, permissions, grantResults)",
-        "androidx.fragment.app.Fragment"
+            "super.onRequestPermissionsResult(requestCode, permissions, grantResults)",
+            "androidx.fragment.app.Fragment"
+        )
     )
-    )
+    @Suppress("Deprecation")
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
@@ -167,7 +163,18 @@ class DetectionFragment : Fragment() {
     }
 
     private fun initListener() {
-        TODO("Not yet implemented")
+        val cameraXButton = view?.findViewById<Button>(R.id.camera_button)
+        val galleryButton = view?.findViewById<Button>(R.id.gallery_button)
+        val deteksiButton = view?.findViewById<Button>(R.id.deteksi_button)
+
+        with(binding) {
+            cameraXButton?.setOnClickListener { runCameraX() }
+            galleryButton?.setOnClickListener { runGallery() }
+            deteksiButton?.setOnClickListener { runDetection() }
+            icMenu.setOnClickListener {
+                MenuActivity.start(requireContext())
+            }
+        }
     }
 
     companion object{
