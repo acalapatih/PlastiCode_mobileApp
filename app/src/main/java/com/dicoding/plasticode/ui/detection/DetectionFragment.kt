@@ -73,7 +73,6 @@ class DetectionFragment : Fragment() {
                 binding.deteksiButton.isEnabled = true
             }
         }
-
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -141,15 +140,11 @@ class DetectionFragment : Fragment() {
                 maxPos = i
             }
         }
-        val classes = arrayOf("HDPE", "LDPE", "OTHER", "PET/PETE", "PP", "PS", "PVC")
+        val classes = arrayOf("HDPE", "LDPE", "OTHER", "PET atau PETE", "PP", "PS", "PVC")
         var s = ""
         for (i in classes.indices) {
             s += String.format("%s: %.1f%%\n", classes[i], confidences[i] * 100)
         }
-
-        Toast.makeText(requireContext(), "HASIL = ${classes[maxPos]}", Toast.LENGTH_SHORT).show()
-        println("INDEKS == $maxPos")
-        println("PREDIKSI == $s")
 
         // Releases model resources if no longer used.
         model.close()

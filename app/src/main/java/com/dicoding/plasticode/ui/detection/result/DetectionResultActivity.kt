@@ -27,8 +27,11 @@ class DetectionResultActivity : AppCompatActivity() {
     private fun initObserver(jenisPlastik: String) {
         with(binding) {
             when(jenisPlastik) {
-                "PET/PETE" -> {
+                "PET atau PETE" -> {
                     tvJenisPlastik.text = this@DetectionResultActivity.getString(R.string.jenis_plastik_1)
+                }
+                "PVC" -> {
+                    tvJenisPlastik.text = this@DetectionResultActivity.getString(R.string.jenis_plastik_3)
                 }
                 else -> {
                     tvJenisPlastik.text = this@DetectionResultActivity.getString(R.string.jenis_plastik_7)
