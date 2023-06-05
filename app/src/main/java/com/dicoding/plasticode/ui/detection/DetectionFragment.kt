@@ -12,25 +12,20 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import com.dicoding.plasticode.R
 import com.dicoding.plasticode.databinding.FragmentDetectionBinding
 import com.dicoding.plasticode.ml.YourModel
 import com.dicoding.plasticode.ui.dashboard.DashboardActivity
 import com.dicoding.plasticode.ui.detection.camera.CameraActivity
+import com.dicoding.plasticode.ui.detection.result.DetectionResultActivity
 import com.dicoding.plasticode.ui.menu.MenuActivity
 import com.dicoding.plasticode.utils.reduceFileImage
-import com.dicoding.plasticode.utils.rotateFile
 import com.dicoding.plasticode.utils.uriToFile
-import okhttp3.MediaType.Companion.toMediaType
-import okhttp3.MultipartBody
-import okhttp3.RequestBody.Companion.asRequestBody
 import org.tensorflow.lite.DataType
 import org.tensorflow.lite.support.tensorbuffer.TensorBuffer
 import java.io.File
@@ -57,12 +52,10 @@ class DetectionFragment : Fragment() {
                 result.data?.getSerializableExtra("picture")
             } as? File
 
-            val isBackCamera = result.data?.getBooleanExtra("isBackCamera", true) as Boolean
-
             myFile?.let {
-                rotateFile(it, isBackCamera)
                 getFile = it
                 binding.ivDeteksi.setImageBitmap(BitmapFactory.decodeFile(it.path))
+                binding.deteksiButton.isEnabled = true
             }
         }
     }
@@ -77,6 +70,7 @@ class DetectionFragment : Fragment() {
                 val myFile = uriToFile(it, requireContext())
                 getFile = myFile
                 binding.ivDeteksi.setImageURI(it)
+                binding.deteksiButton.isEnabled = true
             }
         }
 
@@ -110,7 +104,7 @@ class DetectionFragment : Fragment() {
         initListener()
     }
 
-    private fun classifyImage(image: Bitmap?) {
+    private fun classifyImage(image: Bitmap?): String {
         val model = YourModel.newInstance(requireContext())
 
         // Creates inputs for reference.
@@ -153,11 +147,14 @@ class DetectionFragment : Fragment() {
             s += String.format("%s: %.1f%%\n", classes[i], confidences[i] * 100)
         }
 
-        Toast.makeText(requireContext(), "HASIL == ${classes[maxPos]}", Toast.LENGTH_SHORT).show()
-        println("HASIL == ${classes[maxPos]}")
+        Toast.makeText(requireContext(), "HASIL = ${classes[maxPos]}", Toast.LENGTH_SHORT).show()
+        println("INDEKS == $maxPos")
+        println("PREDIKSI == $s")
 
         // Releases model resources if no longer used.
         model.close()
+
+        return classes[maxPos]
     }
 
     @Deprecated("Deprecated in Java", ReplaceWith(
@@ -183,15 +180,13 @@ class DetectionFragment : Fragment() {
         ContextCompat.checkSelfPermission(activity!!.baseContext, it) == PackageManager.PERMISSION_GRANTED
     }
 
-    private fun runDetection() {
-        if (getFile != null) {
-            val file = reduceFileImage(getFile as File)
-            var image = BitmapFactory.decodeFile(file.toString())
-            val dimension = image.width.coerceAtMost(image.height)
-            image = ThumbnailUtils.extractThumbnail(image, dimension, dimension)
-            image = Bitmap.createScaledBitmap(image, imageSize, imageSize, false)
-            classifyImage(image)
-        }
+    private fun runDetection(): String {
+        val file = reduceFileImage(getFile as File)
+        var image = BitmapFactory.decodeFile(file.toString())
+        val dimension = image.width.coerceAtMost(image.height)
+        image = ThumbnailUtils.extractThumbnail(image, dimension, dimension)
+        image = Bitmap.createScaledBitmap(image, imageSize, imageSize, false)
+        return classifyImage(image)
     }
 
     private fun runGallery() {
@@ -207,31 +202,13 @@ class DetectionFragment : Fragment() {
         launcherIntentCameraX.launch(intent)
     }
 
-    private fun uploadFile() {
-        if (getFile != null) {
-            val file = reduceFileImage(getFile as File)
-            val requestImageFile = file.asRequestBody("image/jpeg".toMediaType())
-            val imageMultipart: MultipartBody.Part = MultipartBody.Part.createFormData(
-                "photo",
-                file.name,
-                requestImageFile
-            )
-        }
-    }
-
-    private fun initObserver() {
-        TODO("Not yet implemented")
-    }
-
     private fun initListener() {
-        val cameraXButton = view?.findViewById<Button>(R.id.camera_button)
-        val galleryButton = view?.findViewById<Button>(R.id.gallery_button)
-        val deteksiButton = view?.findViewById<Button>(R.id.deteksi_button)
-
         with(binding) {
-            cameraXButton?.setOnClickListener { runCameraX() }
-            galleryButton?.setOnClickListener { runGallery() }
-            deteksiButton?.setOnClickListener { runDetection() }
+            cameraButton.setOnClickListener { runCameraX() }
+            galleryButton.setOnClickListener { runGallery() }
+            deteksiButton.setOnClickListener {
+                DetectionResultActivity.start(requireContext(), runDetection())
+            }
             icMenu.setOnClickListener {
                 MenuActivity.start(requireContext())
             }
