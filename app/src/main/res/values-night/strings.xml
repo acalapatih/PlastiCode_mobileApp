@@ -42,4 +42,7 @@
     <string name="desc_ic_dark">Dark Mode</string>
     <string name="tv_empty_hasil">Gambar yang ada masukkan salah</string>
     <string name="tv_gagal_lokasi">Gagal Memuat Data</string>
+    <string name="jenis_plastik_1">PET / PETE</string>
+    <string name="jenis_plastik_7">OTHER</string>
+    <string name="jenis_plastik_3">PVC</string>
 </resources>
