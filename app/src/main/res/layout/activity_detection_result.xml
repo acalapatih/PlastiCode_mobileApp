@@ -162,7 +162,7 @@
             android:text="@string/tv_empty_hasil"
             android:textAlignment="center"
             android:textColor="@color/grey_808080"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -172,7 +172,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/detail_button"
+        android:id="@+id/btn_detail"
         style="@style/btn_green_rounded"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

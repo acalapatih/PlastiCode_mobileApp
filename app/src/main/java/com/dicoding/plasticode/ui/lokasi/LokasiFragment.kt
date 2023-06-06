@@ -111,13 +111,13 @@ class LokasiFragment : Fragment() {
                 if (location != null) {
                     myLocation = "${location.latitude},${location.longitude}"
 
-                    viewModel.getLokasi(
-                        requireContext(),
-                        myLocation,
-                        Constant.MAPS_RADIUS,
-                        Constant.MAPS_KEYWORD,
-                        Constant.MAPS_API_KEY
-                    )
+//                    viewModel.getLokasi(
+//                        requireContext(),
+//                        myLocation,
+//                        Constant.MAPS_RADIUS,
+//                        Constant.MAPS_KEYWORD,
+//                        Constant.MAPS_API_KEY
+//                    )
                     initView()
                     initObserver()
                 } else {
@@ -140,13 +140,13 @@ class LokasiFragment : Fragment() {
                             if (location1 != null) {
                                 myLocation = "${location1.latitude},${location1.longitude}"
 
-                                viewModel.getLokasi(
-                                    requireContext(),
-                                    myLocation,
-                                    Constant.MAPS_RADIUS,
-                                    Constant.MAPS_KEYWORD,
-                                    Constant.MAPS_API_KEY
-                                )
+//                                viewModel.getLokasi(
+//                                    requireContext(),
+//                                    myLocation,
+//                                    Constant.MAPS_RADIUS,
+//                                    Constant.MAPS_KEYWORD,
+//                                    Constant.MAPS_API_KEY
+//                                )
                                 initView()
                                 initObserver()
                             }
@@ -176,18 +176,21 @@ class LokasiFragment : Fragment() {
             when (response.status) {
                 "ZERO_RESULTS" -> {
                     with(binding) {
+                        tvDisableLokasi.isVisible = false
                         tvEmptyLokasi.text = context?.getString(R.string.tv_empty_lokasi)
                         tvEmptyLokasi.isVisible = true
                     }
                 }
                 "INVALID_REQUEST" -> {
                     with(binding) {
+                        tvDisableLokasi.isVisible = false
                         tvEmptyLokasi.text = context?.getString(R.string.tv_gagal_lokasi)
                         tvEmptyLokasi.isVisible = true
                     }
                 }
                 else -> {
                     with(binding) {
+                        tvDisableLokasi.isVisible = false
                         tvEmptyLokasi.isVisible = false
                     }
                     viewModel.getLokasi.observe(viewLifecycleOwner) {
