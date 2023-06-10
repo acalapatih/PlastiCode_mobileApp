@@ -92,6 +92,7 @@
             android:fontFamily="@font/poppins"
             android:textAlignment="center"
             android:textColor="@color/black"
+            android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_jenis_plastik"
@@ -120,6 +121,7 @@
             android:fontFamily="@font/poppins"
             android:textAlignment="center"
             android:textColor="@color/black"
+            android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="@+id/tv_deskripsi_jenis"
             app:layout_constraintStart_toStartOf="@+id/tv_deskripsi_jenis"
             app:layout_constraintTop_toBottomOf="@+id/tv_masa_pakai"
@@ -149,10 +151,49 @@
             android:fontFamily="@font/poppins"
             android:textAlignment="center"
             android:textColor="@color/black"
+            android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="@+id/tv_deskripsi_masapakai"
             app:layout_constraintStart_toStartOf="@+id/tv_deskripsi_masapakai"
             app:layout_constraintTop_toBottomOf="@+id/tv_tingkat_bahaya"
             tools:text="@string/lorem_description" />
+
+        <TextView
+            android:id="@+id/tv_rekomendasi_barang"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="@string/tv_rekomendasi_barang"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="@id/tv_deskripsi_bahaya"
+            app:layout_constraintStart_toStartOf="@id/tv_deskripsi_bahaya"
+            app:layout_constraintTop_toBottomOf="@id/tv_deskripsi_bahaya" />
+
+        <TextView
+            android:id="@+id/tv_deskripsi_rekomendasi_barang"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins"
+            android:text="@string/tv_deskripsi_rekomendasi_barang"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="@id/tv_rekomendasi_barang"
+            app:layout_constraintStart_toStartOf="@id/tv_rekomendasi_barang"
+            app:layout_constraintTop_toBottomOf="@id/tv_rekomendasi_barang" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_rekomendasi_barang"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:scrollbars="horizontal"
+            app:layout_constraintEnd_toEndOf="@id/tv_deskripsi_rekomendasi_barang"
+            app:layout_constraintStart_toStartOf="@id/tv_deskripsi_rekomendasi_barang"
+            app:layout_constraintTop_toBottomOf="@id/tv_deskripsi_rekomendasi_barang"
+            tools:listitem="@layout/recycler_view_item" />
 
         <TextView
             android:id="@+id/tv_jargon"
@@ -163,9 +204,10 @@
             android:text="@string/headline_jargon"
             android:textAlignment="center"
             android:textColor="@color/black"
+            android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="@+id/tv_deskripsi_bahaya"
             app:layout_constraintStart_toStartOf="@+id/tv_deskripsi_bahaya"
-            app:layout_constraintTop_toBottomOf="@+id/tv_deskripsi_bahaya" />
+            app:layout_constraintTop_toBottomOf="@+id/rv_rekomendasi_barang" />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardview_jargon"
@@ -193,6 +235,7 @@
                     android:text="@string/jargon1"
                     android:textAlignment="center"
                     android:textColor="@color/black"
+                    android:textSize="14sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -207,6 +250,7 @@
                     android:text="@string/jargon2"
                     android:textAlignment="center"
                     android:textColor="@color/black"
+                    android:textSize="14sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_jargon1" />
@@ -219,6 +263,7 @@
                     android:text="@string/jargon3"
                     android:textAlignment="center"
                     android:textColor="@color/black"
+                    android:textSize="14sp"
                     app:layout_constraintEnd_toEndOf="@+id/tv_jargon2"
                     app:layout_constraintStart_toStartOf="@+id/tv_jargon2"
                     app:layout_constraintTop_toBottomOf="@+id/tv_jargon2" />
@@ -231,6 +276,7 @@
                     android:text="@string/jargon4"
                     android:textAlignment="center"
                     android:textColor="@color/black"
+                    android:textSize="14sp"
                     app:layout_constraintEnd_toEndOf="@+id/tv_jargon3"
                     app:layout_constraintStart_toStartOf="@+id/tv_jargon3"
                     app:layout_constraintTop_toBottomOf="@+id/tv_jargon3" />
@@ -243,6 +289,7 @@
                     android:text="@string/jargon5"
                     android:textAlignment="center"
                     android:textColor="@color/black"
+                    android:textSize="14sp"
                     app:layout_constraintEnd_toEndOf="@+id/tv_jargon4"
                     app:layout_constraintStart_toStartOf="@+id/tv_jargon4"
                     app:layout_constraintTop_toBottomOf="@+id/tv_jargon4" />

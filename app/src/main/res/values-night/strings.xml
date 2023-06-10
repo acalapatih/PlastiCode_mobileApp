@@ -44,4 +44,8 @@
     <string name="tv_gagal_lokasi">Gagal Memuat Data</string>
     <string name="tv_disable_lokasi">Aktifkan Fitur Lokasi untuk Melihat Lokasi Daur Ulang</string>
     <string name="btn_empty_hasil">Lakukan Deteksi Ulang</string>
+    <string name="desc_iv_item">Barang Pengganti Plastik</string>
+    <string name="tv_item">Barang Pengganti Plastik</string>
+    <string name="tv_rekomendasi_barang">Rekomendasi Barang Pengganti Plastik</string>
+    <string name="tv_deskripsi_rekomendasi_barang">Berikut adalah barang-barang yang bisa kamu gunakan sebagai pengganti plastik</string>
 </resources>
