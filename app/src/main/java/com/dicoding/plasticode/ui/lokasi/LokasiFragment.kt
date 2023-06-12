@@ -111,13 +111,13 @@ class LokasiFragment : Fragment() {
                 if (location != null) {
                     myLocation = "${location.latitude},${location.longitude}"
 
-                    viewModel.getLokasi(
-                        requireContext(),
-                        myLocation,
-                        Constant.MAPS_RADIUS,
-                        Constant.MAPS_KEYWORD,
-                        Constant.MAPS_API_KEY
-                    )
+//                    viewModel.getLokasi(
+//                        requireContext(),
+//                        myLocation,
+//                        Constant.MAPS_RADIUS,
+//                        Constant.MAPS_KEYWORD,
+//                        Constant.MAPS_API_KEY
+//                    )
                     initView()
                     initObserver()
                 } else {
@@ -140,13 +140,13 @@ class LokasiFragment : Fragment() {
                             if (location1 != null) {
                                 myLocation = "${location1.latitude},${location1.longitude}"
 
-                                viewModel.getLokasi(
-                                    requireContext(),
-                                    myLocation,
-                                    Constant.MAPS_RADIUS,
-                                    Constant.MAPS_KEYWORD,
-                                    Constant.MAPS_API_KEY
-                                )
+//                                viewModel.getLokasi(
+//                                    requireContext(),
+//                                    myLocation,
+//                                    Constant.MAPS_RADIUS,
+//                                    Constant.MAPS_KEYWORD,
+//                                    Constant.MAPS_API_KEY
+//                                )
                                 initView()
                                 initObserver()
                             }
@@ -190,9 +190,9 @@ class LokasiFragment : Fragment() {
                     with(binding) {
                         tvEmptyLokasi.isVisible = false
                     }
-                    viewModel.getLokasi.observe(viewLifecycleOwner) {
-                        showLokasi(it)
-                    }
+//                    viewModel.getLokasi.observe(viewLifecycleOwner) {
+//                        showLokasi(it)
+//                    }
                 }
             }
         }
