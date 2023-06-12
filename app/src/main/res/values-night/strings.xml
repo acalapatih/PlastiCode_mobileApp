@@ -40,9 +40,8 @@
     <string name="tv_label_ganti_bahasa">Ganti Bahasa</string>
     <string name="tv_ganti_bahasa">Bahasa Indonesia</string>
     <string name="desc_ic_dark">Dark Mode</string>
-    <string name="tv_empty_hasil">Gambar yang ada masukkan salah</string>
+    <string name="tv_empty_hasil">Gambar yang Anda Masukkan Salah atau Kualitas Gambar Kurang Baik</string>
     <string name="tv_gagal_lokasi">Gagal Memuat Data</string>
-    <string name="jenis_plastik_1">PET / PETE</string>
-    <string name="jenis_plastik_7">OTHER</string>
-    <string name="jenis_plastik_3">PVC</string>
+    <string name="tv_disable_lokasi">Aktifkan Fitur Lokasi untuk Melihat Lokasi Daur Ulang</string>
+    <string name="btn_empty_hasil">Lakukan Deteksi Ulang</string>
 </resources>

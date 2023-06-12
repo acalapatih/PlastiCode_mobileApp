@@ -109,13 +109,13 @@ class DashboardFragment : Fragment() {
                 if (location != null) {
                     myLocation = "${location.latitude},${location.longitude}"
 
-                    viewModel.getLokasi(
-                        requireContext(),
-                        myLocation,
-                        Constant.MAPS_RADIUS,
-                        Constant.MAPS_KEYWORD,
-                        Constant.MAPS_API_KEY
-                    )
+//                    viewModel.getLokasi(
+//                        requireContext(),
+//                        myLocation,
+//                        Constant.MAPS_RADIUS,
+//                        Constant.MAPS_KEYWORD,
+//                        Constant.MAPS_API_KEY
+//                    )
                     initObserver()
                 } else {
                     val locationRequest = LocationRequest()
@@ -137,13 +137,13 @@ class DashboardFragment : Fragment() {
                             if (location1 != null) {
                                 myLocation = "${location1.latitude},${location1.longitude}"
 
-                                viewModel.getLokasi(
-                                    requireContext(),
-                                    myLocation,
-                                    Constant.MAPS_RADIUS,
-                                    Constant.MAPS_KEYWORD,
-                                    Constant.MAPS_API_KEY
-                                )
+//                                viewModel.getLokasi(
+//                                    requireContext(),
+//                                    myLocation,
+//                                    Constant.MAPS_RADIUS,
+//                                    Constant.MAPS_KEYWORD,
+//                                    Constant.MAPS_API_KEY
+//                                )
                                 initObserver()
                             }
                         }
@@ -169,6 +169,7 @@ class DashboardFragment : Fragment() {
                         tvNamaLokasi.isVisible = false
                         tvAlamatLokasi.isVisible = false
                         tvLihatLokasi.isVisible = false
+                        tvDisableLokasi.isVisible = false
                         tvEmptyLokasi.text = context?.getString(R.string.tv_empty_lokasi)
                         tvEmptyLokasi.isVisible = true
                     }
@@ -179,6 +180,7 @@ class DashboardFragment : Fragment() {
                         tvNamaLokasi.isVisible = false
                         tvAlamatLokasi.isVisible = false
                         tvLihatLokasi.isVisible = false
+                        tvDisableLokasi.isVisible = false
                         tvEmptyLokasi.text = context?.getString(R.string.tv_gagal_lokasi)
                         tvEmptyLokasi.isVisible = true
                     }
@@ -189,6 +191,7 @@ class DashboardFragment : Fragment() {
                         tvNamaLokasi.isVisible = true
                         tvAlamatLokasi.isVisible = true
                         tvLihatLokasi.isVisible = true
+                        tvDisableLokasi.isVisible = false
                         tvEmptyLokasi.isVisible = false
                     }
                     viewModel.getLokasi.observe(viewLifecycleOwner) {

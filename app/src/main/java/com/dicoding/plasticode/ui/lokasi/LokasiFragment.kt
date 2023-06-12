@@ -176,18 +176,21 @@ class LokasiFragment : Fragment() {
             when (response.status) {
                 "ZERO_RESULTS" -> {
                     with(binding) {
+                        tvDisableLokasi.isVisible = false
                         tvEmptyLokasi.text = context?.getString(R.string.tv_empty_lokasi)
                         tvEmptyLokasi.isVisible = true
                     }
                 }
                 "INVALID_REQUEST" -> {
                     with(binding) {
+                        tvDisableLokasi.isVisible = false
                         tvEmptyLokasi.text = context?.getString(R.string.tv_gagal_lokasi)
                         tvEmptyLokasi.isVisible = true
                     }
                 }
                 else -> {
                     with(binding) {
+                        tvDisableLokasi.isVisible = false
                         tvEmptyLokasi.isVisible = false
                     }
 //                    viewModel.getLokasi.observe(viewLifecycleOwner) {

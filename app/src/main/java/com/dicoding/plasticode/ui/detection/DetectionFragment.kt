@@ -25,6 +25,7 @@ import com.dicoding.plasticode.ui.detection.camera.CameraActivity
 import com.dicoding.plasticode.ui.detection.result.DetectionResultActivity
 import com.dicoding.plasticode.ui.menu.MenuActivity
 import com.dicoding.plasticode.utils.reduceFileImage
+import com.dicoding.plasticode.utils.rotateFile
 import com.dicoding.plasticode.utils.uriToFile
 import org.tensorflow.lite.DataType
 import org.tensorflow.lite.support.tensorbuffer.TensorBuffer
@@ -51,10 +52,11 @@ class DetectionFragment : Fragment() {
                 @Suppress("DEPRECATION")
                 result.data?.getSerializableExtra("picture")
             } as? File
-
-            myFile?.let {
-                getFile = it
-                binding.ivDeteksi.setImageBitmap(BitmapFactory.decodeFile(it.path))
+            val isBackCamera = result.data?.getBooleanExtra("isBackCamera", true) as Boolean
+            myFile?.let { file ->
+                rotateFile(file, isBackCamera)
+                getFile = file
+                binding.ivDeteksi.setImageBitmap(BitmapFactory.decodeFile(file.path))
                 binding.deteksiButton.isEnabled = true
             }
         }
@@ -146,10 +148,18 @@ class DetectionFragment : Fragment() {
             s += String.format("%s: %.1f%%\n", classes[i], confidences[i] * 100)
         }
 
+        println("PREDIKSI == $s")
+
         // Releases model resources if no longer used.
         model.close()
 
-        return classes[maxPos]
+        return if (maxConfidence > 0.7) {
+            classes[maxPos]
+        } else if (maxConfidence > 0.6 && classes[maxPos] != "OTHER") {
+            classes[maxPos]
+        } else {
+            "SUS"
+        }
     }
 
     @Deprecated("Deprecated in Java", ReplaceWith(
@@ -202,7 +212,9 @@ class DetectionFragment : Fragment() {
             cameraButton.setOnClickListener { runCameraX() }
             galleryButton.setOnClickListener { runGallery() }
             deteksiButton.setOnClickListener {
-                DetectionResultActivity.start(requireContext(), runDetection())
+                getFile?.let { file ->
+                    DetectionResultActivity.start(requireContext(), file.path, runDetection())
+                }
             }
             icMenu.setOnClickListener {
                 MenuActivity.start(requireContext())
