@@ -68,4 +68,48 @@
     <string name="tv_gagal_lokasi">Gagal Memuat Data</string>
     <string name="tv_disable_lokasi">Aktifkan Fitur Lokasi untuk Melihat Lokasi Daur Ulang</string>
     <string name="btn_empty_hasil">Lakukan Deteksi Ulang</string>
+    <string name="desc_iv_item">Barang Pengganti Plastik</string>
+    <string name="tv_item">Barang Pengganti Plastik</string>
+    <string name="tv_rekomendasi_barang">Rekomendasi Barang Pengganti Plastik</string>
+    <string name="tv_deskripsi_rekomendasi_barang">Berikut adalah barang-barang yang bisa kamu gunakan sebagai pengganti plastik</string>
+
+    <integer-array name="id_item">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+    </integer-array>
+
+    <string-array name="img_item">
+        <item>https://static.vecteezy.com/system/resources/previews/005/610/750/original/isolated-recycled-paper-bag-on-white-background-flat-style-cartoon-illustration-free-vector.jpg</item>
+        <item>https://img.freepik.com/free-vector/small-white-paper-cup-isolated-white_1284-45621.jpg?w=2000</item>
+        <item>https://media.istockphoto.com/id/1309568075/photo/blank-eco-friendly-beige-colour-fashion-canvas-tote-bag-isolated-on-white-background-empty.jpg?s=612x612&amp;w=0&amp;k=20&amp;c=s3FBuZxaW6kBWetY5sgzx1gZ10fKLci9l66gGU_6hVs=</item>
+        <item>https://media.karousell.com/media/photos/products/2021/9/13/paper_lunch_box__brown__50pcs__1631533769_247ca764.jpg</item>
+        <item>https://static.bmdstatic.com/pk/product/medium/5e4ca1ac9a33b.jpg</item>
+        <item>https://images.tokopedia.net/img/cache/500-square/product-1/2020/9/4/batch-upload/batch-upload_20298982-006f-4e53-ad66-01e08370ddfd</item>
+        <item>https://images.tokopedia.net/img/cache/700/product-1/2020/6/12/1789834/1789834_3a11720c-3f5e-4ff5-b983-ccf4f7585aa8_1024_1024</item>
+        <item>https://cdn.oleholehagungbali.com/shop/product/5f26aac82c83b-1596369608/5f26aac82c83b-1596369608.jpg</item>
+        <item>https://images.tokopedia.net/img/cache/700/hDjmkQ/2022/1/2/51e3c739-8794-4bf1-8675-81848266fa05.jpg</item>
+        <item>https://ae01.alicdn.com/kf/Hea1c3653755c426d967fe962052edc0dA/Sikat-Gigi-Bambu-Alami-Ramah-Lingkungan-Serat-Lembut-Oral-Membersihkan-Gigi-Perawatan-Pegangan-Kayu.jpg</item>
+    </string-array>
+
+    <string-array name="name_item">
+        <item>Paper Bag</item>
+        <item>Paper Cup</item>
+        <item>Tote Bag</item>
+        <item>Paper Lunch Box</item>
+        <item>Pouch Ecopack</item>
+        <item>Sedotan Stainless</item>
+        <item>Kemasan Pelepah Pinang</item>
+        <item>Sedotan Bambu</item>
+        <item>Sendok Garpu Eco Friendly</item>
+        <item>Sikat Gigi Bambu</item>
+    </string-array>
+
 </resources>
