@@ -1,5 +1,6 @@
 package com.dicoding.plasticode.ui.login
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -14,6 +15,7 @@ import com.dicoding.plasticode.service.UserPreference
 import com.dicoding.plasticode.service.ViewModelFactory
 import com.dicoding.plasticode.ui.dashboard.DashboardActivity
 import com.dicoding.plasticode.ui.dashboard.dataStore
+import com.dicoding.plasticode.ui.pengaturan.PengaturanActivity
 import com.dicoding.plasticode.ui.register.RegisterActivity
 import com.vicryfahreza.storyapp.service.ApiConfig
 import retrofit2.Call
@@ -89,10 +91,16 @@ class LoginActivity : AppCompatActivity() {
 
     private fun saveUserToken(login: LoginResponse){
         loginViewModel.saveUser(login.token)
-        val intent = Intent(this, DashboardActivity::class.java)
+        DashboardActivity.start(this, "dashboard")
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-        startActivity(intent)
         finish()
     }
 
+    companion object {
+        @JvmStatic
+        fun start(context: Context) {
+            val starter = Intent(context, LoginActivity::class.java)
+            context.startActivity(starter)
+        }
+    }
 }

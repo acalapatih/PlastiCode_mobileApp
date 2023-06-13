@@ -1,6 +1,7 @@
 package com.vicryfahreza.storyapp.service
 
 import com.dicoding.plasticode.BuildConfig
+import com.dicoding.plasticode.service.ApiService
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit

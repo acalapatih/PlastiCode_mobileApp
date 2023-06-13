@@ -1,4 +1,4 @@
-package com.vicryfahreza.storyapp.service
+package com.dicoding.plasticode.service
 
 import com.dicoding.plasticode.response.Login
 import com.dicoding.plasticode.response.RegisterResponse
