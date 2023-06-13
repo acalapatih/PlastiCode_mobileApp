@@ -155,8 +155,6 @@ class DetectionFragment : Fragment() {
 
         return if (maxConfidence > 0.7) {
             classes[maxPos]
-        } else if (maxConfidence > 0.6 && classes[maxPos] != "OTHER") {
-            classes[maxPos]
         } else {
             "SUS"
         }
