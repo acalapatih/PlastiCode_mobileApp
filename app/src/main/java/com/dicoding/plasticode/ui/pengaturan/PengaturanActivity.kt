@@ -7,6 +7,7 @@ import androidx.activity.addCallback
 import androidx.appcompat.app.AppCompatActivity
 import com.dicoding.plasticode.databinding.ActivityPengaturanBinding
 
+
 class PengaturanActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityPengaturanBinding

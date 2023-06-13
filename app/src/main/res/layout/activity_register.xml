@@ -29,6 +29,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_bold"
+            android:inputType="text"
             android:textColor="@color/black"
             android:text="Nama"
             android:textSize="18sp"
@@ -74,6 +75,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/input_box"
             tools:text="Isikan Email Dengan Benar"
+            android:inputType="textEmailAddress"
             android:padding="15dp"
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
@@ -103,6 +105,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/input_box"
             tools:text="Isikan Password Dengan Benar"
+            android:inputType="textPassword"
             android:padding="15dp"
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
@@ -115,7 +118,7 @@
 
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/login_button"
+            android:id="@+id/register_button"
             style="@style/btn_green_rounded"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
@@ -138,9 +141,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            app:layout_constraintEnd_toEndOf="@+id/login_button"
-            app:layout_constraintStart_toStartOf="@+id/login_button"
-            app:layout_constraintTop_toBottomOf="@+id/login_button">
+            app:layout_constraintEnd_toEndOf="@+id/register_button"
+            app:layout_constraintStart_toStartOf="@+id/register_button"
+            app:layout_constraintTop_toBottomOf="@+id/register_button">
             <TextView
                 android:id="@+id/tv_account"
                 android:layout_width="wrap_content"
