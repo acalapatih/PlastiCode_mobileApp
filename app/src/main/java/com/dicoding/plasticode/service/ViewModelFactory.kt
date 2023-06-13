@@ -4,8 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.dicoding.plasticode.ui.dashboard.DashboardViewModel
 import com.dicoding.plasticode.ui.login.LoginViewModel
-import com.dicoding.plasticode.ui.menu.MenuViewModels
-import com.vicryfahreza.storyapp.service.ApiConfig
 
 class ViewModelFactory(private val pref: UserPreference): ViewModelProvider.NewInstanceFactory() {
 
@@ -17,9 +15,6 @@ class ViewModelFactory(private val pref: UserPreference): ViewModelProvider.NewI
             }
             modelClass.isAssignableFrom(DashboardViewModel::class.java) -> {
                 DashboardViewModel(pref) as T
-            }
-            modelClass.isAssignableFrom(MenuViewModels::class.java) -> {
-                MenuViewModels(pref) as T
             }
             else -> throw IllegalArgumentException("Unknown ViewModel Class : ${modelClass.name}")
         }

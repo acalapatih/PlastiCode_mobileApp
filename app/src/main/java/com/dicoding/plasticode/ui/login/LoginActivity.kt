@@ -2,32 +2,21 @@ package com.dicoding.plasticode.ui.login
 
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
-import androidx.appcompat.widget.AppCompatButton
-import androidx.appcompat.widget.AppCompatEditText
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.dicoding.plasticode.databinding.ActivityLoginBinding
-import com.dicoding.plasticode.response.Login
-import com.dicoding.plasticode.response.LoginResponse
 import com.dicoding.plasticode.service.UserPreference
 import com.dicoding.plasticode.service.ViewModelFactory
 import com.dicoding.plasticode.ui.dashboard.DashboardActivity
 import com.dicoding.plasticode.ui.dashboard.dataStore
-import com.dicoding.plasticode.ui.pengaturan.PengaturanActivity
 import com.dicoding.plasticode.ui.register.RegisterActivity
-import com.vicryfahreza.storyapp.service.ApiConfig
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+
 
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding
-    private lateinit var etGmail: AppCompatEditText
-    private lateinit var etPass: AppCompatEditText
-    private lateinit var lButton: AppCompatButton
     private lateinit var loginViewModel: LoginViewModel
 
 
@@ -37,20 +26,24 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
         supportActionBar?.hide()
 
-        binding.apply {
-            etGmail = etEmail
-            etPass = etPassword
-            lButton = loginButton
-        }
-
         val pref = UserPreference.getInstance(dataStore)
         loginViewModel = ViewModelProvider(
             this,
             ViewModelFactory(pref)
         )[LoginViewModel::class.java]
 
-        lButton.setOnClickListener {
-            login()
+        binding.loginButton.setOnClickListener {
+            if(binding.etEmail.text.toString().isEmpty() && binding.etEmail.text.toString().isEmpty() && binding.etPassword.text.toString().isEmpty()) {
+                Toast.makeText(this@LoginActivity, "Silakan Masukan Email, dan Password", Toast.LENGTH_SHORT)
+                    .show()
+            } else {
+                loginViewModel.postLogin(
+                    this@LoginActivity,
+                    binding.etEmail.text.toString(),
+                    binding.etPassword.text.toString()
+                )
+                login()
+            }
         }
 
         binding.layoutDaftar.setOnClickListener {
@@ -62,39 +55,25 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun login() {
-        val client = ApiConfig.getApiService()
-            .loginWithToken(etGmail.text.toString(), etPass.text.toString())
-        client.enqueue(object : Callback<Login> {
-            override fun onResponse(call: Call<Login>, response: Response<Login>) {
-                val responseBody = response.body()
-                if(responseBody != null && response.isSuccessful) {
-                    if(responseBody.error){
-                        Toast.makeText(this@LoginActivity, responseBody.message, Toast.LENGTH_LONG)
-                            .show()
-                    } else {
-                        saveUserToken(responseBody.data)
-                        Toast.makeText(this@LoginActivity, "Selamat datang ke PlastiCode", Toast.LENGTH_LONG)
-                            .show()
-                    }
-                } else {
-                    Toast.makeText(this@LoginActivity, response.message(), Toast.LENGTH_LONG)
-                        .show()
-                }
-            }
-
-            override fun onFailure(call: Call<Login>, t: Throwable) {
-                Toast.makeText(this@LoginActivity, t.message, Toast.LENGTH_LONG)
-                    .show()
-            }
-        })
+        loginViewModel.postLogin.observe(this) {
+            postLogin(it)
+        }
     }
 
-    private fun saveUserToken(login: LoginResponse){
-        loginViewModel.saveUser(login.token)
-        DashboardActivity.start(this, "dashboard")
-        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-        finish()
+    private fun postLogin(login: Boolean) {
+        if (login) {
+            DashboardActivity.start(this, "Dashboard")
+        } else if (binding.etEmail.text.toString().isEmpty()) {
+            Toast.makeText(this@LoginActivity, "Silakan Masukan Email dengan Benar", Toast.LENGTH_SHORT)
+                .show()
+        } else if (binding.etPassword.text.toString().isEmpty()) {
+            Toast.makeText(this@LoginActivity, "Silakan Masukan Password dengan Benar", Toast.LENGTH_SHORT)
+                .show()
+        }
     }
+
+
+
 
     companion object {
         @JvmStatic

@@ -38,21 +38,11 @@ class DashboardActivity : AppCompatActivity() {
         dashboardViewModel = ViewModelProvider(this, ViewModelFactory(pref))[DashboardViewModel::class.java]
 
         dashboardViewModel.getUser().observe(this) {
-                userToken: String ->
-            accessMainActivity(userToken)
+                UserPreference.setToken(it.token)
         }
 
         initBottomNav()
     }
-
-    private fun accessMainActivity(token: String) {
-        if (token.isEmpty()) {
-            val i = Intent(this, LoginActivity::class.java)
-            startActivity(i)
-            finish()
-        }
-    }
-
 
     private fun initBottomNav() {
         navView = binding.navView

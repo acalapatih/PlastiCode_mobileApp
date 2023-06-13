@@ -5,21 +5,19 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.addCallback
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import com.dicoding.plasticode.databinding.ActivityMenuBinding
-import com.dicoding.plasticode.response.LoginResponse
 import com.dicoding.plasticode.service.UserPreference
-import com.dicoding.plasticode.service.ViewModelFactory
 import com.dicoding.plasticode.ui.dashboard.dataStore
 import com.dicoding.plasticode.ui.login.LoginActivity
 import com.dicoding.plasticode.ui.pengaturan.PengaturanActivity
 import com.dicoding.plasticode.ui.riwayat.RiwayatActivity
+import kotlinx.coroutines.launch
 
 class MenuActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMenuBinding
-    private lateinit var menuViewModels: MenuViewModels
-    private lateinit var loginResponse: LoginResponse
+    private lateinit var preference: UserPreference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,15 +25,13 @@ class MenuActivity : AppCompatActivity() {
         setContentView(binding.root)
         supportActionBar?.hide()
 
-        val pref = UserPreference.getInstance(dataStore)
-        menuViewModels = ViewModelProvider(this, ViewModelFactory(pref))[MenuViewModels::class.java]
+        preference = UserPreference.getInstance(dataStore)
 
         binding.tvLogout.setOnClickListener {
-            menuViewModels.saveUser("")
-            val intentLogout = Intent(this, LoginActivity::class.java)
-            val intentFlag = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-            intentLogout.flags = intentFlag
-            startActivity(intentLogout)
+            lifecycleScope.launch {
+                preference.logout()
+            }
+            LoginActivity.start(this)
         }
 
         initListener()

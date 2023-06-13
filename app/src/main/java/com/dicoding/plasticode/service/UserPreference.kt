@@ -5,19 +5,34 @@ import androidx.datastore.preferences.core.stringPreferencesKey
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
+import com.dicoding.plasticode.data.UserModel
+import com.dicoding.plasticode.utils.Constant
+import com.vicryfahreza.storyapp.service.ApiConfig
 
 class UserPreference private constructor(private val dataStore: DataStore<Preferences>){
 
-    fun getUser(): Flow<String> {
+    fun getUser(): Flow<UserModel> {
         return dataStore.data.map { preferences ->
-            preferences[TOKEN] ?: ""
+            UserModel(
+                preferences[AUTH_TOKEN] ?: "",
+                preferences[STATE_KEY] ?: false
+            )
         }
     }
 
-    suspend fun saveUser(user: String) {
+    suspend fun saveUser(user: UserModel){
         dataStore.edit { preferences ->
-            preferences[TOKEN] = user
+            preferences[AUTH_TOKEN] = user.token
+            preferences[STATE_KEY] = user.isLogin
+        }
+    }
+
+    suspend fun logout() {
+        dataStore.edit { preferences ->
+            preferences[AUTH_TOKEN] = ""
+            preferences[STATE_KEY] = false
         }
     }
 
@@ -25,7 +40,8 @@ class UserPreference private constructor(private val dataStore: DataStore<Prefer
         @Volatile
         private var INSTANCE: UserPreference? = null
 
-        private val TOKEN = stringPreferencesKey("token_key")
+        private val AUTH_TOKEN = stringPreferencesKey(Constant.AUTH_PREFERENCES)
+        private val STATE_KEY = booleanPreferencesKey(Constant.STATE_PREFERENCES)
 
         fun getInstance(dataStore: DataStore<Preferences>): UserPreference {
             return INSTANCE ?: synchronized(this) {
@@ -34,8 +50,8 @@ class UserPreference private constructor(private val dataStore: DataStore<Prefer
                 instance
             }
         }
-
+        fun setToken(token: String) {
+            ApiConfig.setToken(token)
+        }
     }
-
-
 }
