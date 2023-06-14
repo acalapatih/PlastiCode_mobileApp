@@ -4,14 +4,17 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.dicoding.plasticode.R
 import com.dicoding.plasticode.databinding.ActivityDashboardBinding
+import com.dicoding.plasticode.service.UserPreference
+import com.dicoding.plasticode.service.ViewModelFactory
+import com.dicoding.plasticode.utils.dataStore
 import com.google.android.material.bottomnavigation.BottomNavigationView
-
 
 class DashboardActivity : AppCompatActivity() {
 
@@ -19,12 +22,18 @@ class DashboardActivity : AppCompatActivity() {
     private lateinit var navController: NavController
     private lateinit var navView: BottomNavigationView
     private lateinit var menu: Menu
+    private val dashboardViewModel by viewModels<DashboardViewModel> {
+        ViewModelFactory(UserPreference.getInstance(dataStore))
+    }
+    private lateinit var preference: UserPreference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDashboardBinding.inflate(layoutInflater)
         setContentView(binding.root)
         supportActionBar?.hide()
+
+        preference = UserPreference.getInstance(dataStore)
 
         initBottomNav()
     }

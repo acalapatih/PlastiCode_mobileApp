@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-parcelize'
 }
 
 android {
@@ -65,7 +66,7 @@ dependencies {
 
     //Android Ktx
     implementation "androidx.activity:activity-ktx:1.7.2"
-    implementation "androidx.fragment:fragment-ktx:1.5.7"
+    implementation "androidx.fragment:fragment-ktx:1.6.0"
 
     //Retrofit
     def retrofit_version = "2.9.0"

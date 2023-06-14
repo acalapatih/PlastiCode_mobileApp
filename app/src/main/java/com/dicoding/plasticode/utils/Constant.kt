@@ -7,4 +7,11 @@ object Constant {
     const val MAPS_RADIUS = 50000
     const val MAPS_API_KEY = "AIzaSyBcyCQmx3ONVzA48olnKcKuUeA6eu_MZHI"
     const val MAPS_KEYWORD = "daur ulang plastik"
+    const val AUTH_PREFERENCES = "auth"
+    const val STATE_PREFERENCES = "state"
+    const val TYPE_HEADERS = "Authorization"
+    const val BASE_URL = "https://docker-plasticode-vxoopzmopq-et.a.run.app/api/"
+    const val ID_USER = "idUser"
+    const val NAME_USER = "nameUser"
+    const val EMAIL_USER = "emailUser"
 }

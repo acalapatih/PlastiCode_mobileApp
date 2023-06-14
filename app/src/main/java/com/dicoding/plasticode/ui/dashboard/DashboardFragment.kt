@@ -15,23 +15,30 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.preferencesDataStore
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.dicoding.plasticode.R
 import com.dicoding.plasticode.databinding.FragmentDashboardBinding
 import com.dicoding.plasticode.response.GetLokasiResponse
+import com.dicoding.plasticode.service.UserPreference
+import com.dicoding.plasticode.service.ViewModelFactory
 import com.dicoding.plasticode.ui.lokasi.LokasiViewModel
 import com.dicoding.plasticode.ui.menu.MenuActivity
 import com.dicoding.plasticode.utils.Constant
 import com.google.android.gms.location.*
+import com.dicoding.plasticode.utils.dataStore
 
 
 class DashboardFragment : Fragment() {
 
     private var _binding: FragmentDashboardBinding? = null
     private val binding get() = _binding!!
-    private val viewModel by viewModels<LokasiViewModel>()
+    private val lokasiViewModel by viewModels<LokasiViewModel>()
     private lateinit var locationManager: LocationManager
     private lateinit var myLocation: String
     private lateinit var client: FusedLocationProviderClient
@@ -51,6 +58,7 @@ class DashboardFragment : Fragment() {
 
         client = LocationServices.getFusedLocationProviderClient(requireActivity())
 
+        initObserver()
         initLocation()
         initListener()
     }
@@ -159,12 +167,12 @@ class DashboardFragment : Fragment() {
     }
 
     private fun initObserver() {
-        binding.root.isRefreshing = false
-        viewModel.getResponse.observe(viewLifecycleOwner) { response ->
-            println("STATUS == ${response.status}")
-            when (response.status) {
-                "ZERO_RESULTS" -> {
-                    with(binding) {
+        with(binding) {
+            root.isRefreshing = false
+            lokasiViewModel.getResponse.observe(viewLifecycleOwner) { response ->
+                println("STATUS == ${response.status}")
+                when (response.status) {
+                    "ZERO_RESULTS" -> {
                         ivLokasi.isVisible = false
                         tvNamaLokasi.isVisible = false
                         tvAlamatLokasi.isVisible = false
@@ -173,9 +181,7 @@ class DashboardFragment : Fragment() {
                         tvEmptyLokasi.text = context?.getString(R.string.tv_empty_lokasi)
                         tvEmptyLokasi.isVisible = true
                     }
-                }
-                "INVALID_REQUEST" -> {
-                    with(binding) {
+                    "INVALID_REQUEST" -> {
                         ivLokasi.isVisible = false
                         tvNamaLokasi.isVisible = false
                         tvAlamatLokasi.isVisible = false
@@ -184,25 +190,24 @@ class DashboardFragment : Fragment() {
                         tvEmptyLokasi.text = context?.getString(R.string.tv_gagal_lokasi)
                         tvEmptyLokasi.isVisible = true
                     }
-                }
-                else -> {
-                    with(binding) {
+                    else -> {
                         ivLokasi.isVisible = true
                         tvNamaLokasi.isVisible = true
                         tvAlamatLokasi.isVisible = true
                         tvLihatLokasi.isVisible = true
                         tvDisableLokasi.isVisible = false
                         tvEmptyLokasi.isVisible = false
-                    }
-                    viewModel.getLokasi.observe(viewLifecycleOwner) {
-                        showLokasi(it)
+                        lokasiViewModel.getLokasi.observe(viewLifecycleOwner) {
+                            showLokasi(it)
+                        }
                     }
                 }
             }
+            lokasiViewModel.isLoading.observe(viewLifecycleOwner) {
+                showLoading(it)
+            }
         }
-        viewModel.isLoading.observe(viewLifecycleOwner) {
-            showLoading(it)
-        }
+
     }
 
     private fun showLokasi(data: List<GetLokasiResponse.ResultsItem>) {
