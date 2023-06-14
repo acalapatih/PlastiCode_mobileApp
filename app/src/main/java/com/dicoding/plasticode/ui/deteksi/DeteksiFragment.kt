@@ -1,4 +1,4 @@
-package com.dicoding.plasticode.ui.detection
+package com.dicoding.plasticode.ui.deteksi
 
 import android.Manifest
 import android.content.Intent
@@ -17,13 +17,18 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.dicoding.plasticode.databinding.FragmentDetectionBinding
 import com.dicoding.plasticode.ml.YourModel
+import com.dicoding.plasticode.service.UserPreference
+import com.dicoding.plasticode.service.ViewModelFactory
 import com.dicoding.plasticode.ui.dashboard.DashboardActivity
-import com.dicoding.plasticode.ui.detection.camera.CameraActivity
-import com.dicoding.plasticode.ui.detection.result.DetectionResultActivity
+import com.dicoding.plasticode.ui.deteksi.camera.CameraActivity
+import com.dicoding.plasticode.ui.hasil.hasil.HasilActivity
 import com.dicoding.plasticode.ui.menu.MenuActivity
+import com.dicoding.plasticode.utils.dataStore
 import com.dicoding.plasticode.utils.reduceFileImage
 import com.dicoding.plasticode.utils.rotateFile
 import com.dicoding.plasticode.utils.uriToFile
@@ -34,12 +39,12 @@ import java.nio.ByteBuffer
 import java.nio.ByteOrder
 
 
-class DetectionFragment : Fragment() {
+class DeteksiFragment : Fragment() {
     private var _binding: FragmentDetectionBinding? = null
     private val binding get() = _binding!!
+    private val deteksiViewModel by viewModels<DeteksiViewModel>()
     private var getFile: File? = null
     private var imageSize = 224
-
     private lateinit var baseActivity: DashboardActivity
 
     private val launcherIntentCameraX = registerForActivityResult(
@@ -102,6 +107,7 @@ class DetectionFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        initObserver()
         initListener()
     }
 
@@ -205,14 +211,44 @@ class DetectionFragment : Fragment() {
         launcherIntentCameraX.launch(intent)
     }
 
+    private fun initObserver() {
+        when (getFile) {
+            null -> Toast.makeText(requireContext(), "Silakan Upload Foto Dahulu", Toast.LENGTH_SHORT).show()
+            else -> {
+                val file = getFile
+                if (file != null) {
+                    deteksiViewModel.postImage(requireContext(), file)
+                }
+                deteksiViewModel.isLoading.observe(viewLifecycleOwner) {
+                    showLoading(it)
+                }
+                deteksiViewModel.postImage.observe(viewLifecycleOwner) {
+                    if (it.error == false) {
+                        getFile?.path?.let { path ->
+                            HasilActivity.start(requireContext(),
+                                path, runDetection())
+                        }
+                    } else {
+                        getFile?.path?.let { path ->
+                            HasilActivity.start(requireContext(),
+                                path, runDetection())
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private fun showLoading(value: Boolean) {
+        binding.progressBar.isVisible = value
+    }
+
     private fun initListener() {
         with(binding) {
             cameraButton.setOnClickListener { runCameraX() }
             galleryButton.setOnClickListener { runGallery() }
             deteksiButton.setOnClickListener {
-                getFile?.let { file ->
-                    DetectionResultActivity.start(requireContext(), file.path, runDetection())
-                }
+                initObserver()
             }
             icMenu.setOnClickListener {
                 MenuActivity.start(requireContext())

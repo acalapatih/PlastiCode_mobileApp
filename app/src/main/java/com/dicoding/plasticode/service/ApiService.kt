@@ -1,10 +1,10 @@
 package com.dicoding.plasticode.service
 
-import com.dicoding.plasticode.response.Login
-import com.dicoding.plasticode.response.LoginResponse
-import com.dicoding.plasticode.response.RegisterResponse
+import com.dicoding.plasticode.response.*
+import okhttp3.MultipartBody
 import retrofit2.Call
 import retrofit2.http.*
+import java.io.File
 
 interface ApiService {
 
@@ -23,6 +23,20 @@ interface ApiService {
         @Field("password") password: String,
     ) : Call<RegisterResponse>
 
+    @FormUrlEncoded
+    @POST("image")
+    fun postImage(
+        @Field("image") image: File,
+    ) : Call<PostImageResponse>
 
+    @GET("plastic/{jenisPlastik}")
+    fun getPlastik(
+        @Path("jenisPlastik") jenisPlastik: String,
+    ) : Call<GetPlastikResponse>
+
+    @GET("user-histories/{idUser}")
+    fun getRiwayat(
+        @Path("idUser") idUser: Int,
+    ) : Call<GetRiwayatResponse>
 
 }

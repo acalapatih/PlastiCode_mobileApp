@@ -1,4 +1,4 @@
-package com.dicoding.plasticode.ui.detection.camera
+package com.dicoding.plasticode.ui.deteksi.camera
 
 import android.content.Intent
 import android.os.Build
@@ -16,9 +16,8 @@ import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
 import com.dicoding.plasticode.R
 import com.dicoding.plasticode.databinding.ActivityCameraBinding
-import com.dicoding.plasticode.ui.detection.DetectionFragment
+import com.dicoding.plasticode.ui.deteksi.DeteksiFragment
 import com.dicoding.plasticode.utils.createFile
-import java.nio.file.Files.createFile
 
 class CameraActivity : AppCompatActivity() {
 
@@ -49,7 +48,7 @@ class CameraActivity : AppCompatActivity() {
                     val intent = Intent()
                     intent.putExtra("picture", photoFile)
                     intent.putExtra("isBackCamera", cameraSelector == CameraSelector.DEFAULT_BACK_CAMERA)
-                    setResult(DetectionFragment.CAMERA_X_RESULT, intent)
+                    setResult(DeteksiFragment.CAMERA_X_RESULT, intent)
                     finish()
                 }
 

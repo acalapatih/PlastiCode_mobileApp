@@ -29,13 +29,13 @@
             android:name=".ui.register.RegisterActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.detection.detail.DetectionDetailActivity"
+            android:name=".ui.hasil.detailhasil.DetailHasilActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.detection.result.DetectionResultActivity"
+            android:name=".ui.hasil.hasil.HasilActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.detection.camera.CameraActivity"
+            android:name=".ui.deteksi.camera.CameraActivity"
             android:exported="false" />
         <activity
             android:name=".ui.pengaturan.PengaturanActivity"
@@ -57,10 +57,6 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity
-            android:name=".ui.lokasi.maps.MapsActivity"
-            android:exported="true">
         </activity>
     </application>
 

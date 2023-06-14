@@ -15,23 +15,16 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.preferencesDataStore
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.dicoding.plasticode.R
 import com.dicoding.plasticode.databinding.FragmentDashboardBinding
 import com.dicoding.plasticode.response.GetLokasiResponse
-import com.dicoding.plasticode.service.UserPreference
-import com.dicoding.plasticode.service.ViewModelFactory
 import com.dicoding.plasticode.ui.lokasi.LokasiViewModel
 import com.dicoding.plasticode.ui.menu.MenuActivity
 import com.dicoding.plasticode.utils.Constant
 import com.google.android.gms.location.*
-import com.dicoding.plasticode.utils.dataStore
 
 
 class DashboardFragment : Fragment() {
@@ -39,6 +32,7 @@ class DashboardFragment : Fragment() {
     private var _binding: FragmentDashboardBinding? = null
     private val binding get() = _binding!!
     private val lokasiViewModel by viewModels<LokasiViewModel>()
+    private lateinit var nameUser: String
     private lateinit var locationManager: LocationManager
     private lateinit var myLocation: String
     private lateinit var client: FusedLocationProviderClient
@@ -55,6 +49,9 @@ class DashboardFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        nameUser = arguments?.getString("nameUser").toString()
+        println("NAME USER == $nameUser")
 
         client = LocationServices.getFusedLocationProviderClient(requireActivity())
 

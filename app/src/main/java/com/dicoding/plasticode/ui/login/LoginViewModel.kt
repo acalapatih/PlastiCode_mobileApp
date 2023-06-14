@@ -15,7 +15,9 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class LoginViewModel(private val pref: UserPreference): ViewModel() {
+class LoginViewModel(
+    private val preference: UserPreference
+): ViewModel() {
     private val _postLogin = MutableLiveData<Login>()
     val postLogin: LiveData<Login> = _postLogin
 
@@ -24,7 +26,7 @@ class LoginViewModel(private val pref: UserPreference): ViewModel() {
 
     fun saveUser(user: UserModel) {
         viewModelScope.launch {
-            pref.saveUser(user)
+            preference.saveUser(user)
         }
     }
 

@@ -26,6 +26,8 @@ class DashboardActivity : AppCompatActivity() {
         ViewModelFactory(UserPreference.getInstance(dataStore))
     }
     private lateinit var preference: UserPreference
+    private lateinit var nameUser: String
+    private lateinit var dashboardFragment: DashboardFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,6 +49,17 @@ class DashboardActivity : AppCompatActivity() {
 
         when (intent.getStringExtra("action")) {
             "dashboard" -> {
+                dashboardViewModel.getUser().observe(this) {
+                    if (it.isLogin) {
+                        nameUser = it.name
+
+                        val bundle = Bundle()
+                        bundle.putString("nameUser", nameUser)
+
+                        dashboardFragment = DashboardFragment()
+                        dashboardFragment.arguments?.putString("nameUser", nameUser)
+                    }
+                }
                 navController.navigate(R.id.navigation_dashboard)
                 menu.findItem(R.id.navigation_dashboard).setIcon(R.drawable.ic_dashboard_selected)
                 menu.findItem(R.id.navigation_deteksi).setIcon(R.drawable.ic_deteksi)

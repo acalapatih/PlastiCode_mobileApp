@@ -8,15 +8,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.dicoding.plasticode.R
 import com.dicoding.plasticode.databinding.RecyclerViewRiwayatBinding
 import com.dicoding.plasticode.response.GetLokasiResponse
+import com.dicoding.plasticode.response.GetRiwayatResponse
 
 class RiwayatAdapter(
     private val context: Context,
-    private val listRiwayat: List<GetLokasiResponse.ResultsItem>
+    private val listRiwayat: List<GetRiwayatResponse.HistoriesItem>
 ): RecyclerView.Adapter<RiwayatAdapter.ViewHolder>() {
     inner class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
         private val binding = RecyclerViewRiwayatBinding.bind(view)
 
-        fun bindItem(data: GetLokasiResponse.ResultsItem) {
+        fun bindItem(data: GetRiwayatResponse.HistoriesItem) {
             with(binding) {
 
             }

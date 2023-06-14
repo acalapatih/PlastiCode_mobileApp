@@ -1,4 +1,4 @@
-package com.dicoding.plasticode.ui.detection.detail
+package com.dicoding.plasticode.ui.hasil.detailhasil
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
