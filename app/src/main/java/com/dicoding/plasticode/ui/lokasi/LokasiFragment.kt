@@ -193,9 +193,9 @@ class LokasiFragment : Fragment() {
                         tvDisableLokasi.isVisible = false
                         tvEmptyLokasi.isVisible = false
                     }
-                    viewModel.getLokasi.observe(viewLifecycleOwner) {
-                        showLokasi(it)
-                    }
+//                    viewModel.getLokasi.observe(viewLifecycleOwner) {
+//                        showLokasi(it)
+//                    }
                 }
             }
         }
