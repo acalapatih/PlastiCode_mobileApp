@@ -6,7 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.dicoding.plasticode.response.RegisterResponse
-import com.vicryfahreza.storyapp.service.ApiConfig
+import com.dicoding.plasticode.service.ApiConfig
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

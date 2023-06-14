@@ -57,4 +57,7 @@
     <string name="hint_et_nama">Isikan Nama Dengan Benar</string>
     <string name="hint_et_email">Isikan Email Dengan Benar</string>
     <string name="hint_et_password">Isikan Password Dengan Benar</string>
+    <string name="tv_signup">Daftar</string>
+    <string name="tv_label_signup">Belum Punya Akun?</string>
+    <string name="btn_login">Masuk</string>
 </resources>

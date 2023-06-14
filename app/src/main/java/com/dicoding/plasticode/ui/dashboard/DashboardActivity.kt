@@ -4,11 +4,8 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.preferencesDataStore
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
@@ -16,17 +13,19 @@ import com.dicoding.plasticode.R
 import com.dicoding.plasticode.databinding.ActivityDashboardBinding
 import com.dicoding.plasticode.service.UserPreference
 import com.dicoding.plasticode.service.ViewModelFactory
-import com.dicoding.plasticode.ui.login.LoginActivity
+import com.dicoding.plasticode.utils.dataStore
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
-val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
 class DashboardActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDashboardBinding
     private lateinit var navController: NavController
     private lateinit var navView: BottomNavigationView
     private lateinit var menu: Menu
-    private lateinit var dashboardViewModel: DashboardViewModel
+    private val dashboardViewModel by viewModels<DashboardViewModel> {
+        ViewModelFactory(UserPreference.getInstance(dataStore))
+    }
+    private lateinit var preference: UserPreference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,12 +33,7 @@ class DashboardActivity : AppCompatActivity() {
         setContentView(binding.root)
         supportActionBar?.hide()
 
-        val pref = UserPreference.getInstance(dataStore)
-        dashboardViewModel = ViewModelProvider(this, ViewModelFactory(pref))[DashboardViewModel::class.java]
-
-        dashboardViewModel.getUser().observe(this) {
-                UserPreference.setToken(it.token)
-        }
+        preference = UserPreference.getInstance(dataStore)
 
         initBottomNav()
     }

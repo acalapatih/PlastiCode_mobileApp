@@ -1,7 +1,6 @@
-package com.vicryfahreza.storyapp.service
+package com.dicoding.plasticode.service
 
 import com.dicoding.plasticode.BuildConfig
-import com.dicoding.plasticode.service.ApiService
 import com.dicoding.plasticode.utils.Constant
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient

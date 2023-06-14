@@ -13,7 +13,7 @@ interface ApiService {
     fun loginWithToken(
         @Field("email") email: String,
         @Field("password") password: String
-    ) : Call<LoginResponse>
+    ) : Call<Login>
 
     @FormUrlEncoded
     @POST("register")

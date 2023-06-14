@@ -10,18 +10,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/textView"
+        <ImageView
+            android:id="@+id/iv_title_log"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="150dp"
-            android:fontFamily="@font/poppins_bold"
-            android:text="@string/tv_judul"
-            android:textColor="@color/black"
-            android:textSize="26sp"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:src="@drawable/iv_title_log"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="100dp"/>
 
         <TextView
             android:id="@+id/tv_nama"
@@ -34,7 +31,7 @@
             android:textColor="@color/black"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
+            app:layout_constraintTop_toBottomOf="@+id/iv_title_log" />
 
         <EditText
             android:id="@+id/et_nama"
@@ -42,7 +39,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
-            android:autofillHints="Isikan Nama Dengan Benar"
+            android:autofillHints="@string/hint_et_nama"
             android:background="@drawable/input_box"
             android:hint="@string/hint_et_nama"
             android:inputType="text"
@@ -73,7 +70,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
-            android:autofillHints="Isikan Email Dengan Benar"
+            android:autofillHints="@string/hint_et_email"
             android:background="@drawable/input_box"
             android:hint="@string/hint_et_email"
             android:inputType="textEmailAddress"
@@ -104,7 +101,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
-            android:autofillHints="Isikan Password Dengan Benar"
+            android:autofillHints="@string/hint_et_password"
             android:background="@drawable/input_box"
             android:hint="@string/hint_et_password"
             android:inputType="textPassword"

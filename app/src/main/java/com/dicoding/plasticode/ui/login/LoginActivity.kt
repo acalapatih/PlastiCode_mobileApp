@@ -5,19 +5,22 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import com.dicoding.plasticode.databinding.ActivityLoginBinding
+import com.dicoding.plasticode.response.Login
 import com.dicoding.plasticode.service.UserPreference
 import com.dicoding.plasticode.service.ViewModelFactory
 import com.dicoding.plasticode.ui.dashboard.DashboardActivity
-import com.dicoding.plasticode.ui.dashboard.dataStore
 import com.dicoding.plasticode.ui.register.RegisterActivity
+import com.dicoding.plasticode.utils.dataStore
 
 
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding
     private lateinit var loginViewModel: LoginViewModel
+    private lateinit var preference: UserPreference
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,54 +29,63 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
         supportActionBar?.hide()
 
-        val pref = UserPreference.getInstance(dataStore)
+        preference = UserPreference.getInstance(dataStore)
         loginViewModel = ViewModelProvider(
             this,
-            ViewModelFactory(pref)
+            ViewModelFactory(preference)
         )[LoginViewModel::class.java]
 
-        binding.loginButton.setOnClickListener {
-            if(binding.etEmail.text.toString().isEmpty() && binding.etEmail.text.toString().isEmpty() && binding.etPassword.text.toString().isEmpty()) {
-                Toast.makeText(this@LoginActivity, "Silakan Masukan Email, dan Password", Toast.LENGTH_SHORT)
-                    .show()
-            } else {
-                loginViewModel.postLogin(
-                    this@LoginActivity,
-                    binding.etEmail.text.toString(),
-                    binding.etPassword.text.toString()
-                )
-                login()
+        initListener()
+    }
+
+    private fun initListener() {
+        with(binding) {
+            loginButton.setOnClickListener {
+                if(binding.etEmail.text.toString().isEmpty() && binding.etEmail.text.toString().isEmpty() && binding.etPassword.text.toString().isEmpty()) {
+                    Toast.makeText(this@LoginActivity, "Silakan Masukan Email, dan Password", Toast.LENGTH_SHORT)
+                        .show()
+                } else {
+                    loginViewModel.postLogin(
+                        this@LoginActivity,
+                        binding.etEmail.text.toString(),
+                        binding.etPassword.text.toString()
+                    )
+                    login()
+                }
+            }
+
+            layoutDaftar.setOnClickListener {
+                RegisterActivity.start(this@LoginActivity)
             }
         }
-
-        binding.layoutDaftar.setOnClickListener {
-            val intent = Intent(this, RegisterActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
-
     }
 
     private fun login() {
         loginViewModel.postLogin.observe(this) {
             postLogin(it)
         }
-    }
-
-    private fun postLogin(login: Boolean) {
-        if (login) {
-            DashboardActivity.start(this, "Dashboard")
-        } else if (binding.etEmail.text.toString().isEmpty()) {
-            Toast.makeText(this@LoginActivity, "Silakan Masukan Email dengan Benar", Toast.LENGTH_SHORT)
-                .show()
-        } else if (binding.etPassword.text.toString().isEmpty()) {
-            Toast.makeText(this@LoginActivity, "Silakan Masukan Password dengan Benar", Toast.LENGTH_SHORT)
-                .show()
+        loginViewModel.isLoading.observe(this) {
+            showLoading(it)
         }
     }
 
+    private fun postLogin(login: Login?) {
+        if (login?.error == false) {
+            DashboardActivity.start(this, "dashboard")
+        } else {
+            if (binding.etEmail.text.toString().isEmpty()) {
+                Toast.makeText(this@LoginActivity, "Silakan Masukan Email dengan Benar", Toast.LENGTH_SHORT)
+                    .show()
+            } else if (binding.etPassword.text.toString().isEmpty()) {
+                Toast.makeText(this@LoginActivity, "Silakan Masukan Password dengan Benar", Toast.LENGTH_SHORT)
+                    .show()
+            }
+        }
+    }
 
-
+    private fun showLoading(value: Boolean) {
+        binding.progressBar.isVisible = value
+    }
 
     companion object {
         @JvmStatic

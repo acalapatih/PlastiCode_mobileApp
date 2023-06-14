@@ -8,10 +8,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.dicoding.plasticode.databinding.ActivityMenuBinding
 import com.dicoding.plasticode.service.UserPreference
-import com.dicoding.plasticode.ui.dashboard.dataStore
 import com.dicoding.plasticode.ui.login.LoginActivity
 import com.dicoding.plasticode.ui.pengaturan.PengaturanActivity
 import com.dicoding.plasticode.ui.riwayat.RiwayatActivity
+import com.dicoding.plasticode.utils.dataStore
 import kotlinx.coroutines.launch
 
 class MenuActivity : AppCompatActivity() {
@@ -26,13 +26,6 @@ class MenuActivity : AppCompatActivity() {
         supportActionBar?.hide()
 
         preference = UserPreference.getInstance(dataStore)
-
-        binding.tvLogout.setOnClickListener {
-            lifecycleScope.launch {
-                preference.logout()
-            }
-            LoginActivity.start(this)
-        }
 
         initListener()
     }
@@ -50,6 +43,13 @@ class MenuActivity : AppCompatActivity() {
             }
             tvPengaturan.setOnClickListener {
                 PengaturanActivity.start(this@MenuActivity)
+            }
+            tvLogout.setOnClickListener {
+                lifecycleScope.launch {
+                    preference.logout()
+                }
+                LoginActivity.start(this@MenuActivity)
+                finish()
             }
         }
     }

@@ -1,5 +1,7 @@
 package com.dicoding.plasticode.ui.register
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -20,25 +22,31 @@ class RegisterActivity : AppCompatActivity() {
         setContentView(binding.root)
         supportActionBar?.hide()
 
-        binding.layoutMasuk.setOnClickListener {
-            LoginActivity.start(this)
-        }
+        initListener()
 
-        binding.registerButton.setOnClickListener {
-            if(binding.etNama.text.toString().isEmpty() && binding.etEmail.text.toString().isEmpty() && binding.etPassword.text.toString().isEmpty()) {
-                Toast.makeText(this@RegisterActivity, "Silakan Masukan Nama, Email, dan Password", Toast.LENGTH_SHORT)
-                    .show()
-            } else {
-                registerViewModel.postRegister(
-                    this@RegisterActivity,
-                    binding.etNama.text.toString(),
-                    binding.etEmail.text.toString(),
-                    binding.etPassword.text.toString()
-                )
-                register()
+    }
+
+    private fun initListener() {
+        with(binding) {
+            layoutMasuk.setOnClickListener {
+                LoginActivity.start(this@RegisterActivity)
+            }
+
+            registerButton.setOnClickListener {
+                if(binding.etNama.text.toString().isEmpty() && binding.etEmail.text.toString().isEmpty() && binding.etPassword.text.toString().isEmpty()) {
+                    Toast.makeText(this@RegisterActivity, "Silakan Masukan Nama, Email, dan Password", Toast.LENGTH_SHORT)
+                        .show()
+                } else {
+                    registerViewModel.postRegister(
+                        this@RegisterActivity,
+                        binding.etNama.text.toString(),
+                        binding.etEmail.text.toString(),
+                        binding.etPassword.text.toString()
+                    )
+                    register()
+                }
             }
         }
-
     }
 
     private fun register() {
@@ -72,5 +80,13 @@ class RegisterActivity : AppCompatActivity() {
 
     private fun showLoading(value: Boolean) {
         binding.progressBar.isVisible = value
+    }
+
+    companion object {
+        @JvmStatic
+        fun start(context: Context) {
+            val starter = Intent(context, RegisterActivity::class.java)
+            context.startActivity(starter)
+        }
     }
 }

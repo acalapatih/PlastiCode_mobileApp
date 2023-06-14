@@ -1,15 +1,11 @@
 package com.dicoding.plasticode.service
 
 import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.stringPreferencesKey
+import androidx.datastore.preferences.core.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.core.booleanPreferencesKey
-import androidx.datastore.preferences.core.edit
 import com.dicoding.plasticode.data.UserModel
 import com.dicoding.plasticode.utils.Constant
-import com.vicryfahreza.storyapp.service.ApiConfig
 
 class UserPreference private constructor(private val dataStore: DataStore<Preferences>){
 
@@ -17,6 +13,9 @@ class UserPreference private constructor(private val dataStore: DataStore<Prefer
         return dataStore.data.map { preferences ->
             UserModel(
                 preferences[AUTH_TOKEN] ?: "",
+                preferences[ID_USER] ?: 0,
+                preferences[NAME_USER] ?: "",
+                preferences[EMAIL_USER] ?: "",
                 preferences[STATE_KEY] ?: false
             )
         }
@@ -25,6 +24,9 @@ class UserPreference private constructor(private val dataStore: DataStore<Prefer
     suspend fun saveUser(user: UserModel){
         dataStore.edit { preferences ->
             preferences[AUTH_TOKEN] = user.token
+            preferences[ID_USER] = user.idUser
+            preferences[NAME_USER] = user.name
+            preferences[EMAIL_USER] = user.email
             preferences[STATE_KEY] = user.isLogin
         }
     }
@@ -32,6 +34,9 @@ class UserPreference private constructor(private val dataStore: DataStore<Prefer
     suspend fun logout() {
         dataStore.edit { preferences ->
             preferences[AUTH_TOKEN] = ""
+            preferences[ID_USER] = 0
+            preferences[NAME_USER] = ""
+            preferences[EMAIL_USER] = ""
             preferences[STATE_KEY] = false
         }
     }
@@ -41,6 +46,9 @@ class UserPreference private constructor(private val dataStore: DataStore<Prefer
         private var INSTANCE: UserPreference? = null
 
         private val AUTH_TOKEN = stringPreferencesKey(Constant.AUTH_PREFERENCES)
+        private val ID_USER = intPreferencesKey(Constant.ID_USER)
+        private val NAME_USER = stringPreferencesKey(Constant.NAME_USER)
+        private val EMAIL_USER = stringPreferencesKey(Constant.EMAIL_USER)
         private val STATE_KEY = booleanPreferencesKey(Constant.STATE_PREFERENCES)
 
         fun getInstance(dataStore: DataStore<Preferences>): UserPreference {
@@ -52,6 +60,10 @@ class UserPreference private constructor(private val dataStore: DataStore<Prefer
         }
         fun setToken(token: String) {
             ApiConfig.setToken(token)
+        }
+
+        fun getUser(token: String) {
+
         }
     }
 }
