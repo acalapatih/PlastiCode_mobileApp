@@ -27,7 +27,7 @@ class RiwayatAdapter(
                 tvMasaPakai.text = data.masaPakai
                 tvTingkatBahaya.text = data.tingkatBahaya
 
-                clRiwayat.setOnClickListener {
+                ccRiwayat.setOnClickListener {
                     DetailHasilActivity.start(
                         context,
                         data.jenisPlastik,

@@ -9,7 +9,7 @@ import androidx.lifecycle.asLiveData
 import com.dicoding.plasticode.data.UserModel
 import com.dicoding.plasticode.response.GetRiwayatResponse
 import com.dicoding.plasticode.service.ApiConfig
-import com.dicoding.plasticode.service.UserPreference
+import com.dicoding.plasticode.preference.UserPreference
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

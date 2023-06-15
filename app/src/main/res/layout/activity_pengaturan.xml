@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.pengaturan.PengaturanActivity">
+    tools:context=".ui.pengaturan.PengaturanActivity"
+    style="@style/bg_body">
 
     <ImageView
         android:id="@+id/ic_back"
@@ -62,7 +63,7 @@
         app:layout_constraintTop_toBottomOf="@id/tv_label_ganti_mode"
         android:layout_marginTop="15dp"/>
 
-    <androidx.appcompat.widget.SwitchCompat
+    <com.google.android.material.switchmaterial.SwitchMaterial
         android:id="@+id/switch_mode_latar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

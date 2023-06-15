@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.hasil.hasil.HasilActivity">
+    tools:context=".ui.hasil.hasil.HasilActivity"
+    style="@style/bg_body">
 
     <ImageView
         android:id="@+id/ic_back"
@@ -71,7 +72,8 @@
         android:layout_marginVertical="30dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iv_hasil_deteksi">
+        app:layout_constraintTop_toBottomOf="@+id/iv_hasil_deteksi"
+        style="@style/bg_body">
 
         <TextView
             android:id="@+id/tv_label_jenis_plastik"

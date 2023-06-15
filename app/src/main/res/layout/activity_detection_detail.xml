@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.hasil.detailhasil.DetailHasilActivity">
+    tools:context=".ui.hasil.detailhasil.DetailHasilActivity"
+    style="@style/bg_body">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -216,14 +217,16 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
             android:layout_marginVertical="10dp"
+            app:cardCornerRadius="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_jargon">
+            app:layout_constraintTop_toBottomOf="@+id/tv_jargon"
+            style="@style/bg_body">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/jargon_cardview">
+                android:background="@drawable/bg_jargon">
 
                 <TextView
                     android:id="@+id/tv_jargon1"

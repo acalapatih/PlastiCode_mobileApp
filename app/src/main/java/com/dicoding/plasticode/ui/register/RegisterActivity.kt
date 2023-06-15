@@ -6,15 +6,24 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.isVisible
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.preferencesDataStore
+import androidx.lifecycle.ViewModelProvider
 import com.dicoding.plasticode.databinding.ActivityRegisterBinding
+import com.dicoding.plasticode.factory.PengaturanViewModelFactory
+import com.dicoding.plasticode.preference.PengaturanPreferences
 import com.dicoding.plasticode.response.RegisterResponse
 import com.dicoding.plasticode.ui.login.LoginActivity
+import com.dicoding.plasticode.ui.pengaturan.PengaturanViewModel
 
 class RegisterActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRegisterBinding
     private val registerViewModel by viewModels<RegisterViewModel>()
+    private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "setting")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,8 +31,24 @@ class RegisterActivity : AppCompatActivity() {
         setContentView(binding.root)
         supportActionBar?.hide()
 
+        initView()
         initListener()
+    }
 
+    private fun initView() {
+        val pengaturanPref = PengaturanPreferences.getInstance(dataStore)
+        val settingViewModel = ViewModelProvider(
+            this,
+            PengaturanViewModelFactory(pengaturanPref)
+        )[PengaturanViewModel::class.java]
+
+        settingViewModel.getThemeSettings().observe(this) { isDarkModeActive: Boolean ->
+            if (isDarkModeActive) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            }
+        }
     }
 
     private fun initListener() {

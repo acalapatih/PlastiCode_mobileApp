@@ -7,16 +7,19 @@ import android.widget.CompoundButton
 import androidx.activity.addCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.ViewModelProvider
 import com.dicoding.plasticode.databinding.ActivityPengaturanBinding
-import com.dicoding.plasticode.service.UserPreference
-import com.dicoding.plasticode.service.ViewModelFactory
-import com.dicoding.plasticode.utils.dataStore
+import com.dicoding.plasticode.factory.PengaturanViewModelFactory
+import com.dicoding.plasticode.preference.PengaturanPreferences
 
 
 class PengaturanActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityPengaturanBinding
+    private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "setting")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,10 +35,10 @@ class PengaturanActivity : AppCompatActivity() {
     private fun initSwitch() {
         val switchTheme = binding.switchModeLatar
 
-        val pref = UserPreference.getInstance(dataStore)
+        val pengaturanPref = PengaturanPreferences.getInstance(dataStore)
         val settingViewModel = ViewModelProvider(
             this,
-            ViewModelFactory(pref)
+            PengaturanViewModelFactory(pengaturanPref)
         )[PengaturanViewModel::class.java]
 
         settingViewModel.getThemeSettings().observe(this) { isDarkModeActive: Boolean ->

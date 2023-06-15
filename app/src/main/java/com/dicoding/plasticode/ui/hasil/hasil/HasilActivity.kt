@@ -5,15 +5,25 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.isVisible
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.preferencesDataStore
+import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.dicoding.plasticode.R
 import com.dicoding.plasticode.databinding.ActivityDetectionResultBinding
+import com.dicoding.plasticode.factory.PengaturanViewModelFactory
+import com.dicoding.plasticode.preference.PengaturanPreferences
+import com.dicoding.plasticode.response.GetPlastikResponse
 import com.dicoding.plasticode.ui.dashboard.DashboardActivity
 import com.dicoding.plasticode.ui.hasil.detailhasil.DetailHasilActivity
 import com.dicoding.plasticode.ui.menu.MenuActivity
+import com.dicoding.plasticode.ui.pengaturan.PengaturanViewModel
 
 class HasilActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetectionResultBinding
@@ -21,6 +31,8 @@ class HasilActivity : AppCompatActivity() {
     private val imageUrl by lazy { intent.getStringExtra("imageUrl") }
     private val idRiwayat by lazy { intent.getIntExtra("idRiwayat", 0) }
     private val hasilViewModel by viewModels<HasilViewModel>()
+    private val TAG = "HasilActivity"
+    private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "setting")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,8 +40,25 @@ class HasilActivity : AppCompatActivity() {
         setContentView(binding.root)
         supportActionBar?.hide()
 
+        initView()
         jenisPlastik?.let { imageUrl?.let { it1 -> initObserver(it, it1) } }
         jenisPlastik?.let { imageUrl?.let { it1 -> initListener(it, it1) } }
+    }
+
+    private fun initView() {
+        val pengaturanPref = PengaturanPreferences.getInstance(dataStore)
+        val settingViewModel = ViewModelProvider(
+            this,
+            PengaturanViewModelFactory(pengaturanPref)
+        )[PengaturanViewModel::class.java]
+
+        settingViewModel.getThemeSettings().observe(this) { isDarkModeActive: Boolean ->
+            if (isDarkModeActive) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            }
+        }
     }
 
     @SuppressLint("SetTextI18n")
@@ -48,6 +77,7 @@ class HasilActivity : AppCompatActivity() {
                     hasilViewModel.getPlastik.observe(this@HasilActivity) { data ->
                         tvMasaPakai.text = data.masaPakai
                         tvTingkatBahaya.text = data.tingkatBahaya
+                        putRiwayat(data)
                     }
                 }
                 "HDPE" -> {
@@ -59,6 +89,7 @@ class HasilActivity : AppCompatActivity() {
                     hasilViewModel.getPlastik.observe(this@HasilActivity) { data ->
                         tvMasaPakai.text = data.masaPakai
                         tvTingkatBahaya.text = data.tingkatBahaya
+                        putRiwayat(data)
                     }
                 }
                 "PVC" -> {
@@ -70,6 +101,7 @@ class HasilActivity : AppCompatActivity() {
                     hasilViewModel.getPlastik.observe(this@HasilActivity) { data ->
                         tvMasaPakai.text = data.masaPakai
                         tvTingkatBahaya.text = data.tingkatBahaya
+                        putRiwayat(data)
                     }
                 }
                 "LDPE" -> {
@@ -81,6 +113,7 @@ class HasilActivity : AppCompatActivity() {
                     hasilViewModel.getPlastik.observe(this@HasilActivity) { data ->
                         tvMasaPakai.text = data.masaPakai
                         tvTingkatBahaya.text = data.tingkatBahaya
+                        putRiwayat(data)
                     }
                 }
                 "PP" -> {
@@ -92,6 +125,7 @@ class HasilActivity : AppCompatActivity() {
                     hasilViewModel.getPlastik.observe(this@HasilActivity) { data ->
                         tvMasaPakai.text = data.masaPakai
                         tvTingkatBahaya.text = data.tingkatBahaya
+                        putRiwayat(data)
                     }
                 }
                 "PS" -> {
@@ -103,6 +137,7 @@ class HasilActivity : AppCompatActivity() {
                     hasilViewModel.getPlastik.observe(this@HasilActivity) { data ->
                         tvMasaPakai.text = data.masaPakai
                         tvTingkatBahaya.text = data.tingkatBahaya
+                        putRiwayat(data)
                     }
                 }
                 "OTHER" -> {
@@ -114,6 +149,7 @@ class HasilActivity : AppCompatActivity() {
                     hasilViewModel.getPlastik.observe(this@HasilActivity) { data ->
                         tvMasaPakai.text = data.masaPakai
                         tvTingkatBahaya.text = data.tingkatBahaya
+                        putRiwayat(data)
                     }
                 }
                 else -> {
@@ -154,6 +190,27 @@ class HasilActivity : AppCompatActivity() {
                     btnDetail.setOnClickListener {
                         DetailHasilActivity.start(this@HasilActivity, jenisPlastik, imageUrl, idRiwayat)
                     }
+                }
+            }
+        }
+    }
+
+    private fun putRiwayat(data: GetPlastikResponse.Data) {
+        with(binding) {
+            hasilViewModel.putRiwayat(
+                this@HasilActivity,
+                idRiwayat,
+                data.jenisPlastik,
+                data.masaPakai,
+                data.tingkatBahaya,
+                data.detailJenisPlastik,
+                data.detailMasaPakai,
+                data.detailTingkatBahaya
+            )
+
+            hasilViewModel.putRiwayat.observe(this@HasilActivity) {
+                if (it.error == false) {
+                    Log.d(TAG, "Riwayat Deteksi Berhasil Disimpan")
                 }
             }
         }

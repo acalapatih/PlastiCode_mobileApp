@@ -4,16 +4,21 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.preferencesDataStore
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.dicoding.plasticode.R
 import com.dicoding.plasticode.databinding.ActivityDashboardBinding
-import com.dicoding.plasticode.service.UserPreference
-import com.dicoding.plasticode.service.ViewModelFactory
-import com.dicoding.plasticode.utils.dataStore
+import com.dicoding.plasticode.factory.PengaturanViewModelFactory
+import com.dicoding.plasticode.preference.PengaturanPreferences
+import com.dicoding.plasticode.preference.UserPreference
+import com.dicoding.plasticode.ui.pengaturan.PengaturanViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class DashboardActivity : AppCompatActivity() {
@@ -22,12 +27,8 @@ class DashboardActivity : AppCompatActivity() {
     private lateinit var navController: NavController
     private lateinit var navView: BottomNavigationView
     private lateinit var menu: Menu
-    private val dashboardViewModel by viewModels<DashboardViewModel> {
-        ViewModelFactory(UserPreference.getInstance(dataStore))
-    }
     private lateinit var preference: UserPreference
-    private lateinit var nameUser: String
-    private lateinit var dashboardFragment: DashboardFragment
+    private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "setting")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,7 +38,24 @@ class DashboardActivity : AppCompatActivity() {
 
         preference = UserPreference.getInstance(dataStore)
 
+        initView()
         initBottomNav()
+    }
+
+    private fun initView() {
+        val pengaturanPref = PengaturanPreferences.getInstance(dataStore)
+        val settingViewModel = ViewModelProvider(
+            this,
+            PengaturanViewModelFactory(pengaturanPref)
+        )[PengaturanViewModel::class.java]
+
+        settingViewModel.getThemeSettings().observe(this) { isDarkModeActive: Boolean ->
+            if (isDarkModeActive) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            }
+        }
     }
 
     private fun initBottomNav() {
@@ -49,17 +67,6 @@ class DashboardActivity : AppCompatActivity() {
 
         when (intent.getStringExtra("action")) {
             "dashboard" -> {
-                dashboardViewModel.getUser().observe(this) {
-                    if (it.isLogin) {
-                        nameUser = it.name
-
-                        val bundle = Bundle()
-                        bundle.putString("nameUser", nameUser)
-
-                        dashboardFragment = DashboardFragment()
-                        dashboardFragment.arguments?.putString("nameUser", nameUser)
-                    }
-                }
                 navController.navigate(R.id.navigation_dashboard)
                 menu.findItem(R.id.navigation_dashboard).setIcon(R.drawable.ic_dashboard_selected)
                 menu.findItem(R.id.navigation_deteksi).setIcon(R.drawable.ic_deteksi)
@@ -79,8 +86,8 @@ class DashboardActivity : AppCompatActivity() {
             }
         }
 
-        navView.setOnItemSelectedListener{ item ->
-            when(item.itemId) {
+        navView.setOnItemSelectedListener { item ->
+            when (item.itemId) {
                 R.id.navigation_dashboard -> {
                     item.setIcon(R.drawable.ic_dashboard_selected)
                     menu.findItem(R.id.navigation_deteksi).setIcon(R.drawable.ic_deteksi)

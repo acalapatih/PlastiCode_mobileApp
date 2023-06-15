@@ -8,8 +8,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dicoding.plasticode.data.UserModel
 import com.dicoding.plasticode.response.Login
-import com.dicoding.plasticode.service.UserPreference
 import com.dicoding.plasticode.service.ApiConfig
+import com.dicoding.plasticode.preference.UserPreference
 import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
@@ -43,10 +43,10 @@ class LoginViewModel(
                     val token = response.body()?.data?.token as String
                     val idUser = response.body()?.data?.id
                     val name = response.body()?.data?.name
-                    val email = response.body()?.data?.email
+                    val emailUser = response.body()?.data?.email
                     _postLogin.value = response.body()
-                    if (idUser != null && name != null && email != null) {
-                        saveUser(UserModel(token, idUser, name, email, true))
+                    if (idUser != null && name != null && emailUser != null) {
+                        saveUser(UserModel(token, idUser, name, emailUser, true))
                         Toast.makeText(context, "Selamat Datang di PlastiCode", Toast.LENGTH_SHORT).show()
                     }
                 } else {

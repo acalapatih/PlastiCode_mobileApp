@@ -12,9 +12,9 @@
         android:id="@+id/cv_lokasi"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/bg_recyclerview_item"
         android:paddingVertical="10dp"
-        android:paddingHorizontal="5dp">
+        android:paddingHorizontal="5dp"
+        android:background="@drawable/bg_rv_item">
 
         <ImageView
             android:id="@+id/img_view"

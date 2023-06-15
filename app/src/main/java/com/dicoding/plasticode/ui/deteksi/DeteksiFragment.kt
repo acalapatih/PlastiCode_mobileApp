@@ -158,7 +158,7 @@ class DeteksiFragment : Fragment() {
         // Releases model resources if no longer used.
         model.close()
 
-        return if (maxConfidence > 0.6) {
+        return if (classes[maxPos] != "OTHER" && maxConfidence > 0.6) {
             classes[maxPos]
         } else if (classes[maxPos] == "OTHER" && maxConfidence > 0.7) {
             classes[maxPos]
@@ -221,10 +221,10 @@ class DeteksiFragment : Fragment() {
                 if (file != null) {
                     deteksiViewModel.postImage(requireContext(), file)
                 }
-                deteksiViewModel.isLoading.observe(viewLifecycleOwner) {
+                deteksiViewModel.isLoading.observe(this@DeteksiFragment) {
                     showLoading(it)
                 }
-                deteksiViewModel.postImage.observe(viewLifecycleOwner) {
+                deteksiViewModel.postImage.observe(this@DeteksiFragment) {
                     if (it.error == false) {
                         HasilActivity.start(requireContext(), it.imageUrl, runDetection(), it.historyId)
                     } else {

@@ -6,14 +6,21 @@ import android.os.Bundle
 import androidx.activity.addCallback
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.isVisible
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.preferencesDataStore
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dicoding.plasticode.databinding.ActivityRiwayatBinding
+import com.dicoding.plasticode.factory.PengaturanViewModelFactory
+import com.dicoding.plasticode.factory.ViewModelFactory
+import com.dicoding.plasticode.preference.PengaturanPreferences
+import com.dicoding.plasticode.preference.UserPreference
 import com.dicoding.plasticode.response.GetRiwayatResponse
-import com.dicoding.plasticode.service.UserPreference
-import com.dicoding.plasticode.service.ViewModelFactory
-import com.dicoding.plasticode.utils.dataStore
+import com.dicoding.plasticode.ui.pengaturan.PengaturanViewModel
 
 class RiwayatActivity : AppCompatActivity() {
 
@@ -22,6 +29,7 @@ class RiwayatActivity : AppCompatActivity() {
     private val riwayatViewModel by viewModels<RiwayatViewModel> {
         ViewModelFactory(UserPreference.getInstance(dataStore))
     }
+    private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "setting")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,30 +42,56 @@ class RiwayatActivity : AppCompatActivity() {
         initListener()
     }
 
-    private fun initObserver() {
-        riwayatViewModel.getUser().observe(this) {
-            if (it.isLogin) {
-                riwayatViewModel.getRiwayat(this, it.idUser)
-                riwayatViewModel.getRiwayat.observe(this) { list ->
-                    showRiwayat(list)
-                }
+    private fun initView() {
+        val pengaturanPref = PengaturanPreferences.getInstance(dataStore)
+        val settingViewModel = ViewModelProvider(
+            this,
+            PengaturanViewModelFactory(pengaturanPref)
+        )[PengaturanViewModel::class.java]
+
+        settingViewModel.getThemeSettings().observe(this) { isDarkModeActive: Boolean ->
+            if (isDarkModeActive) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
             }
         }
-    }
 
-    private fun showRiwayat(data: List<GetRiwayatResponse.HistoriesItem>) {
-        with(binding) {
-            tvEmptyRiwayat.isVisible = data.isEmpty()
-            riwayatAdapter = RiwayatAdapter(this@RiwayatActivity, data)
-            rvRiwayatDeteksi.adapter = riwayatAdapter
-        }
-    }
-
-    private fun initView() {
         val layoutManager = LinearLayoutManager(this)
         binding.rvRiwayatDeteksi.layoutManager = layoutManager
         val itemDecoration = DividerItemDecoration(this, layoutManager.orientation)
         binding.rvRiwayatDeteksi.addItemDecoration(itemDecoration)
+    }
+
+    private fun initObserver() {
+        binding.root.isRefreshing = false
+        riwayatViewModel.getUser().observe(this) {
+            if (it.isLogin) {
+                riwayatViewModel.getRiwayat(this, it.idUser)
+                riwayatViewModel.getRiwayat.observe(this) { list ->
+                    if (list == null) {
+                        binding.tvEmptyRiwayat.isVisible = true
+                    } else {
+                        showRiwayat(list)
+                    }
+
+                }
+            }
+        }
+        riwayatViewModel.isLoading.observe(this) {
+            showLoading(it)
+        }
+    }
+
+    private fun showLoading(value: Boolean) {
+        binding.progressBar.isVisible = value
+    }
+
+    private fun showRiwayat(data: List<GetRiwayatResponse.HistoriesItem>) {
+        with(binding) {
+            riwayatAdapter = RiwayatAdapter(this@RiwayatActivity, data)
+            rvRiwayatDeteksi.adapter = riwayatAdapter
+        }
     }
 
     private fun initListener() {
@@ -67,6 +101,9 @@ class RiwayatActivity : AppCompatActivity() {
             }
             onBackPressedDispatcher.addCallback(this@RiwayatActivity) {
                 finish()
+            }
+            root.setOnRefreshListener {
+                initObserver()
             }
         }
     }

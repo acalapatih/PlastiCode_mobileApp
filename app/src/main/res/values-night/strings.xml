@@ -86,6 +86,7 @@
     <string name="btn_login">Masuk</string>
     <string name="btn_dashboard">Kembali Ke Dashboard</string>
     <string name="btn_riwayat">Lihat Riwayat Deteksi</string>
+    <string name="desc_iv_title_log">PlastiCode</string>
 
     <integer-array name="id_item">
         <item>1</item>

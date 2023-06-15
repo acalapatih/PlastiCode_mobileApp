@@ -9,15 +9,24 @@ import android.util.Log
 import androidx.activity.addCallback
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.isVisible
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.preferencesDataStore
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.dicoding.plasticode.R
 import com.dicoding.plasticode.data.DataItem
 import com.dicoding.plasticode.databinding.ActivityDetectionDetailBinding
+import com.dicoding.plasticode.factory.PengaturanViewModelFactory
+import com.dicoding.plasticode.preference.PengaturanPreferences
+import com.dicoding.plasticode.response.GetPlastikResponse
 import com.dicoding.plasticode.ui.dashboard.DashboardActivity
 import com.dicoding.plasticode.ui.menu.MenuActivity
+import com.dicoding.plasticode.ui.pengaturan.PengaturanViewModel
 import com.dicoding.plasticode.ui.riwayat.RiwayatActivity
 
 class DetailHasilActivity : AppCompatActivity() {
@@ -29,6 +38,7 @@ class DetailHasilActivity : AppCompatActivity() {
     private val list = ArrayList<DataItem>()
     private val TAG = "DetailHasilActivity"
     private val detailHasilViewModel by viewModels<DetailHasilViewModel>()
+    private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "setting")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,6 +49,28 @@ class DetailHasilActivity : AppCompatActivity() {
         initView()
         jenisPlastik?.let { imageUrl?.let { it1 -> initObserver(it, it1) } }
         initListener()
+    }
+
+    private fun initView() {
+        val pengaturanPref = PengaturanPreferences.getInstance(dataStore)
+        val settingViewModel = ViewModelProvider(
+            this,
+            PengaturanViewModelFactory(pengaturanPref)
+        )[PengaturanViewModel::class.java]
+
+        settingViewModel.getThemeSettings().observe(this) { isDarkModeActive: Boolean ->
+            if (isDarkModeActive) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            }
+        }
+
+        rvItem = binding.rvRekomendasiBarang
+        rvItem.setHasFixedSize(true)
+
+        list.addAll(getListItem())
+        showRecyclerList()
     }
 
     @SuppressLint("SetTextI18n")
@@ -60,6 +92,7 @@ class DetailHasilActivity : AppCompatActivity() {
                         tvDeskripsiMasapakai.text = data.detailMasaPakai
                         tvTingkatBahaya.text = data.tingkatBahaya
                         tvDeskripsiBahaya.text = data.detailTingkatBahaya
+                        putRiwayat(data)
                     }
                 }
                 "HDPE" -> {
@@ -74,6 +107,7 @@ class DetailHasilActivity : AppCompatActivity() {
                         tvDeskripsiMasapakai.text = data.detailMasaPakai
                         tvTingkatBahaya.text = data.tingkatBahaya
                         tvDeskripsiBahaya.text = data.detailTingkatBahaya
+                        putRiwayat(data)
                     }
                 }
                 "PVC" -> {
@@ -88,6 +122,7 @@ class DetailHasilActivity : AppCompatActivity() {
                         tvDeskripsiMasapakai.text = data.detailMasaPakai
                         tvTingkatBahaya.text = data.tingkatBahaya
                         tvDeskripsiBahaya.text = data.detailTingkatBahaya
+                        putRiwayat(data)
                     }
                 }
                 "LDPE" -> {
@@ -102,6 +137,7 @@ class DetailHasilActivity : AppCompatActivity() {
                         tvDeskripsiMasapakai.text = data.detailMasaPakai
                         tvTingkatBahaya.text = data.tingkatBahaya
                         tvDeskripsiBahaya.text = data.detailTingkatBahaya
+                        putRiwayat(data)
                     }
                 }
                 "PP" -> {
@@ -116,6 +152,7 @@ class DetailHasilActivity : AppCompatActivity() {
                         tvDeskripsiMasapakai.text = data.detailMasaPakai
                         tvTingkatBahaya.text = data.tingkatBahaya
                         tvDeskripsiBahaya.text = data.detailTingkatBahaya
+                        putRiwayat(data)
                     }
                 }
                 "PS" -> {
@@ -130,6 +167,7 @@ class DetailHasilActivity : AppCompatActivity() {
                         tvDeskripsiMasapakai.text = data.detailMasaPakai
                         tvTingkatBahaya.text = data.tingkatBahaya
                         tvDeskripsiBahaya.text = data.detailTingkatBahaya
+                        putRiwayat(data)
                     }
                 }
                 "OTHER" -> {
@@ -144,6 +182,7 @@ class DetailHasilActivity : AppCompatActivity() {
                         tvDeskripsiMasapakai.text = data.detailMasaPakai
                         tvTingkatBahaya.text = data.tingkatBahaya
                         tvDeskripsiBahaya.text = data.detailTingkatBahaya
+                        putRiwayat(data)
                     }
                 }
                 else -> {
@@ -161,14 +200,6 @@ class DetailHasilActivity : AppCompatActivity() {
 
     private fun showLoading(value: Boolean) {
         binding.progressBar.isVisible = value
-    }
-
-    private fun initView() {
-        rvItem = binding.rvRekomendasiBarang
-        rvItem.setHasFixedSize(true)
-
-        list.addAll(getListItem())
-        showRecyclerList()
     }
 
     private fun showRecyclerList() {
@@ -194,42 +225,37 @@ class DetailHasilActivity : AppCompatActivity() {
     private fun initListener() {
         with(binding) {
             btnLokasi.setOnClickListener {
-                putRiwayat()
                 DashboardActivity.start(this@DetailHasilActivity, "lokasi")
             }
             btnRiwayat.setOnClickListener {
-                putRiwayat()
                 RiwayatActivity.start(this@DetailHasilActivity)
             }
             btnDashboard.setOnClickListener {
-                putRiwayat()
                 DashboardActivity.start(this@DetailHasilActivity, "dashboard")
             }
             icMenu.setOnClickListener {
-                putRiwayat()
                 MenuActivity.start(this@DetailHasilActivity)
             }
             icBack.setOnClickListener {
                 onBackPressedDispatcher.onBackPressed()
             }
             onBackPressedDispatcher.addCallback(this@DetailHasilActivity) {
-                putRiwayat()
                 finish()
             }
         }
     }
 
-    private fun putRiwayat() {
+    private fun putRiwayat(data: GetPlastikResponse.Data) {
         with(binding) {
             detailHasilViewModel.putRiwayat(
                 this@DetailHasilActivity,
                 idRiwayat,
-                tvJenisPlastik.text.toString(),
-                tvMasaPakai.text.toString(),
-                tvTingkatBahaya.text.toString(),
-                tvDeskripsiJenis.text.toString(),
-                tvDeskripsiMasapakai.text.toString(),
-                tvDeskripsiBahaya.text.toString()
+                data.jenisPlastik,
+                data.masaPakai,
+                data.tingkatBahaya,
+                data.detailJenisPlastik,
+                data.detailMasaPakai,
+                data.detailTingkatBahaya
             )
 
             detailHasilViewModel.putRiwayat.observe(this@DetailHasilActivity) {
