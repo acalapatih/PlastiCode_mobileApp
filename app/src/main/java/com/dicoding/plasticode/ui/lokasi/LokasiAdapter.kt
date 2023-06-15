@@ -35,7 +35,7 @@ class LokasiAdapter(
                             .into(ivLokasi)
                     } else {
                         Glide.with(context)
-                            .load(R.drawable.iv_lokasi)
+                            .load(R.drawable.iv_thumbnail)
                             .into(ivLokasi)
                     }
                 }

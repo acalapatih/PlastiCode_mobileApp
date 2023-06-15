@@ -111,13 +111,13 @@ class LokasiFragment : Fragment() {
                 if (location != null) {
                     myLocation = "${location.latitude},${location.longitude}"
 
-//                    viewModel.getLokasi(
-//                        requireContext(),
-//                        myLocation,
-//                        Constant.MAPS_RADIUS,
-//                        Constant.MAPS_KEYWORD,
-//                        Constant.MAPS_API_KEY
-//                    )
+                    viewModel.getLokasi(
+                        requireContext(),
+                        myLocation,
+                        Constant.MAPS_RADIUS,
+                        Constant.MAPS_KEYWORD,
+                        Constant.MAPS_API_KEY
+                    )
                     initView()
                     initObserver()
                 } else {
@@ -140,13 +140,13 @@ class LokasiFragment : Fragment() {
                             if (location1 != null) {
                                 myLocation = "${location1.latitude},${location1.longitude}"
 
-//                                viewModel.getLokasi(
-//                                    requireContext(),
-//                                    myLocation,
-//                                    Constant.MAPS_RADIUS,
-//                                    Constant.MAPS_KEYWORD,
-//                                    Constant.MAPS_API_KEY
-//                                )
+                                viewModel.getLokasi(
+                                    requireContext(),
+                                    myLocation,
+                                    Constant.MAPS_RADIUS,
+                                    Constant.MAPS_KEYWORD,
+                                    Constant.MAPS_API_KEY
+                                )
                                 initView()
                                 initObserver()
                             }
@@ -171,7 +171,7 @@ class LokasiFragment : Fragment() {
 
     private fun initObserver() {
         binding.root.isRefreshing = false
-        viewModel.getResponse.observe(viewLifecycleOwner) { response ->
+        viewModel.getResponse.observe(this@LokasiFragment) { response ->
             println("STATUS == ${response.status}")
             when (response.status) {
                 "ZERO_RESULTS" -> {
@@ -193,13 +193,13 @@ class LokasiFragment : Fragment() {
                         tvDisableLokasi.isVisible = false
                         tvEmptyLokasi.isVisible = false
                     }
-//                    viewModel.getLokasi.observe(viewLifecycleOwner) {
-//                        showLokasi(it)
-//                    }
+                    viewModel.getLokasi.observe(viewLifecycleOwner) {
+                        showLokasi(it)
+                    }
                 }
             }
         }
-        viewModel.isLoading.observe(viewLifecycleOwner) {
+        viewModel.isLoading.observe(this@LokasiFragment) {
             showLoading(it)
         }
     }

@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.lokasi.LokasiFragment">
+    tools:context=".ui.lokasi.LokasiFragment"
+    style="@style/bg_body">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -51,7 +52,8 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                style="@style/bg_body">
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_lokasi_daur_ulang"

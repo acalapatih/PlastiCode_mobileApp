@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import com.dicoding.plasticode.data.UserModel
-import com.dicoding.plasticode.service.UserPreference
+import com.dicoding.plasticode.preference.UserPreference
 
 class MainViewModel(
     private val preference: UserPreference
