@@ -1,11 +1,13 @@
 package com.dicoding.plasticode.ui.login
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Patterns
 import android.widget.Toast
+import androidx.activity.addCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.isVisible
@@ -86,6 +88,10 @@ class LoginActivity : AppCompatActivity() {
                     )
                     login()
                 }
+            }
+            onBackPressedDispatcher.addCallback(this@LoginActivity) {
+                System.exit(0)
+                finish()
             }
 
             layoutDaftar.setOnClickListener {
