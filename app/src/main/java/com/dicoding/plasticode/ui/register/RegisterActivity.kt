@@ -1,8 +1,10 @@
 package com.dicoding.plasticode.ui.register
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Patterns
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -18,6 +20,8 @@ import com.dicoding.plasticode.preference.PengaturanPreferences
 import com.dicoding.plasticode.response.RegisterResponse
 import com.dicoding.plasticode.ui.login.LoginActivity
 import com.dicoding.plasticode.ui.pengaturan.PengaturanViewModel
+import com.jakewharton.rxbinding2.widget.RxTextView
+import io.reactivex.Observable
 
 class RegisterActivity : AppCompatActivity() {
 
@@ -51,6 +55,7 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 
+    @SuppressLint("CheckResult")
     private fun initListener() {
         with(binding) {
             layoutMasuk.setOnClickListener {
@@ -58,8 +63,14 @@ class RegisterActivity : AppCompatActivity() {
             }
 
             registerButton.setOnClickListener {
-                if(binding.etNama.text.toString().isEmpty() && binding.etEmail.text.toString().isEmpty() && binding.etPassword.text.toString().isEmpty()) {
-                    Toast.makeText(this@RegisterActivity, "Silakan Masukan Nama, Email, dan Password", Toast.LENGTH_SHORT)
+                if (binding.etNama.text.toString().isEmpty() && binding.etEmail.text.toString()
+                        .isEmpty() && binding.etPassword.text.toString().isEmpty()
+                ) {
+                    Toast.makeText(
+                        this@RegisterActivity,
+                        "Silakan Masukan Nama, Email, dan Password",
+                        Toast.LENGTH_SHORT
+                    )
                         .show()
                 } else {
                     registerViewModel.postRegister(
@@ -71,7 +82,64 @@ class RegisterActivity : AppCompatActivity() {
                     register()
                 }
             }
+
+            val namaStream = RxTextView.textChanges(etNama)
+                .skipInitialValue()
+                .map { nama ->
+                    namaValidate(nama.toString()) && nama.length > 2
+                }
+            namaStream.subscribe { isNamaValid ->
+                if (!isNamaValid) {
+                    etNama.error = "Harap masukkan nama Anda dengan benar"
+                }
+            }
+
+            val emailStream = RxTextView.textChanges(etEmail)
+                .skipInitialValue()
+                .map { email ->
+                    // regex email
+                    Patterns.EMAIL_ADDRESS.matcher(email).matches() && email.length > 5
+                }
+            emailStream.subscribe { isEmailValid ->
+                if (!isEmailValid) {
+                    etEmail.error = "Harap masukkan email Anda dengan benar!"
+                }
+            }
+
+            val passwordStream = RxTextView.textChanges(etPassword)
+                .skipInitialValue()
+                .map { password ->
+                    passwordValidate(password.toString())
+                }
+            passwordStream.subscribe { isPasswordValid ->
+                if (!isPasswordValid) {
+                    etPassword.setError(
+                        "Password harus mengandung minimal 6 karakter yang terdiri dari 1 huruf besar, 1 huruf kecil, dan 1 angka",
+                        null
+                    )
+                }
+            }
+
+            Observable.combineLatest(
+                namaStream,
+                emailStream,
+                passwordStream
+            ) { namaValid: Boolean, emailValid: Boolean, passwordValid: Boolean ->
+                namaValid && emailValid && passwordValid
+            }.subscribe { isButtonValid ->
+                binding.registerButton.isEnabled = isButtonValid
+            }
         }
+    }
+
+    private fun namaValidate(nama: String): Boolean {
+        val namaPattern = "^[a-zA-Z\\s]+$"
+        return nama.matches(namaPattern.toRegex())
+    }
+
+    private fun passwordValidate(password: String): Boolean {
+        val passwordPattern = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{6,}$"
+        return password.matches(passwordPattern.toRegex())
     }
 
     private fun register() {
@@ -86,13 +154,25 @@ class RegisterActivity : AppCompatActivity() {
     private fun postRegister(data: RegisterResponse?) {
         if (data?.error == true) {
             if (binding.etNama.text.toString().isEmpty()) {
-                Toast.makeText(this@RegisterActivity, "Silakan Masukan Nama dengan Benar", Toast.LENGTH_SHORT)
+                Toast.makeText(
+                    this@RegisterActivity,
+                    "Silakan Masukan Nama dengan Benar",
+                    Toast.LENGTH_SHORT
+                )
                     .show()
             } else if (binding.etEmail.text.toString().isEmpty()) {
-                Toast.makeText(this@RegisterActivity, "Silakan Masukan Email dengan Benar", Toast.LENGTH_SHORT)
+                Toast.makeText(
+                    this@RegisterActivity,
+                    "Silakan Masukan Email dengan Benar",
+                    Toast.LENGTH_SHORT
+                )
                     .show()
             } else if (binding.etPassword.text.toString().isEmpty()) {
-                Toast.makeText(this@RegisterActivity, "Silakan Masukan Password dengan Benar", Toast.LENGTH_SHORT)
+                Toast.makeText(
+                    this@RegisterActivity,
+                    "Silakan Masukan Password dengan Benar",
+                    Toast.LENGTH_SHORT
+                )
                     .show()
             } else {
                 Toast.makeText(this@RegisterActivity, data.message, Toast.LENGTH_SHORT)
