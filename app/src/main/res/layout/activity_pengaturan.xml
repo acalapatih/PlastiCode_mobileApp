@@ -63,7 +63,7 @@
         app:layout_constraintTop_toBottomOf="@id/tv_label_ganti_mode"
         android:layout_marginTop="15dp"/>
 
-    <com.google.android.material.switchmaterial.SwitchMaterial
+    <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/switch_mode_latar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
