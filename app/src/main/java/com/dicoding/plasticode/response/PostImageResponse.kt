@@ -4,6 +4,9 @@ import com.google.gson.annotations.SerializedName
 
 data class PostImageResponse(
 
+	@field:SerializedName("error_message")
+	val errorMessage: String,
+
 	@field:SerializedName("status_code")
 	val statusCode: Int,
 

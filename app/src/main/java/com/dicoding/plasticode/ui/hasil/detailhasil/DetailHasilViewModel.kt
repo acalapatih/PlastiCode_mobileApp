@@ -5,11 +5,9 @@ import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
-import com.dicoding.plasticode.data.UserModel
 import com.dicoding.plasticode.response.GetPlastikResponse
+import com.dicoding.plasticode.response.PutRiwayatResponse
 import com.dicoding.plasticode.service.ApiConfig
-import com.dicoding.plasticode.service.UserPreference
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -17,6 +15,9 @@ import retrofit2.Response
 class DetailHasilViewModel: ViewModel() {
     private val _getPlastik = MutableLiveData<GetPlastikResponse.Data>()
     val getPlastik: LiveData<GetPlastikResponse.Data> = _getPlastik
+
+    private val _putRiwayat = MutableLiveData<PutRiwayatResponse>()
+    val putRiwayat: LiveData<PutRiwayatResponse> = _putRiwayat
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
@@ -39,6 +40,48 @@ class DetailHasilViewModel: ViewModel() {
             }
 
             override fun onFailure(call: Call<GetPlastikResponse>, t: Throwable) {
+                _isLoading.value = false
+                Toast.makeText(context, "onFailure: ${t.message.toString()}", Toast.LENGTH_SHORT)
+                    .show()
+            }
+        })
+    }
+
+    fun putRiwayat(
+        context: Context,
+        idRiwayat: Int,
+        jenisPlastik: String,
+        masaPakai: String,
+        tingkatBahaya: String,
+        detailJenis: String,
+        detailMasa: String,
+        detailBahaya: String
+    ) {
+        _isLoading.value = true
+        val client = ApiConfig.getApiService().putRiwayat(
+            idRiwayat,
+            jenisPlastik,
+            masaPakai,
+            tingkatBahaya,
+            detailJenis,
+            detailMasa,
+            detailBahaya
+        )
+        client.enqueue(object : Callback<PutRiwayatResponse> {
+            override fun onResponse(
+                call: Call<PutRiwayatResponse>,
+                response: Response<PutRiwayatResponse>
+            ) {
+                _isLoading.value = false
+                if (response.isSuccessful) {
+                    _putRiwayat.value = response.body()
+                } else {
+                    Toast.makeText(context, "Fail: ${response.message()}", Toast.LENGTH_SHORT)
+                        .show()
+                }
+            }
+
+            override fun onFailure(call: Call<PutRiwayatResponse>, t: Throwable) {
                 _isLoading.value = false
                 Toast.makeText(context, "onFailure: ${t.message.toString()}", Toast.LENGTH_SHORT)
                     .show()

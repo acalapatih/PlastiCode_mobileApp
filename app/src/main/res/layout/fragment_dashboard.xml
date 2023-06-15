@@ -155,7 +155,7 @@
                     android:layout_width="90dp"
                     android:layout_height="90dp"
                     android:contentDescription="@string/desc_iv_lokasi"
-                    android:src="@drawable/iv_lokasi"
+                    android:src="@drawable/iv_thumbnail"
                     android:visibility="invisible"
                     app:circularflow_radiusInDP="20dp"
                     app:layout_constraintBottom_toBottomOf="parent"

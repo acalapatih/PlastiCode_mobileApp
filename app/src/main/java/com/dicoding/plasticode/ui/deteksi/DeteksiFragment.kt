@@ -9,6 +9,7 @@ import android.media.ThumbnailUtils
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,13 +23,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.dicoding.plasticode.databinding.FragmentDetectionBinding
 import com.dicoding.plasticode.ml.YourModel
-import com.dicoding.plasticode.service.UserPreference
-import com.dicoding.plasticode.service.ViewModelFactory
 import com.dicoding.plasticode.ui.dashboard.DashboardActivity
 import com.dicoding.plasticode.ui.deteksi.camera.CameraActivity
 import com.dicoding.plasticode.ui.hasil.hasil.HasilActivity
 import com.dicoding.plasticode.ui.menu.MenuActivity
-import com.dicoding.plasticode.utils.dataStore
 import com.dicoding.plasticode.utils.reduceFileImage
 import com.dicoding.plasticode.utils.rotateFile
 import com.dicoding.plasticode.utils.uriToFile
@@ -45,6 +43,7 @@ class DeteksiFragment : Fragment() {
     private val deteksiViewModel by viewModels<DeteksiViewModel>()
     private var getFile: File? = null
     private var imageSize = 224
+    private val TAG = "DeteksiFragment"
     private lateinit var baseActivity: DashboardActivity
 
     private val launcherIntentCameraX = registerForActivityResult(
@@ -159,9 +158,12 @@ class DeteksiFragment : Fragment() {
         // Releases model resources if no longer used.
         model.close()
 
-        return if (maxConfidence > 0.7) {
+        return if (maxConfidence > 0.6) {
             classes[maxPos]
-        } else {
+        } else if (classes[maxPos] == "OTHER" && maxConfidence > 0.7) {
+            classes[maxPos]
+        }
+        else {
             "SUS"
         }
     }
@@ -213,7 +215,7 @@ class DeteksiFragment : Fragment() {
 
     private fun initObserver() {
         when (getFile) {
-            null -> Toast.makeText(requireContext(), "Silakan Upload Foto Dahulu", Toast.LENGTH_SHORT).show()
+            null -> Log.d(TAG, "Silakan Upload Foto Dahulu")
             else -> {
                 val file = getFile
                 if (file != null) {
@@ -224,15 +226,9 @@ class DeteksiFragment : Fragment() {
                 }
                 deteksiViewModel.postImage.observe(viewLifecycleOwner) {
                     if (it.error == false) {
-                        getFile?.path?.let { path ->
-                            HasilActivity.start(requireContext(),
-                                path, runDetection())
-                        }
+                        HasilActivity.start(requireContext(), it.imageUrl, runDetection(), it.historyId)
                     } else {
-                        getFile?.path?.let { path ->
-                            HasilActivity.start(requireContext(),
-                                path, runDetection())
-                        }
+                        Toast.makeText(requireContext(), it.errorMessage, Toast.LENGTH_SHORT).show()
                     }
                 }
             }

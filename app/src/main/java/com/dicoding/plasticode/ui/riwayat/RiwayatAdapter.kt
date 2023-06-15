@@ -5,10 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.dicoding.plasticode.R
+import com.bumptech.glide.Glide
 import com.dicoding.plasticode.databinding.RecyclerViewRiwayatBinding
-import com.dicoding.plasticode.response.GetLokasiResponse
 import com.dicoding.plasticode.response.GetRiwayatResponse
+import com.dicoding.plasticode.ui.hasil.detailhasil.DetailHasilActivity
+
 
 class RiwayatAdapter(
     private val context: Context,
@@ -19,14 +20,28 @@ class RiwayatAdapter(
 
         fun bindItem(data: GetRiwayatResponse.HistoriesItem) {
             with(binding) {
+                Glide.with(context)
+                    .load(data.urlImage)
+                    .into(ivRiwayat)
+                tvJenisPlastik.text = data.jenisPlastik
+                tvMasaPakai.text = data.masaPakai
+                tvTingkatBahaya.text = data.tingkatBahaya
 
+                clRiwayat.setOnClickListener {
+                    DetailHasilActivity.start(
+                        context,
+                        data.jenisPlastik,
+                        data.urlImage,
+                        data.id
+                    )
+                }
             }
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
-            LayoutInflater.from(parent.context).inflate(R.layout.recycler_view_riwayat, parent, false)
+            LayoutInflater.from(parent.context).inflate(com.dicoding.plasticode.R.layout.recycler_view_riwayat, parent, false)
         )
     }
 

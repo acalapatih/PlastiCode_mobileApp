@@ -5,26 +5,30 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.addCallback
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.dicoding.plasticode.R
 import com.dicoding.plasticode.data.DataItem
 import com.dicoding.plasticode.databinding.ActivityDetectionDetailBinding
 import com.dicoding.plasticode.ui.dashboard.DashboardActivity
-import com.dicoding.plasticode.ui.hasil.hasil.HasilViewModel
 import com.dicoding.plasticode.ui.menu.MenuActivity
+import com.dicoding.plasticode.ui.riwayat.RiwayatActivity
 
 class DetailHasilActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetectionDetailBinding
     private lateinit var rvItem: RecyclerView
     private val jenisPlastik by lazy { intent.getStringExtra("jenisPlastik") }
-    private val photoPath by lazy { intent.getStringExtra("photoPath") }
+    private val imageUrl by lazy { intent.getStringExtra("imageUrl") }
+    private val idRiwayat by lazy { intent.getIntExtra("idRiwayat", 0) }
     private val list = ArrayList<DataItem>()
-    private val detailHasilViewModel by viewModels<HasilViewModel>()
+    private val TAG = "DetailHasilActivity"
+    private val detailHasilViewModel by viewModels<DetailHasilViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,19 +37,21 @@ class DetailHasilActivity : AppCompatActivity() {
         supportActionBar?.hide()
 
         initView()
-        jenisPlastik?.let { initObserver(it) }
+        jenisPlastik?.let { imageUrl?.let { it1 -> initObserver(it, it1) } }
         initListener()
     }
 
     @SuppressLint("SetTextI18n")
-    private fun initObserver(jenisPlastik: String) {
+    private fun initObserver(jenisPlastik: String, imageUrl: String) {
         with(binding) {
             detailHasilViewModel.isLoading.observe(this@DetailHasilActivity) {
                 showLoading(it)
             }
             when(jenisPlastik) {
                 "PET atau PETE" -> {
-                    ivHasilDeteksi.setImageBitmap(BitmapFactory.decodeFile(photoPath))
+                    Glide.with(this@DetailHasilActivity)
+                        .load(imageUrl)
+                        .into(ivHasilDeteksi)
                     tvJenisPlastik.text = "PET / PETE"
                     detailHasilViewModel.getPlastik(this@DetailHasilActivity, "pet")
                     detailHasilViewModel.getPlastik.observe(this@DetailHasilActivity) { data ->
@@ -57,7 +63,9 @@ class DetailHasilActivity : AppCompatActivity() {
                     }
                 }
                 "HDPE" -> {
-                    ivHasilDeteksi.setImageBitmap(BitmapFactory.decodeFile(photoPath))
+                    Glide.with(this@DetailHasilActivity)
+                        .load(imageUrl)
+                        .into(ivHasilDeteksi)
                     tvJenisPlastik.text = "HDPE"
                     detailHasilViewModel.getPlastik(this@DetailHasilActivity, jenisPlastik)
                     detailHasilViewModel.getPlastik.observe(this@DetailHasilActivity) { data ->
@@ -69,7 +77,9 @@ class DetailHasilActivity : AppCompatActivity() {
                     }
                 }
                 "PVC" -> {
-                    ivHasilDeteksi.setImageBitmap(BitmapFactory.decodeFile(photoPath))
+                    Glide.with(this@DetailHasilActivity)
+                        .load(imageUrl)
+                        .into(ivHasilDeteksi)
                     tvJenisPlastik.text = "PVC"
                     detailHasilViewModel.getPlastik(this@DetailHasilActivity, jenisPlastik)
                     detailHasilViewModel.getPlastik.observe(this@DetailHasilActivity) { data ->
@@ -81,7 +91,9 @@ class DetailHasilActivity : AppCompatActivity() {
                     }
                 }
                 "LDPE" -> {
-                    ivHasilDeteksi.setImageBitmap(BitmapFactory.decodeFile(photoPath))
+                    Glide.with(this@DetailHasilActivity)
+                        .load(imageUrl)
+                        .into(ivHasilDeteksi)
                     tvJenisPlastik.text = "LDPE"
                     detailHasilViewModel.getPlastik(this@DetailHasilActivity, jenisPlastik)
                     detailHasilViewModel.getPlastik.observe(this@DetailHasilActivity) { data ->
@@ -93,7 +105,9 @@ class DetailHasilActivity : AppCompatActivity() {
                     }
                 }
                 "PP" -> {
-                    ivHasilDeteksi.setImageBitmap(BitmapFactory.decodeFile(photoPath))
+                    Glide.with(this@DetailHasilActivity)
+                        .load(imageUrl)
+                        .into(ivHasilDeteksi)
                     tvJenisPlastik.text = "PP"
                     detailHasilViewModel.getPlastik(this@DetailHasilActivity, jenisPlastik)
                     detailHasilViewModel.getPlastik.observe(this@DetailHasilActivity) { data ->
@@ -105,7 +119,9 @@ class DetailHasilActivity : AppCompatActivity() {
                     }
                 }
                 "PS" -> {
-                    ivHasilDeteksi.setImageBitmap(BitmapFactory.decodeFile(photoPath))
+                    Glide.with(this@DetailHasilActivity)
+                        .load(imageUrl)
+                        .into(ivHasilDeteksi)
                     tvJenisPlastik.text = "PS"
                     detailHasilViewModel.getPlastik(this@DetailHasilActivity, jenisPlastik)
                     detailHasilViewModel.getPlastik.observe(this@DetailHasilActivity) { data ->
@@ -117,7 +133,9 @@ class DetailHasilActivity : AppCompatActivity() {
                     }
                 }
                 "OTHER" -> {
-                    ivHasilDeteksi.setImageBitmap(BitmapFactory.decodeFile(photoPath))
+                    Glide.with(this@DetailHasilActivity)
+                        .load(imageUrl)
+                        .into(ivHasilDeteksi)
                     tvJenisPlastik.text = "OTHER"
                     detailHasilViewModel.getPlastik(this@DetailHasilActivity, jenisPlastik)
                     detailHasilViewModel.getPlastik.observe(this@DetailHasilActivity) { data ->
@@ -135,7 +153,7 @@ class DetailHasilActivity : AppCompatActivity() {
                     tvDeskripsiMasapakai.isVisible = false
                     tvTingkatBahaya.isVisible = false
                     tvDeskripsiBahaya.isVisible = false
-                    ivHasilDeteksi.setImageBitmap(BitmapFactory.decodeFile(photoPath))
+                    ivHasilDeteksi.setImageBitmap(BitmapFactory.decodeFile(imageUrl))
                 }
             }
         }
@@ -175,30 +193,61 @@ class DetailHasilActivity : AppCompatActivity() {
 
     private fun initListener() {
         with(binding) {
-            lokasiButton.setOnClickListener { location() }
+            btnLokasi.setOnClickListener {
+                putRiwayat()
+                DashboardActivity.start(this@DetailHasilActivity, "lokasi")
+            }
+            btnRiwayat.setOnClickListener {
+                putRiwayat()
+                RiwayatActivity.start(this@DetailHasilActivity)
+            }
+            btnDashboard.setOnClickListener {
+                putRiwayat()
+                DashboardActivity.start(this@DetailHasilActivity, "dashboard")
+            }
             icMenu.setOnClickListener {
+                putRiwayat()
                 MenuActivity.start(this@DetailHasilActivity)
             }
             icBack.setOnClickListener {
                 onBackPressedDispatcher.onBackPressed()
             }
             onBackPressedDispatcher.addCallback(this@DetailHasilActivity) {
+                putRiwayat()
                 finish()
             }
         }
     }
 
-    private fun location(){
-        DashboardActivity.start(this, "lokasi")
+    private fun putRiwayat() {
+        with(binding) {
+            detailHasilViewModel.putRiwayat(
+                this@DetailHasilActivity,
+                idRiwayat,
+                tvJenisPlastik.text.toString(),
+                tvMasaPakai.text.toString(),
+                tvTingkatBahaya.text.toString(),
+                tvDeskripsiJenis.text.toString(),
+                tvDeskripsiMasapakai.text.toString(),
+                tvDeskripsiBahaya.text.toString()
+            )
+
+            detailHasilViewModel.putRiwayat.observe(this@DetailHasilActivity) {
+                if (it.error == false) {
+                    Log.d(TAG, "Riwayat Deteksi Berhasil Disimpan")
+                }
+            }
+        }
     }
 
     companion object {
         @JvmStatic
-        fun start(context: Context, jenisPlastik: String, photoPath: String) {
+        fun start(context: Context, jenisPlastik: String, imageUrl: String, idRiwayat: Int) {
             val starter = Intent(context, DetailHasilActivity::class.java)
                 .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
-                .putExtra("photoPath", photoPath)
+                .putExtra("imageUrl", imageUrl)
                 .putExtra("jenisPlastik", jenisPlastik)
+                .putExtra("idRiwayat", idRiwayat)
             context.startActivity(starter)
         }
     }

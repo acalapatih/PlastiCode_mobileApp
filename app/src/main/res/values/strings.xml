@@ -28,7 +28,7 @@
     </string>
 
     <!--    Deteksi Hasil Dan Detail-->
-    <string name="lokasi_button">Cek Lokasi Daur Ulang</string>
+    <string name="btn_lokasi">Lihat Lokasi Daur Ulang</string>
     <string name="jargon5">Nah untuk memudahkanmu mendaur ulang sampah plastik, kamu bisa mendatangi lokasi lokasi-lokasi berikut ini sob, klik tombol di bawah yaa.</string>
     <string name="jargon4">3. Melakukan daur ulang sampah plastik</string>
     <string name="jargon3">2. Menggunakan produk pengganti plastik dengan bahan yang ramah lingkungan</string>
@@ -84,6 +84,8 @@
     <string name="tv_signup">Daftar</string>
     <string name="tv_label_signup">Belum Punya Akun?</string>
     <string name="btn_login">Masuk</string>
+    <string name="btn_dashboard">Kembali Ke Dashboard</string>
+    <string name="btn_riwayat">Lihat Riwayat Deteksi</string>
 
     <integer-array name="id_item">
         <item>1</item>

@@ -7,6 +7,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.dicoding.plasticode.response.PostImageResponse
 import com.dicoding.plasticode.service.ApiConfig
+import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.asRequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -20,14 +25,15 @@ class DeteksiViewModel: ViewModel() {
     val isLoading: LiveData<Boolean> = _isLoading
 
     fun postImage(context: Context, image: File) {
-//        val imageFIle = image.asRequestBody("image/jpeg".toMediaTypeOrNull())
-//        val imageFileMultipart = MultipartBody.Part.createFormData(
-//            "photo",
-//            image.name,
-//            imageFIle
-//        )
+        val imageFIle = image.asRequestBody("image/*".toMediaTypeOrNull())
+        val imageFileMultipart = MultipartBody.Part.createFormData(
+            "file",
+            image.name,
+            imageFIle
+        )
+
         _isLoading.value = true
-        val client = ApiConfig.getApiService().postImage(image)
+        val client = ApiConfig.getApiService().postImage(imageFileMultipart)
         client.enqueue(object : Callback<PostImageResponse> {
             override fun onResponse(
                 call: Call<PostImageResponse>,

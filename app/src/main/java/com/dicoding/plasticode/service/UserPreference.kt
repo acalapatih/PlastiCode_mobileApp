@@ -2,12 +2,14 @@ package com.dicoding.plasticode.service
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.*
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
 import com.dicoding.plasticode.data.UserModel
 import com.dicoding.plasticode.utils.Constant
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 
 class UserPreference private constructor(private val dataStore: DataStore<Preferences>){
+
+    private val THEME_KEY = booleanPreferencesKey("theme_setting")
 
     fun getUser(): Flow<UserModel> {
         return dataStore.data.map { preferences ->
@@ -41,6 +43,18 @@ class UserPreference private constructor(private val dataStore: DataStore<Prefer
         }
     }
 
+    fun getThemeSetting(): Flow<Boolean> {
+        return dataStore.data.map { preferences ->
+            preferences[THEME_KEY] ?: false
+        }
+    }
+
+    suspend fun saveThemeSetting(isDarkModeActive: Boolean) {
+        dataStore.edit { preferences ->
+            preferences[THEME_KEY] = isDarkModeActive
+        }
+    }
+
     companion object {
         @Volatile
         private var INSTANCE: UserPreference? = null
@@ -60,10 +74,6 @@ class UserPreference private constructor(private val dataStore: DataStore<Prefer
         }
         fun setToken(token: String) {
             ApiConfig.setToken(token)
-        }
-
-        fun getUser(token: String) {
-
         }
     }
 }

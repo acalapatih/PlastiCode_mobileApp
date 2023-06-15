@@ -222,7 +222,7 @@ class DashboardFragment : Fragment() {
                             .into(ivLokasi)
                     } else {
                         Glide.with(requireContext())
-                            .load(R.drawable.iv_lokasi)
+                            .load(R.drawable.iv_thumbnail)
                             .into(ivLokasi)
                     }
                 }

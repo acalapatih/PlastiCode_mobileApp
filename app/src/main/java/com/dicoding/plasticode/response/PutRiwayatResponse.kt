@@ -2,10 +2,13 @@ package com.dicoding.plasticode.response
 
 import com.google.gson.annotations.SerializedName
 
-data class GetRiwayatResponse(
+data class PutRiwayatResponse(
 
 	@field:SerializedName("status_code")
 	val statusCode: Int,
+
+	@field:SerializedName("data")
+	val data: Data,
 
 	@field:SerializedName("success")
 	val success: Boolean,
@@ -13,13 +16,10 @@ data class GetRiwayatResponse(
 	@field:SerializedName("success_message")
 	val successMessage: String,
 
-	@field:SerializedName("histories")
-	val histories: List<HistoriesItem>,
-
 	@field:SerializedName("error")
 	val error: Boolean
 ) {
-	data class HistoriesItem(
+	data class Data(
 
 		@field:SerializedName("updated_at")
 		val updatedAt: String,
