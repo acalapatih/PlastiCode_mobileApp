@@ -36,26 +36,30 @@ class CameraActivity : AppCompatActivity() {
 
     private fun takePhoto() {
         val imageCapture = imageCapture ?: return
-
         val photoFile = createFile(application)
-
         val outputOptions = ImageCapture.OutputFileOptions.Builder(photoFile).build()
         imageCapture.takePicture(
             outputOptions,
             ContextCompat.getMainExecutor(this),
-            object: ImageCapture.OnImageSavedCallback{
-                override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
+            object : ImageCapture.OnImageSavedCallback {
+                override fun onError(exc: ImageCaptureException) {
+                    Toast.makeText(
+                        this@CameraActivity,
+                        "Gagal mengambil gambar.",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+
+                override fun onImageSaved(output: ImageCapture.OutputFileResults) {
                     val intent = Intent()
                     intent.putExtra("picture", photoFile)
-                    intent.putExtra("isBackCamera", cameraSelector == CameraSelector.DEFAULT_BACK_CAMERA)
+                    intent.putExtra(
+                        "isBackCamera",
+                        cameraSelector == CameraSelector.DEFAULT_BACK_CAMERA
+                    )
                     setResult(DeteksiFragment.CAMERA_X_RESULT, intent)
                     finish()
                 }
-
-                override fun onError(exception: ImageCaptureException) {
-                    Log.e(TAG, "onError: $exception" )
-                }
-
             }
         )
     }

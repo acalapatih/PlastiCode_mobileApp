@@ -91,7 +91,7 @@ class MenuActivity : AppCompatActivity() {
                     preference.logout()
                 }
                 LoginActivity.start(this@MenuActivity)
-                finish()
+                finishAffinity()
             }
         }
     }

@@ -44,7 +44,7 @@ val timeStamp: String = SimpleDateFormat(
     fun rotateFile(file: File, isBackCamera: Boolean = false) {
         val matrix = Matrix()
         val bitmap = BitmapFactory.decodeFile(file.path)
-        val rotation = if (isBackCamera) 90f else -90f
+        val rotation = if (isBackCamera) 0f else -90f
         matrix.postRotate(rotation)
         if (!isBackCamera) {
             matrix.postScale(-1f, 1f, bitmap.width / 2f, bitmap.height / 2f)

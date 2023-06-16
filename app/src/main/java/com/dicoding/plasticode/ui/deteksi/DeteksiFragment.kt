@@ -48,15 +48,15 @@ class DeteksiFragment : Fragment() {
 
     private val launcherIntentCameraX = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
-    ){ result ->
-        if (result.resultCode == CAMERA_X_RESULT){
-            val myFile = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU){
-                result.data?.getSerializableExtra("picture", File::class.java)
+    ){
+        if (it.resultCode == CAMERA_X_RESULT) {
+            val myFile = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                it.data?.getSerializableExtra("picture", File::class.java)
             } else {
                 @Suppress("DEPRECATION")
-                result.data?.getSerializableExtra("picture")
+                it.data?.getSerializableExtra("picture")
             } as? File
-            val isBackCamera = result.data?.getBooleanExtra("isBackCamera", true) as Boolean
+            val isBackCamera = it.data?.getBooleanExtra("isBackCamera", true) as Boolean
             myFile?.let { file ->
                 rotateFile(file, isBackCamera)
                 getFile = file
@@ -106,7 +106,6 @@ class DeteksiFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        initObserver()
         initListener()
     }
 
@@ -147,7 +146,7 @@ class DeteksiFragment : Fragment() {
                 maxPos = i
             }
         }
-        val classes = arrayOf("HDPE", "LDPE", "OTHER", "PET atau PETE", "PP", "PS", "PVC")
+        val classes = arrayOf("HDPE", "LDPE", "OTHER", "PET", "PP", "PS", "PVC")
         var s = ""
         for (i in classes.indices) {
             s += String.format("%s: %.1f%%\n", classes[i], confidences[i] * 100)
@@ -158,20 +157,19 @@ class DeteksiFragment : Fragment() {
         // Releases model resources if no longer used.
         model.close()
 
-        return if (classes[maxPos] != "OTHER" && maxConfidence > 0.6) {
+        return if (classes[maxPos] != "OTHER") {
             classes[maxPos]
-        } else if (classes[maxPos] == "OTHER" && maxConfidence > 0.7) {
+        } else if (classes[maxPos] == "OTHER") {
             classes[maxPos]
-        }
-        else {
+        } else {
             "SUS"
         }
     }
 
     @Deprecated("Deprecated in Java", ReplaceWith(
-            "super.onRequestPermissionsResult(requestCode, permissions, grantResults)",
-            "androidx.fragment.app.Fragment"
-        )
+        "super.onRequestPermissionsResult(requestCode, permissions, grantResults)",
+        "androidx.fragment.app.Fragment"
+    )
     )
     @Suppress("Deprecation")
     override fun onRequestPermissionsResult(
@@ -213,25 +211,13 @@ class DeteksiFragment : Fragment() {
         launcherIntentCameraX.launch(intent)
     }
 
-    private fun initObserver() {
-        when (getFile) {
-            null -> Log.d(TAG, "Silakan Upload Foto Dahulu")
-            else -> {
-                val file = getFile
-                if (file != null) {
-                    deteksiViewModel.postImage(requireContext(), file)
-                }
-                deteksiViewModel.isLoading.observe(this@DeteksiFragment) {
-                    showLoading(it)
-                }
-                deteksiViewModel.postImage.observe(this@DeteksiFragment) {
-                    if (it.error == false) {
-                        HasilActivity.start(requireContext(), it.imageUrl, runDetection(), it.historyId)
-                    } else {
-                        Toast.makeText(requireContext(), it.errorMessage, Toast.LENGTH_SHORT).show()
-                    }
-                }
-            }
+    private fun initObserver(hasilDeteksi: String, file: File) {
+        deteksiViewModel.isLoading.observe(this@DeteksiFragment) {
+            showLoading(it)
+        }
+        deteksiViewModel.postImage.observe(this@DeteksiFragment) {
+            println("HASIL POST == ${it.imageUrl}")
+//            HasilActivity.start(requireContext(), file.path, hasilDeteksi, it.historyId)
         }
     }
 
@@ -244,7 +230,22 @@ class DeteksiFragment : Fragment() {
             cameraButton.setOnClickListener { runCameraX() }
             galleryButton.setOnClickListener { runGallery() }
             deteksiButton.setOnClickListener {
-                initObserver()
+                when (getFile) {
+                    null -> Log.d(TAG, "Silakan Upload Foto Dahulu")
+                    else -> {
+                        val hasilDeteksi = runDetection()
+                        val file = getFile
+                        if (file != null && hasilDeteksi != "SUS") {
+                            deteksiViewModel.postImage(requireContext(), file)
+
+                            initObserver(hasilDeteksi, file)
+                        } else {
+                            if (file != null) {
+                                HasilActivity.start(requireContext(), file.path, hasilDeteksi, 0)
+                            }
+                        }
+                    }
+                }
             }
             icMenu.setOnClickListener {
                 MenuActivity.start(requireContext())

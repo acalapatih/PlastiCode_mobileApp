@@ -41,8 +41,8 @@ class HasilActivity : AppCompatActivity() {
         supportActionBar?.hide()
 
         initView()
-        jenisPlastik?.let { imageUrl?.let { it1 -> initObserver(it, it1) } }
-        jenisPlastik?.let { imageUrl?.let { it1 -> initListener(it, it1) } }
+        jenisPlastik?.let { imageUrl?.let { it1 -> initObserver(it, it1, idRiwayat) } }
+        jenisPlastik?.let { imageUrl?.let { it1 -> initListener(it, it1, idRiwayat) } }
     }
 
     private fun initView() {
@@ -62,13 +62,13 @@ class HasilActivity : AppCompatActivity() {
     }
 
     @SuppressLint("SetTextI18n")
-    private fun initObserver(jenisPlastik: String, imageUrl: String) {
+    private fun initObserver(jenisPlastik: String, imageUrl: String, idRiwayat: Int) {
         with(binding) {
             hasilViewModel.isLoading.observe(this@HasilActivity) {
                 showLoading(it)
             }
             when(jenisPlastik) {
-                "PET atau PETE" -> {
+                "PET" -> {
                     Glide.with(this@HasilActivity)
                         .load(imageUrl)
                         .into(ivHasilDeteksi)
@@ -77,7 +77,7 @@ class HasilActivity : AppCompatActivity() {
                     hasilViewModel.getPlastik.observe(this@HasilActivity) { data ->
                         tvMasaPakai.text = data.masaPakai
                         tvTingkatBahaya.text = data.tingkatBahaya
-                        putRiwayat(data)
+                        putRiwayat(data, idRiwayat)
                     }
                 }
                 "HDPE" -> {
@@ -89,7 +89,7 @@ class HasilActivity : AppCompatActivity() {
                     hasilViewModel.getPlastik.observe(this@HasilActivity) { data ->
                         tvMasaPakai.text = data.masaPakai
                         tvTingkatBahaya.text = data.tingkatBahaya
-                        putRiwayat(data)
+                        putRiwayat(data, idRiwayat)
                     }
                 }
                 "PVC" -> {
@@ -101,7 +101,7 @@ class HasilActivity : AppCompatActivity() {
                     hasilViewModel.getPlastik.observe(this@HasilActivity) { data ->
                         tvMasaPakai.text = data.masaPakai
                         tvTingkatBahaya.text = data.tingkatBahaya
-                        putRiwayat(data)
+                        putRiwayat(data, idRiwayat)
                     }
                 }
                 "LDPE" -> {
@@ -113,7 +113,7 @@ class HasilActivity : AppCompatActivity() {
                     hasilViewModel.getPlastik.observe(this@HasilActivity) { data ->
                         tvMasaPakai.text = data.masaPakai
                         tvTingkatBahaya.text = data.tingkatBahaya
-                        putRiwayat(data)
+                        putRiwayat(data, idRiwayat)
                     }
                 }
                 "PP" -> {
@@ -125,7 +125,7 @@ class HasilActivity : AppCompatActivity() {
                     hasilViewModel.getPlastik.observe(this@HasilActivity) { data ->
                         tvMasaPakai.text = data.masaPakai
                         tvTingkatBahaya.text = data.tingkatBahaya
-                        putRiwayat(data)
+                        putRiwayat(data, idRiwayat)
                     }
                 }
                 "PS" -> {
@@ -137,7 +137,7 @@ class HasilActivity : AppCompatActivity() {
                     hasilViewModel.getPlastik.observe(this@HasilActivity) { data ->
                         tvMasaPakai.text = data.masaPakai
                         tvTingkatBahaya.text = data.tingkatBahaya
-                        putRiwayat(data)
+                        putRiwayat(data, idRiwayat)
                     }
                 }
                 "OTHER" -> {
@@ -149,8 +149,19 @@ class HasilActivity : AppCompatActivity() {
                     hasilViewModel.getPlastik.observe(this@HasilActivity) { data ->
                         tvMasaPakai.text = data.masaPakai
                         tvTingkatBahaya.text = data.tingkatBahaya
-                        putRiwayat(data)
+                        putRiwayat(data, idRiwayat)
                     }
+                }
+                "SUS" -> {
+                    ivHasilDeteksi.setImageBitmap(BitmapFactory.decodeFile(imageUrl))
+                    tvLabelJenisPlastik.isVisible = false
+                    tvJenisPlastik.isVisible = false
+                    tvLabelMasaPakai.isVisible = false
+                    tvMasaPakai.isVisible = false
+                    tvLabelTingkatBahaya.isVisible = false
+                    tvTingkatBahaya.isVisible = false
+                    tvEmptyHasil.isVisible = true
+                    btnDetail.text = this@HasilActivity.getString(R.string.btn_empty_hasil)
                 }
                 else -> {
                     tvLabelJenisPlastik.isVisible = false
@@ -160,8 +171,7 @@ class HasilActivity : AppCompatActivity() {
                     tvLabelTingkatBahaya.isVisible = false
                     tvTingkatBahaya.isVisible = false
                     tvEmptyHasil.isVisible = true
-                    ivHasilDeteksi.setImageBitmap(BitmapFactory.decodeFile(imageUrl))
-                    btnDetail.text = this@HasilActivity.getString(R.string.btn_empty_hasil)
+                    btnDetail.text = this@HasilActivity.getString(R.string.btn_salah_hasil)
                 }
             }
         }
@@ -171,7 +181,7 @@ class HasilActivity : AppCompatActivity() {
         binding.progressBar.isVisible = value
     }
 
-    private fun initListener(jenisPlastik: String, imageUrl: String) {
+    private fun initListener(jenisPlastik: String, imageUrl: String, idRiwayat: Int) {
         with(binding) {
             icMenu.setOnClickListener {
                 MenuActivity.start(this@HasilActivity)
@@ -181,6 +191,36 @@ class HasilActivity : AppCompatActivity() {
             }
 
             when(jenisPlastik) {
+                "PET" -> {
+                    btnDetail.setOnClickListener {
+                        DetailHasilActivity.start(this@HasilActivity, jenisPlastik, imageUrl, idRiwayat)
+                    }
+                }
+                "HDPE" -> {
+                    btnDetail.setOnClickListener {
+                        DetailHasilActivity.start(this@HasilActivity, jenisPlastik, imageUrl, idRiwayat)
+                    }
+                }
+                "PVC" -> {
+                    btnDetail.setOnClickListener {
+                        DetailHasilActivity.start(this@HasilActivity, jenisPlastik, imageUrl, idRiwayat)
+                    }
+                }
+                "LDPE" -> {
+                    btnDetail.setOnClickListener {
+                        DetailHasilActivity.start(this@HasilActivity, jenisPlastik, imageUrl, idRiwayat)
+                    }
+                }
+                "PP" -> {
+                    btnDetail.setOnClickListener {
+                        DetailHasilActivity.start(this@HasilActivity, jenisPlastik, imageUrl, idRiwayat)
+                    }
+                }
+                "PS" -> {
+                    btnDetail.setOnClickListener {
+                        DetailHasilActivity.start(this@HasilActivity, jenisPlastik, imageUrl, idRiwayat)
+                    }
+                }
                 "SUS" -> {
                     btnDetail.setOnClickListener {
                         DashboardActivity.start(this@HasilActivity, "deteksi")
@@ -188,14 +228,14 @@ class HasilActivity : AppCompatActivity() {
                 }
                 else -> {
                     btnDetail.setOnClickListener {
-                        DetailHasilActivity.start(this@HasilActivity, jenisPlastik, imageUrl, idRiwayat)
+                        DashboardActivity.start(this@HasilActivity, "deteksi")
                     }
                 }
             }
         }
     }
 
-    private fun putRiwayat(data: GetPlastikResponse.Data) {
+    private fun putRiwayat(data: GetPlastikResponse.Data, idRiwayat: Int) {
         with(binding) {
             hasilViewModel.putRiwayat(
                 this@HasilActivity,

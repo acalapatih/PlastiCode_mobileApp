@@ -68,18 +68,17 @@ class RiwayatActivity : AppCompatActivity() {
         riwayatViewModel.getUser().observe(this) {
             if (it.isLogin) {
                 riwayatViewModel.getRiwayat(this, it.idUser)
-                riwayatViewModel.getRiwayat.observe(this) { list ->
-                    if (list == null) {
-                        binding.tvEmptyRiwayat.isVisible = true
-                    } else {
-                        showRiwayat(list)
-                    }
-
-                }
             }
         }
         riwayatViewModel.isLoading.observe(this) {
             showLoading(it)
+        }
+        getRiwayat()
+    }
+
+    private fun getRiwayat() {
+        riwayatViewModel.getRiwayat.observe(this) { list ->
+            showRiwayat(list)
         }
     }
 
@@ -89,6 +88,7 @@ class RiwayatActivity : AppCompatActivity() {
 
     private fun showRiwayat(data: List<GetRiwayatResponse.HistoriesItem>) {
         with(binding) {
+            tvEmptyRiwayat.isVisible = data.isEmpty()
             riwayatAdapter = RiwayatAdapter(this@RiwayatActivity, data)
             rvRiwayatDeteksi.adapter = riwayatAdapter
         }

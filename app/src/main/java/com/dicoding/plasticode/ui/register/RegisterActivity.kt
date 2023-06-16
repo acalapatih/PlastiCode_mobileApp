@@ -17,7 +17,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.dicoding.plasticode.databinding.ActivityRegisterBinding
 import com.dicoding.plasticode.factory.PengaturanViewModelFactory
 import com.dicoding.plasticode.preference.PengaturanPreferences
-import com.dicoding.plasticode.response.RegisterResponse
+import com.dicoding.plasticode.response.PostRegisterResponse
 import com.dicoding.plasticode.ui.login.LoginActivity
 import com.dicoding.plasticode.ui.pengaturan.PengaturanViewModel
 import com.jakewharton.rxbinding2.widget.RxTextView
@@ -37,6 +37,7 @@ class RegisterActivity : AppCompatActivity() {
 
         initView()
         initListener()
+        initObserver()
     }
 
     private fun initView() {
@@ -79,7 +80,6 @@ class RegisterActivity : AppCompatActivity() {
                         binding.etEmail.text.toString(),
                         binding.etPassword.text.toString()
                     )
-                    register()
                 }
             }
 
@@ -142,7 +142,7 @@ class RegisterActivity : AppCompatActivity() {
         return password.matches(passwordPattern.toRegex())
     }
 
-    private fun register() {
+    private fun initObserver() {
         registerViewModel.postRegister.observe(this) {
             postRegister(it)
         }
@@ -151,8 +151,8 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 
-    private fun postRegister(data: RegisterResponse?) {
-        if (data?.error == true) {
+    private fun postRegister(data: PostRegisterResponse) {
+        if (data.error == true) {
             if (binding.etNama.text.toString().isEmpty()) {
                 Toast.makeText(
                     this@RegisterActivity,

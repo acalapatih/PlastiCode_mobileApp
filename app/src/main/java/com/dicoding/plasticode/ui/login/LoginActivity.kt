@@ -1,13 +1,12 @@
 package com.dicoding.plasticode.ui.login
 
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Patterns
-import android.widget.Toast
 import androidx.activity.addCallback
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.isVisible
@@ -20,18 +19,21 @@ import com.dicoding.plasticode.factory.PengaturanViewModelFactory
 import com.dicoding.plasticode.factory.ViewModelFactory
 import com.dicoding.plasticode.preference.PengaturanPreferences
 import com.dicoding.plasticode.preference.UserPreference
-import com.dicoding.plasticode.response.Login
+import com.dicoding.plasticode.response.PostLoginResponse
 import com.dicoding.plasticode.ui.dashboard.DashboardActivity
 import com.dicoding.plasticode.ui.pengaturan.PengaturanViewModel
 import com.dicoding.plasticode.ui.register.RegisterActivity
 import com.jakewharton.rxbinding2.widget.RxTextView
 import io.reactivex.Observable
+import kotlin.system.exitProcess
 
 
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding
-    private lateinit var loginViewModel: LoginViewModel
+    private val loginViewModel by viewModels<LoginViewModel> {
+        ViewModelFactory(UserPreference.getInstance(dataStore))
+    }
     private lateinit var preference: UserPreference
     private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "setting")
 
@@ -42,10 +44,6 @@ class LoginActivity : AppCompatActivity() {
         supportActionBar?.hide()
 
         preference = UserPreference.getInstance(dataStore)
-        loginViewModel = ViewModelProvider(
-            this,
-            ViewModelFactory(preference)
-        )[LoginViewModel::class.java]
 
         initView()
         initListener()
@@ -71,27 +69,15 @@ class LoginActivity : AppCompatActivity() {
     private fun initListener() {
         with(binding) {
             loginButton.setOnClickListener {
-                if (binding.etEmail.text.toString().isEmpty() && binding.etEmail.text.toString()
-                        .isEmpty() && binding.etPassword.text.toString().isEmpty()
-                ) {
-                    Toast.makeText(
-                        this@LoginActivity,
-                        "Silakan Masukan Email, dan Password",
-                        Toast.LENGTH_SHORT
-                    )
-                        .show()
-                } else {
-                    loginViewModel.postLogin(
-                        this@LoginActivity,
-                        binding.etEmail.text.toString(),
-                        binding.etPassword.text.toString()
-                    )
-                    login()
-                }
+                loginViewModel.postLogin(
+                    this@LoginActivity,
+                    etEmail.text.toString(),
+                    etPassword.text.toString()
+                )
+                initObserver()
             }
             onBackPressedDispatcher.addCallback(this@LoginActivity) {
-                System.exit(0)
-                finish()
+                exitProcess(0)
             }
 
             layoutDaftar.setOnClickListener {
@@ -140,7 +126,7 @@ class LoginActivity : AppCompatActivity() {
         return password.matches(passwordPattern.toRegex())
     }
 
-    private fun login() {
+    private fun initObserver() {
         loginViewModel.postLogin.observe(this) {
             postLogin(it)
         }
@@ -149,25 +135,9 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    private fun postLogin(login: Login?) {
-        if (login?.error == false) {
+    private fun postLogin(login: PostLoginResponse) {
+        if (!login.error) {
             DashboardActivity.start(this, "dashboard")
-        } else {
-            if (binding.etEmail.text.toString().isEmpty()) {
-                Toast.makeText(
-                    this@LoginActivity,
-                    "Silakan Masukan Email dengan Benar",
-                    Toast.LENGTH_SHORT
-                )
-                    .show()
-            } else if (binding.etPassword.text.toString().isEmpty()) {
-                Toast.makeText(
-                    this@LoginActivity,
-                    "Silakan Masukan Password dengan Benar",
-                    Toast.LENGTH_SHORT
-                )
-                    .show()
-            }
         }
     }
 

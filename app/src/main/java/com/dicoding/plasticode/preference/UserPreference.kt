@@ -3,7 +3,7 @@ package com.dicoding.plasticode.preference
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.*
 import com.dicoding.plasticode.data.UserModel
-import com.dicoding.plasticode.service.ApiConfig
+import com.dicoding.plasticode.network.ApiConfig
 import com.dicoding.plasticode.utils.Constant
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map

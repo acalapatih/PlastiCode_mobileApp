@@ -6,11 +6,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.dicoding.plasticode.response.PostImageResponse
-import com.dicoding.plasticode.service.ApiConfig
-import okhttp3.MediaType
+import com.dicoding.plasticode.network.ApiConfig
+import com.dicoding.plasticode.utils.reduceFileImage
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import retrofit2.Call
 import retrofit2.Callback
@@ -25,10 +24,11 @@ class DeteksiViewModel: ViewModel() {
     val isLoading: LiveData<Boolean> = _isLoading
 
     fun postImage(context: Context, image: File) {
-        val imageFIle = image.asRequestBody("image/*".toMediaTypeOrNull())
+        val fileCompressed = reduceFileImage(image)
+        val imageFIle = fileCompressed.asRequestBody("image/jpeg".toMediaTypeOrNull())
         val imageFileMultipart = MultipartBody.Part.createFormData(
             "file",
-            image.name,
+            fileCompressed.name,
             imageFIle
         )
 

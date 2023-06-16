@@ -1,4 +1,4 @@
-package com.dicoding.plasticode.service
+package com.dicoding.plasticode.network
 
 import com.dicoding.plasticode.response.*
 import okhttp3.MultipartBody
@@ -12,7 +12,7 @@ interface ApiService {
     fun loginWithToken(
         @Field("email") email: String,
         @Field("password") password: String
-    ) : Call<Login>
+    ) : Call<PostLoginResponse>
 
     @FormUrlEncoded
     @POST("register")
@@ -20,7 +20,7 @@ interface ApiService {
         @Field("name") name: String,
         @Field("email") email: String,
         @Field("password") password: String,
-    ) : Call<RegisterResponse>
+    ) : Call<PostRegisterResponse>
 
     @Multipart
     @POST("image")
