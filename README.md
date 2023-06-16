@@ -3,6 +3,12 @@
 ## Introduction
 PlastiCode is an application that educates about the types of plastic along with their lifespan and level of danger. There are three main features in this application: plastic type detection, recommendations for plastic alternatives, and recommendations for plastic recycling locations. PlastiCode is built with Kotlin, TensorFlow Lite, and implements the Clean Code Architecture.
 
+## Mock Up
+
+[![Plasti-Code-Mockup-DETECTION.png](https://i.postimg.cc/cCd6HWG4/Plasti-Code-Mockup-DETECTION.png)](https://postimg.cc/tZm9SLgL)
+
+[![Plasti-Code-Mockup-LOCATION-AND-SETTING.png](https://i.postimg.cc/cCTCtzd7/Plasti-Code-Mockup-LOCATION-AND-SETTING.png)](https://postimg.cc/4H7srB7n)
+
 ## Table Of Content
 
 - Introduction
