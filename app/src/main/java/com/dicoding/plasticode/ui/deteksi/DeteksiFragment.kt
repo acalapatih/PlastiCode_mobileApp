@@ -157,9 +157,9 @@ class DeteksiFragment : Fragment() {
         // Releases model resources if no longer used.
         model.close()
 
-        return if (classes[maxPos] != "OTHER") {
+        return if (classes[maxPos] != "OTHER" && maxConfidence > 0.6) {
             classes[maxPos]
-        } else if (classes[maxPos] == "OTHER") {
+        } else if (classes[maxPos] == "OTHER" && maxConfidence > 0.7) {
             classes[maxPos]
         } else {
             "SUS"
@@ -217,7 +217,7 @@ class DeteksiFragment : Fragment() {
         }
         deteksiViewModel.postImage.observe(this@DeteksiFragment) {
             println("HASIL POST == ${it.imageUrl}")
-//            HasilActivity.start(requireContext(), file.path, hasilDeteksi, it.historyId)
+            HasilActivity.start(requireContext(), it.imageUrl, hasilDeteksi, it.historyId)
         }
     }
 

@@ -51,7 +51,6 @@ class DashboardFragment : Fragment() {
         return binding.root
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -117,13 +116,13 @@ class DashboardFragment : Fragment() {
                 if (location != null) {
                     myLocation = "${location.latitude},${location.longitude}"
 
-//                    lokasiViewModel.getLokasi(
-//                        requireContext(),
-//                        myLocation,
-//                        Constant.MAPS_RADIUS,
-//                        Constant.MAPS_KEYWORD,
-//                        Constant.MAPS_API_KEY
-//                    )
+                    lokasiViewModel.getLokasi(
+                        requireContext(),
+                        myLocation,
+                        Constant.MAPS_RADIUS,
+                        Constant.MAPS_KEYWORD,
+                        Constant.MAPS_API_KEY
+                    )
                     initObserver()
                 } else {
                     val locationRequest = LocationRequest()
@@ -145,13 +144,13 @@ class DashboardFragment : Fragment() {
                             if (location1 != null) {
                                 myLocation = "${location1.latitude},${location1.longitude}"
 
-//                                lokasiViewModel.getLokasi(
-//                                    requireContext(),
-//                                    myLocation,
-//                                    Constant.MAPS_RADIUS,
-//                                    Constant.MAPS_KEYWORD,
-//                                    Constant.MAPS_API_KEY
-//                                )
+                                lokasiViewModel.getLokasi(
+                                    requireContext(),
+                                    myLocation,
+                                    Constant.MAPS_RADIUS,
+                                    Constant.MAPS_KEYWORD,
+                                    Constant.MAPS_API_KEY
+                                )
                                 initObserver()
                             }
                         }

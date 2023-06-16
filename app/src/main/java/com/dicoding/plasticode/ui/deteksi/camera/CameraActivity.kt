@@ -2,12 +2,11 @@ package com.dicoding.plasticode.ui.deteksi.camera
 
 import android.content.Intent
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.WindowInsets
 import android.view.WindowManager
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageCapture
 import androidx.camera.core.ImageCaptureException
@@ -17,7 +16,7 @@ import androidx.core.content.ContextCompat
 import com.dicoding.plasticode.R
 import com.dicoding.plasticode.databinding.ActivityCameraBinding
 import com.dicoding.plasticode.ui.deteksi.DeteksiFragment
-import com.dicoding.plasticode.utils.createFile
+import com.dicoding.plasticode.utils.createCustomTempFile
 
 class CameraActivity : AppCompatActivity() {
 
@@ -36,7 +35,7 @@ class CameraActivity : AppCompatActivity() {
 
     private fun takePhoto() {
         val imageCapture = imageCapture ?: return
-        val photoFile = createFile(application)
+        val photoFile = createCustomTempFile(this)
         val outputOptions = ImageCapture.OutputFileOptions.Builder(photoFile).build()
         imageCapture.takePicture(
             outputOptions,

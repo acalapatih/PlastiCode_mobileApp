@@ -80,7 +80,7 @@ class DetailHasilActivity : AppCompatActivity() {
                 showLoading(it)
             }
             when(jenisPlastik) {
-                "PET atau PETE" -> {
+                "PET" -> {
                     Glide.with(this@DetailHasilActivity)
                         .load(imageUrl)
                         .into(ivHasilDeteksi)
