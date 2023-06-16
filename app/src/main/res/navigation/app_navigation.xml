@@ -13,7 +13,7 @@
 
     <fragment
         android:id="@+id/navigation_deteksi"
-        android:name="com.dicoding.plasticode.ui.detection.DetectionFragment"
+        android:name="com.dicoding.plasticode.ui.deteksi.DeteksiFragment"
         tools:layout="@layout/fragment_detection"
         android:label="@string/tv_nav_deteksi"/>
 

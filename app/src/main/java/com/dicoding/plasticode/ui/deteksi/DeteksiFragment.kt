@@ -1,4 +1,4 @@
-package com.dicoding.plasticode.ui.detection
+package com.dicoding.plasticode.ui.deteksi
 
 import android.Manifest
 import android.content.Intent
@@ -9,6 +9,7 @@ import android.media.ThumbnailUtils
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,12 +18,14 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.dicoding.plasticode.databinding.FragmentDetectionBinding
 import com.dicoding.plasticode.ml.YourModel
 import com.dicoding.plasticode.ui.dashboard.DashboardActivity
-import com.dicoding.plasticode.ui.detection.camera.CameraActivity
-import com.dicoding.plasticode.ui.detection.result.DetectionResultActivity
+import com.dicoding.plasticode.ui.deteksi.camera.CameraActivity
+import com.dicoding.plasticode.ui.hasil.hasil.HasilActivity
 import com.dicoding.plasticode.ui.menu.MenuActivity
 import com.dicoding.plasticode.utils.reduceFileImage
 import com.dicoding.plasticode.utils.rotateFile
@@ -34,12 +37,13 @@ import java.nio.ByteBuffer
 import java.nio.ByteOrder
 
 
-class DetectionFragment : Fragment() {
+class DeteksiFragment : Fragment() {
     private var _binding: FragmentDetectionBinding? = null
     private val binding get() = _binding!!
+    private val deteksiViewModel by viewModels<DeteksiViewModel>()
     private var getFile: File? = null
     private var imageSize = 224
-
+    private val TAG = "DeteksiFragment"
     private lateinit var baseActivity: DashboardActivity
 
     private val launcherIntentCameraX = registerForActivityResult(
@@ -102,6 +106,7 @@ class DetectionFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        initObserver()
         initListener()
     }
 
@@ -153,9 +158,12 @@ class DetectionFragment : Fragment() {
         // Releases model resources if no longer used.
         model.close()
 
-        return if (maxConfidence > 0.7) {
+        return if (classes[maxPos] != "OTHER" && maxConfidence > 0.6) {
             classes[maxPos]
-        } else {
+        } else if (classes[maxPos] == "OTHER" && maxConfidence > 0.7) {
+            classes[maxPos]
+        }
+        else {
             "SUS"
         }
     }
@@ -205,14 +213,38 @@ class DetectionFragment : Fragment() {
         launcherIntentCameraX.launch(intent)
     }
 
+    private fun initObserver() {
+        when (getFile) {
+            null -> Log.d(TAG, "Silakan Upload Foto Dahulu")
+            else -> {
+                val file = getFile
+                if (file != null) {
+                    deteksiViewModel.postImage(requireContext(), file)
+                }
+                deteksiViewModel.isLoading.observe(this@DeteksiFragment) {
+                    showLoading(it)
+                }
+                deteksiViewModel.postImage.observe(this@DeteksiFragment) {
+                    if (it.error == false) {
+                        HasilActivity.start(requireContext(), it.imageUrl, runDetection(), it.historyId)
+                    } else {
+                        Toast.makeText(requireContext(), it.errorMessage, Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+        }
+    }
+
+    private fun showLoading(value: Boolean) {
+        binding.progressBar.isVisible = value
+    }
+
     private fun initListener() {
         with(binding) {
             cameraButton.setOnClickListener { runCameraX() }
             galleryButton.setOnClickListener { runGallery() }
             deteksiButton.setOnClickListener {
-                getFile?.let { file ->
-                    DetectionResultActivity.start(requireContext(), file.path, runDetection())
-                }
+                initObserver()
             }
             icMenu.setOnClickListener {
                 MenuActivity.start(requireContext())

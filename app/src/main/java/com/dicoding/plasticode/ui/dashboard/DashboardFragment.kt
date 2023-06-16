@@ -15,23 +15,19 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.preferencesDataStore
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.dicoding.plasticode.R
 import com.dicoding.plasticode.databinding.FragmentDashboardBinding
 import com.dicoding.plasticode.response.GetLokasiResponse
-import com.dicoding.plasticode.service.UserPreference
-import com.dicoding.plasticode.service.ViewModelFactory
+import com.dicoding.plasticode.preference.UserPreference
+import com.dicoding.plasticode.factory.ViewModelFactory
 import com.dicoding.plasticode.ui.lokasi.LokasiViewModel
 import com.dicoding.plasticode.ui.menu.MenuActivity
 import com.dicoding.plasticode.utils.Constant
-import com.google.android.gms.location.*
 import com.dicoding.plasticode.utils.dataStore
+import com.google.android.gms.location.*
 
 
 class DashboardFragment : Fragment() {
@@ -39,6 +35,9 @@ class DashboardFragment : Fragment() {
     private var _binding: FragmentDashboardBinding? = null
     private val binding get() = _binding!!
     private val lokasiViewModel by viewModels<LokasiViewModel>()
+    private val dashboardViewModel by viewModels<DashboardViewModel> {
+        ViewModelFactory(UserPreference.getInstance(requireContext().dataStore))
+    }
     private lateinit var locationManager: LocationManager
     private lateinit var myLocation: String
     private lateinit var client: FusedLocationProviderClient
@@ -117,13 +116,13 @@ class DashboardFragment : Fragment() {
                 if (location != null) {
                     myLocation = "${location.latitude},${location.longitude}"
 
-//                    viewModel.getLokasi(
-//                        requireContext(),
-//                        myLocation,
-//                        Constant.MAPS_RADIUS,
-//                        Constant.MAPS_KEYWORD,
-//                        Constant.MAPS_API_KEY
-//                    )
+                    lokasiViewModel.getLokasi(
+                        requireContext(),
+                        myLocation,
+                        Constant.MAPS_RADIUS,
+                        Constant.MAPS_KEYWORD,
+                        Constant.MAPS_API_KEY
+                    )
                     initObserver()
                 } else {
                     val locationRequest = LocationRequest()
@@ -145,13 +144,13 @@ class DashboardFragment : Fragment() {
                             if (location1 != null) {
                                 myLocation = "${location1.latitude},${location1.longitude}"
 
-//                                viewModel.getLokasi(
-//                                    requireContext(),
-//                                    myLocation,
-//                                    Constant.MAPS_RADIUS,
-//                                    Constant.MAPS_KEYWORD,
-//                                    Constant.MAPS_API_KEY
-//                                )
+                                lokasiViewModel.getLokasi(
+                                    requireContext(),
+                                    myLocation,
+                                    Constant.MAPS_RADIUS,
+                                    Constant.MAPS_KEYWORD,
+                                    Constant.MAPS_API_KEY
+                                )
                                 initObserver()
                             }
                         }
@@ -169,7 +168,12 @@ class DashboardFragment : Fragment() {
     private fun initObserver() {
         with(binding) {
             root.isRefreshing = false
-            lokasiViewModel.getResponse.observe(viewLifecycleOwner) { response ->
+            dashboardViewModel.getUser().observe(this@DashboardFragment) {
+                if (it.isLogin) {
+                    tvNamaUser.text = it.name
+                }
+            }
+            lokasiViewModel.getResponse.observe(this@DashboardFragment) { response ->
                 println("STATUS == ${response.status}")
                 when (response.status) {
                     "ZERO_RESULTS" -> {
@@ -197,13 +201,13 @@ class DashboardFragment : Fragment() {
                         tvLihatLokasi.isVisible = true
                         tvDisableLokasi.isVisible = false
                         tvEmptyLokasi.isVisible = false
-                        lokasiViewModel.getLokasi.observe(viewLifecycleOwner) {
+                        lokasiViewModel.getLokasi.observe(this@DashboardFragment) {
                             showLokasi(it)
                         }
                     }
                 }
             }
-            lokasiViewModel.isLoading.observe(viewLifecycleOwner) {
+            lokasiViewModel.isLoading.observe(this@DashboardFragment) {
                 showLoading(it)
             }
         }
@@ -225,7 +229,7 @@ class DashboardFragment : Fragment() {
                             .into(ivLokasi)
                     } else {
                         Glide.with(requireContext())
-                            .load(R.drawable.iv_lokasi)
+                            .load(R.drawable.iv_thumbnail)
                             .into(ivLokasi)
                     }
                 }

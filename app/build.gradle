@@ -93,7 +93,7 @@ dependencies {
 
     //Navigation
     implementation "androidx.navigation:navigation-fragment-ktx:2.7.0-alpha01"
-    implementation 'androidx.navigation:navigation-fragment:2.5.3'
+    implementation 'androidx.navigation:navigation-fragment:2.6.0'
     implementation "androidx.navigation:navigation-ui-ktx:2.7.0-alpha01"
 
     //GoogleMaps
@@ -104,4 +104,7 @@ dependencies {
     //TensorFlowLite
     implementation 'org.tensorflow:tensorflow-lite-support:0.1.0'
     implementation 'org.tensorflow:tensorflow-lite-metadata:0.1.0'
+
+    //RxTextView
+    implementation 'com.jakewharton.rxbinding2:rxbinding:2.2.0'
 }

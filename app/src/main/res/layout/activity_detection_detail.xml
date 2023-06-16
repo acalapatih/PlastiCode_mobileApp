@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.detection.detail.DetectionDetailActivity">
+    tools:context=".ui.hasil.detailhasil.DetailHasilActivity"
+    style="@style/bg_body">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -73,7 +74,7 @@
             android:id="@+id/tv_jenis_plastik"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="30dp"
             android:fontFamily="@font/poppins_semibold"
             android:textAlignment="center"
             android:textColor="@color/black"
@@ -102,7 +103,7 @@
             android:id="@+id/tv_masa_pakai"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="25dp"
             android:background="@drawable/badge_blue_rounded"
             android:fontFamily="@font/poppins_semibold"
             android:gravity="center"
@@ -132,7 +133,7 @@
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="25dp"
             android:background="@drawable/badge_green_rounded"
             android:fontFamily="@font/poppins_semibold"
             android:gravity="center"
@@ -161,7 +162,7 @@
             android:id="@+id/tv_rekomendasi_barang"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="40dp"
             android:fontFamily="@font/poppins_semibold"
             android:text="@string/tv_rekomendasi_barang"
             android:textAlignment="center"
@@ -193,13 +194,14 @@
             app:layout_constraintEnd_toEndOf="@id/tv_deskripsi_rekomendasi_barang"
             app:layout_constraintStart_toStartOf="@id/tv_deskripsi_rekomendasi_barang"
             app:layout_constraintTop_toBottomOf="@id/tv_deskripsi_rekomendasi_barang"
+            tools:itemCount="1"
             tools:listitem="@layout/recycler_view_item" />
 
         <TextView
             android:id="@+id/tv_jargon"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="50dp"
             android:fontFamily="@font/poppins_semibold"
             android:text="@string/headline_jargon"
             android:textAlignment="center"
@@ -215,14 +217,16 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
             android:layout_marginVertical="10dp"
+            app:cardCornerRadius="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_jargon">
+            app:layout_constraintTop_toBottomOf="@+id/tv_jargon"
+            style="@style/bg_body">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/jargon_cardview">
+                android:background="@drawable/bg_jargon">
 
                 <TextView
                     android:id="@+id/tv_jargon1"
@@ -299,18 +303,56 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/lokasi_button"
+            android:id="@+id/btn_lokasi"
             style="@style/btn_green_rounded"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:paddingHorizontal="60dp"
             android:paddingVertical="10dp"
-            android:text="@string/lokasi_button"
+            android:text="@string/btn_lokasi"
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="@+id/cardview_jargon"
             app:layout_constraintStart_toStartOf="@+id/cardview_jargon"
             app:layout_constraintTop_toBottomOf="@+id/cardview_jargon" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_riwayat"
+            style="@style/btn_green_rounded"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:paddingHorizontal="60dp"
+            android:paddingVertical="10dp"
+            android:text="@string/btn_riwayat"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="@+id/btn_lokasi"
+            app:layout_constraintStart_toStartOf="@+id/btn_lokasi"
+            app:layout_constraintTop_toBottomOf="@+id/btn_lokasi" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_dashboard"
+            style="@style/btn_green_rounded"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:paddingHorizontal="60dp"
+            android:paddingVertical="10dp"
+            android:text="@string/btn_dashboard"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="@+id/btn_riwayat"
+            app:layout_constraintStart_toStartOf="@+id/btn_riwayat"
+            app:layout_constraintTop_toBottomOf="@+id/btn_riwayat" />
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
