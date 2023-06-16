@@ -21,4 +21,111 @@
     <string name="btn_gallery">Gallery</string>
     <string name="btn_detection">Upload Gambar</string>
     <string name="tv_bar_detection">Deteksi Jenis Plastik</string>
+    <string name="tv_empty_lokasi">Maaf Belum Ada Lokasi Daur Ulang Plastik di Tempat Anda</string>
+    <string name="lorem_description">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+    </string>
+
+    <!--    Deteksi Hasil Dan Detail-->
+    <string name="btn_lokasi">Lihat Lokasi Daur Ulang</string>
+    <string name="jargon5">Nah untuk memudahkanmu mendaur ulang sampah plastik, kamu bisa mendatangi lokasi lokasi-lokasi berikut ini sob, klik tombol di bawah yaa.</string>
+    <string name="jargon4">3. Melakukan daur ulang sampah plastik</string>
+    <string name="jargon3">2. Menggunakan produk pengganti plastik dengan bahan yang ramah lingkungan</string>
+    <string name="jargon2">1. Mengurangi penggunaan kemasan plastik</string>
+    <string name="jargon1">Untuk mengurangi polusi sampah plastik, kamu bisa melakukan beberapa hal dibawah ini sob.</string>
+    <string name="headline_jargon">Yuk Kurangi Sampah Plastik dari Sekarang</string>
+    <string name="nav_detail_deteksi">Detail Hasil Deteksi</string>
+    <string name="tv_tingkat_bahaya">Aman</string>
+    <string name="btn_lihat_detail">Lihat Detail</string>
+    <string name="jenis_sampah">HDPE</string>
+    <string name="tv_welcome">Hai,</string>
+    <string name="tv_nama_user">User12345</string>
+    <string name="tv_label_jenis_plastik">Jenis Plastik</string>
+    <string name="tv_label_masa_pakai">Masa Pakai</string>
+    <string name="tv_label_tingkat_bahaya">Tingkat Bahaya</string>
+    <string name="tv_jenis_plastik">PET/PETE</string>
+    <string name="tv_judul_hasil_deteksi">Hasil Deteksi</string>
+    <string name="desc_tv_ic_back">Kembali</string>
+    <string name="tv_judul_riwayat_deteksi">Riwayat Deteksi</string>
+    <string name="tv_empty_riwayat">Belum ada Deteksi yang Dilakukan</string>
+    <string name="tv_masa_pakai">Sekali Pakai</string>
+    <string name="tv_judul_menu">Menu</string>
+    <string name="tv_email_user">user12345@gmail.com</string>
+    <string name="desc_ic_riwayat">Riwayat Deteksi</string>
+    <string name="tv_riwayat_deteksi">Riwayat Deteksi</string>
+    <string name="tv_pengaturan">Pengaturan</string>
+    <string name="desc_ic_logout">Keluar</string>
+    <string name="tv_logout">Keluar</string>
+    <string name="tv_lihat_lokasi">Lihat Semua</string>
+    <string name="tv_judul_pengaturan">Pengaturan</string>
+    <string name="tv_label_ganti_mode">Ganti Mode Latar</string>
+    <string name="desc_ic__light">Light Mode</string>
+    <string name="tv_label_ganti_bahasa">Ganti Bahasa</string>
+    <string name="tv_ganti_bahasa">Bahasa Indonesia</string>
+    <string name="desc_ic_dark">Dark Mode</string>
+    <string name="tv_empty_hasil">Gambar yang Anda Masukkan Salah atau Kualitas Gambar Kurang Baik</string>
+    <string name="tv_gagal_lokasi">Gagal Memuat Data</string>
+    <string name="tv_disable_lokasi">Aktifkan Fitur Lokasi untuk Melihat Lokasi Daur Ulang</string>
+    <string name="btn_empty_hasil">Lakukan Deteksi Ulang</string>
+    <string name="desc_iv_item">Barang Pengganti Plastik</string>
+    <string name="tv_item">Barang Pengganti Plastik</string>
+    <string name="tv_rekomendasi_barang">Rekomendasi Barang Pengganti Plastik</string>
+    <string name="tv_deskripsi_rekomendasi_barang">Berikut adalah barang-barang yang bisa kamu gunakan sebagai pengganti plastik</string>
+    <string name="tv_login">Masuk</string>
+    <string name="tv_account">Sudah Punya Akun?</string>
+    <string name="register_button">Daftar</string>
+    <string name="tv_password">Password</string>
+    <string name="tv_email">Email</string>
+    <string name="tv_nama">Nama</string>
+    <string name="hint_et_nama">Isikan Nama Dengan Benar</string>
+    <string name="hint_et_email">Isikan Email Dengan Benar</string>
+    <string name="hint_et_password">Isikan Password Dengan Benar</string>
+    <string name="tv_signup">Daftar</string>
+    <string name="tv_label_signup">Belum Punya Akun?</string>
+    <string name="btn_login">Masuk</string>
+    <string name="btn_dashboard">Kembali Ke Dashboard</string>
+    <string name="btn_riwayat">Lihat Riwayat Deteksi</string>
+    <string name="desc_iv_title_log">PlastiCode</string>
+    <string name="btn_salah_hasil">Terjadi Kesalahan Silakan Lakukan Deteksi Kembali</string>
+
+    <integer-array name="id_item">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+    </integer-array>
+
+    <string-array name="img_item">
+        <item>https://static.vecteezy.com/system/resources/previews/005/610/750/original/isolated-recycled-paper-bag-on-white-background-flat-style-cartoon-illustration-free-vector.jpg</item>
+        <item>https://img.freepik.com/free-vector/small-white-paper-cup-isolated-white_1284-45621.jpg?w=2000</item>
+        <item>https://media.istockphoto.com/id/1309568075/photo/blank-eco-friendly-beige-colour-fashion-canvas-tote-bag-isolated-on-white-background-empty.jpg?s=612x612&amp;w=0&amp;k=20&amp;c=s3FBuZxaW6kBWetY5sgzx1gZ10fKLci9l66gGU_6hVs=</item>
+        <item>https://media.karousell.com/media/photos/products/2021/9/13/paper_lunch_box__brown__50pcs__1631533769_247ca764.jpg</item>
+        <item>https://static.bmdstatic.com/pk/product/medium/5e4ca1ac9a33b.jpg</item>
+        <item>https://images.tokopedia.net/img/cache/500-square/product-1/2020/9/4/batch-upload/batch-upload_20298982-006f-4e53-ad66-01e08370ddfd</item>
+        <item>https://images.tokopedia.net/img/cache/700/product-1/2020/6/12/1789834/1789834_3a11720c-3f5e-4ff5-b983-ccf4f7585aa8_1024_1024</item>
+        <item>https://cdn.oleholehagungbali.com/shop/product/5f26aac82c83b-1596369608/5f26aac82c83b-1596369608.jpg</item>
+        <item>https://images.tokopedia.net/img/cache/700/hDjmkQ/2022/1/2/51e3c739-8794-4bf1-8675-81848266fa05.jpg</item>
+        <item>https://ae01.alicdn.com/kf/Hea1c3653755c426d967fe962052edc0dA/Sikat-Gigi-Bambu-Alami-Ramah-Lingkungan-Serat-Lembut-Oral-Membersihkan-Gigi-Perawatan-Pegangan-Kayu.jpg</item>
+    </string-array>
+
+    <string-array name="name_item">
+        <item>Paper Bag</item>
+        <item>Paper Cup</item>
+        <item>Tote Bag</item>
+        <item>Paper Lunch Box</item>
+        <item>Pouch Ecopack</item>
+        <item>Sedotan Stainless</item>
+        <item>Kemasan Pelepah Pinang</item>
+        <item>Sedotan Bambu</item>
+        <item>Sendok Garpu Eco Friendly</item>
+        <item>Sikat Gigi Bambu</item>
+    </string-array>
+
 </resources>

@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.hasil.detailhasil.DetailHasilActivity"
+    style="@style/bg_body">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="50dp">
+
+        <ImageView
+            android:id="@+id/ic_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:contentDescription="@string/desc_tv_ic_back"
+            android:src="@drawable/ic_back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_bar_hasil_deteksi"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="@string/nav_detail_deteksi"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="@id/ic_back"
+            app:layout_constraintStart_toEndOf="@id/ic_back"
+            app:layout_constraintTop_toTopOf="@id/ic_back" />
+
+        <ImageView
+            android:id="@+id/ic_menu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:contentDescription="@string/desc_ic_menu"
+            android:src="@drawable/ic_menu"
+            app:layout_constraintBottom_toBottomOf="@id/tv_bar_hasil_deteksi"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_bar_hasil_deteksi" />
+
+        <View
+            android:id="@+id/line_bar"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="15dp"
+            android:alpha="0.5"
+            android:background="@color/grey_808080"
+            app:layout_constraintTop_toBottomOf="@id/tv_bar_hasil_deteksi" />
+
+        <ImageView
+            android:id="@+id/iv_hasil_deteksi"
+            android:layout_width="250dp"
+            android:layout_height="259dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginEnd="40dp"
+            android:layout_marginBottom="40dp"
+            android:contentDescription="@string/detection_image_box"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/line_bar"
+            app:srcCompat="@drawable/ic_img_box" />
+
+        <TextView
+            android:id="@+id/tv_jenis_plastik"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:fontFamily="@font/poppins_semibold"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="@+id/iv_hasil_deteksi"
+            app:layout_constraintStart_toStartOf="@+id/iv_hasil_deteksi"
+            app:layout_constraintTop_toBottomOf="@+id/iv_hasil_deteksi"
+            tools:text="@string/tv_jenis_plastik" />
+
+        <TextView
+            android:id="@+id/tv_deskripsi_jenis"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/poppins"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_jenis_plastik"
+            tools:text="@string/lorem_description" />
+
+        <TextView
+            android:id="@+id/tv_masa_pakai"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:background="@drawable/badge_blue_rounded"
+            android:fontFamily="@font/poppins_semibold"
+            android:gravity="center"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="@+id/tv_jenis_plastik"
+            app:layout_constraintStart_toStartOf="@+id/tv_jenis_plastik"
+            app:layout_constraintTop_toBottomOf="@+id/tv_deskripsi_jenis"
+            tools:text="@string/tv_masa_pakai" />
+
+        <TextView
+            android:id="@+id/tv_deskripsi_masapakai"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/poppins"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="@+id/tv_deskripsi_jenis"
+            app:layout_constraintStart_toStartOf="@+id/tv_deskripsi_jenis"
+            app:layout_constraintTop_toBottomOf="@+id/tv_masa_pakai"
+            tools:text="@string/lorem_description" />
+
+        <TextView
+            android:id="@+id/tv_tingkat_bahaya"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="25dp"
+            android:background="@drawable/badge_green_rounded"
+            android:fontFamily="@font/poppins_semibold"
+            android:gravity="center"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="@+id/tv_deskripsi_masapakai"
+            app:layout_constraintStart_toStartOf="@+id/tv_deskripsi_masapakai"
+            app:layout_constraintTop_toBottomOf="@+id/tv_deskripsi_masapakai"
+            tools:text="@string/tv_tingkat_bahaya" />
+
+        <TextView
+            android:id="@+id/tv_deskripsi_bahaya"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/poppins"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="@+id/tv_deskripsi_masapakai"
+            app:layout_constraintStart_toStartOf="@+id/tv_deskripsi_masapakai"
+            app:layout_constraintTop_toBottomOf="@+id/tv_tingkat_bahaya"
+            tools:text="@string/lorem_description" />
+
+        <TextView
+            android:id="@+id/tv_rekomendasi_barang"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="@string/tv_rekomendasi_barang"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="@id/tv_deskripsi_bahaya"
+            app:layout_constraintStart_toStartOf="@id/tv_deskripsi_bahaya"
+            app:layout_constraintTop_toBottomOf="@id/tv_deskripsi_bahaya" />
+
+        <TextView
+            android:id="@+id/tv_deskripsi_rekomendasi_barang"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins"
+            android:text="@string/tv_deskripsi_rekomendasi_barang"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="@id/tv_rekomendasi_barang"
+            app:layout_constraintStart_toStartOf="@id/tv_rekomendasi_barang"
+            app:layout_constraintTop_toBottomOf="@id/tv_rekomendasi_barang" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_rekomendasi_barang"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:scrollbars="horizontal"
+            app:layout_constraintEnd_toEndOf="@id/tv_deskripsi_rekomendasi_barang"
+            app:layout_constraintStart_toStartOf="@id/tv_deskripsi_rekomendasi_barang"
+            app:layout_constraintTop_toBottomOf="@id/tv_deskripsi_rekomendasi_barang"
+            tools:itemCount="1"
+            tools:listitem="@layout/recycler_view_item" />
+
+        <TextView
+            android:id="@+id/tv_jargon"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="@string/headline_jargon"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="@+id/tv_deskripsi_bahaya"
+            app:layout_constraintStart_toStartOf="@+id/tv_deskripsi_bahaya"
+            app:layout_constraintTop_toBottomOf="@+id/rv_rekomendasi_barang" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardview_jargon"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginVertical="10dp"
+            app:cardCornerRadius="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_jargon"
+            style="@style/bg_body">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_jargon">
+
+                <TextView
+                    android:id="@+id/tv_jargon1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:fontFamily="@font/poppins"
+                    android:text="@string/jargon1"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_jargon2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="15dp"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/poppins"
+                    android:text="@string/jargon2"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_jargon1" />
+
+                <TextView
+                    android:id="@+id/tv_jargon3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins"
+                    android:text="@string/jargon3"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="@+id/tv_jargon2"
+                    app:layout_constraintStart_toStartOf="@+id/tv_jargon2"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_jargon2" />
+
+                <TextView
+                    android:id="@+id/tv_jargon4"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins"
+                    android:text="@string/jargon4"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="@+id/tv_jargon3"
+                    app:layout_constraintStart_toStartOf="@+id/tv_jargon3"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_jargon3" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/poppins"
+                    android:text="@string/jargon5"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="@+id/tv_jargon4"
+                    app:layout_constraintStart_toStartOf="@+id/tv_jargon4"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_jargon4" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_lokasi"
+            style="@style/btn_green_rounded"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:paddingHorizontal="60dp"
+            android:paddingVertical="10dp"
+            android:text="@string/btn_lokasi"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="@+id/cardview_jargon"
+            app:layout_constraintStart_toStartOf="@+id/cardview_jargon"
+            app:layout_constraintTop_toBottomOf="@+id/cardview_jargon" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_riwayat"
+            style="@style/btn_green_rounded"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:paddingHorizontal="60dp"
+            android:paddingVertical="10dp"
+            android:text="@string/btn_riwayat"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="@+id/btn_lokasi"
+            app:layout_constraintStart_toStartOf="@+id/btn_lokasi"
+            app:layout_constraintTop_toBottomOf="@+id/btn_lokasi" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_dashboard"
+            style="@style/btn_green_rounded"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:paddingHorizontal="60dp"
+            android:paddingVertical="10dp"
+            android:text="@string/btn_dashboard"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="@+id/btn_riwayat"
+            app:layout_constraintStart_toStartOf="@+id/btn_riwayat"
+            app:layout_constraintTop_toBottomOf="@+id/btn_riwayat" />
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

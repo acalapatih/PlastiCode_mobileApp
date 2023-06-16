@@ -1,40 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.lokasi.LokasiFragment">
+    tools:context=".ui.lokasi.LokasiFragment"
+    style="@style/bg_body">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/tv_judul"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="10dp"
-            android:fontFamily="@font/poppins_bold"
-            android:text="@string/tv_judul"
-            android:textColor="@color/black"
-            android:textSize="26sp"
-            app:layout_constraintEnd_toStartOf="@id/ic_pengaturan"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <ImageView
-            android:id="@+id/ic_pengaturan"
+            android:id="@+id/iv_title_dashboard"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
-            android:contentDescription="@string/desc_ic_pengaturan"
-            android:src="@drawable/ic_pengaturan"
-            app:layout_constraintBottom_toBottomOf="@id/tv_judul"
-            app:layout_constraintEnd_toStartOf="@id/ic_menu"
-            app:layout_constraintTop_toTopOf="@id/tv_judul" />
+            android:src="@drawable/iv_title_dashboard"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="20dp"
+            android:contentDescription="@string/desc_iv_title_log"/>
 
         <ImageView
             android:id="@+id/ic_menu"
@@ -43,20 +29,62 @@
             android:layout_marginEnd="20dp"
             android:contentDescription="@string/desc_ic_menu"
             android:src="@drawable/ic_menu"
-            app:layout_constraintBottom_toBottomOf="@id/tv_judul"
+            app:layout_constraintBottom_toBottomOf="@id/iv_title_dashboard"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/tv_judul" />
+            app:layout_constraintTop_toTopOf="@id/iv_title_dashboard" />
+
+        <View
+            android:id="@+id/line_bar"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="15dp"
+            android:alpha="0.5"
+            android:background="@color/grey_808080"
+            app:layout_constraintTop_toBottomOf="@id/iv_title_dashboard" />
+
+        <LinearLayout
+            android:id="@+id/ll_welcome"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="10dp"
+            android:layout_marginHorizontal="50dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/line_bar">
+
+            <TextView
+                android:id="@+id/tv_welcome"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="@string/tv_welcome"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tv_nama_user"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:alpha="0.5"
+                android:fontFamily="@font/poppins_semibold"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                tools:text="@string/tv_nama_user" />
+
+        </LinearLayout>
 
         <ImageView
             android:id="@+id/iv_poster"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
             android:contentDescription="@string/desc_iv_poster"
             android:src="@drawable/iv_poster"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_judul" />
+            app:layout_constraintTop_toBottomOf="@id/ll_welcome" />
 
         <TextView
             android:id="@+id/tv_deteksi"
@@ -98,7 +126,7 @@
             android:fontFamily="@font/poppins_semibold"
             android:text="@string/tv_label_lokasi"
             android:textColor="@color/black"
-            android:textSize="16sp"
+            android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/btn_deteksi" />
@@ -109,6 +137,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="20dp"
+            app:cardCornerRadius="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@id/tv_label_lokasi"
             app:layout_constraintTop_toBottomOf="@id/tv_label_lokasi">
@@ -116,16 +145,17 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/bg_recyclerview"
+                android:paddingHorizontal="10dp"
                 android:paddingVertical="5dp"
-                android:paddingHorizontal="10dp">
+                android:background="@drawable/bg_rv_item">
 
                 <ImageView
                     android:id="@+id/iv_lokasi"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="90dp"
+                    android:layout_height="90dp"
                     android:contentDescription="@string/desc_iv_lokasi"
-                    android:src="@drawable/iv_lokasi"
+                    android:src="@drawable/iv_thumbnail"
+                    android:visibility="invisible"
                     app:circularflow_radiusInDP="20dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -135,34 +165,92 @@
                     android:id="@+id/tv_nama_lokasi"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:fontFamily="@font/poppins_semibold"
                     android:text="@string/tv_nama_lokasi"
                     android:textColor="@color/black"
                     android:textSize="14sp"
-                    android:fontFamily="@font/poppins_semibold"
-                    app:layout_constraintStart_toEndOf="@id/iv_lokasi"
-                    app:layout_constraintTop_toTopOf="@id/iv_lokasi"
+                    android:visibility="invisible"
                     app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginStart="10dp"/>
+                    app:layout_constraintStart_toEndOf="@id/iv_lokasi"
+                    app:layout_constraintTop_toTopOf="@id/iv_lokasi" />
 
                 <TextView
                     android:id="@+id/tv_alamat_lokasi"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/tv_alamat_lokasi"
-                    android:fontFamily="@font/poppins"
-                    android:textSize="12sp"
-                    android:textColor="@color/black"
+                    android:layout_marginEnd="10dp"
                     android:alpha="0.7"
-                    app:layout_constraintTop_toBottomOf="@id/tv_nama_lokasi"
-                    app:layout_constraintStart_toStartOf="@id/tv_nama_lokasi"
+                    android:fontFamily="@font/poppins"
+                    android:text="@string/tv_alamat_lokasi"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    android:visibility="invisible"
                     app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginEnd="10dp"/>
+                    app:layout_constraintStart_toStartOf="@id/tv_nama_lokasi"
+                    app:layout_constraintTop_toBottomOf="@id/tv_nama_lokasi" />
+
+                <TextView
+                    android:id="@+id/tv_disable_lokasi"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:fontFamily="@font/poppins"
+                    android:text="@string/tv_disable_lokasi"
+                    android:textAlignment="center"
+                    android:textColor="@color/grey_808080"
+                    android:textSize="18sp"
+                    android:visibility="visible"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_empty_lokasi"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:fontFamily="@font/poppins"
+                    android:text="@string/tv_empty_lokasi"
+                    android:textAlignment="center"
+                    android:textColor="@color/grey_808080"
+                    android:textSize="18sp"
+                    android:visibility="invisible"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ProgressBar
+                    android:id="@+id/progress_bar"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.cardview.widget.CardView>
 
+        <TextView
+            android:id="@+id/tv_lihat_lokasi"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="@string/tv_lihat_lokasi"
+            android:textColor="@color/green_52734D"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@id/tv_label_lokasi"
+            app:layout_constraintEnd_toEndOf="@id/cc_lokasi_daur_ulang"
+            app:layout_constraintTop_toTopOf="@id/tv_label_lokasi" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-</ScrollView>
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
