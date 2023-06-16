@@ -87,6 +87,7 @@
     <string name="btn_dashboard">Kembali Ke Dashboard</string>
     <string name="btn_riwayat">Lihat Riwayat Deteksi</string>
     <string name="desc_iv_title_log">PlastiCode</string>
+    <string name="btn_salah_hasil">Terjadi Kesalahan Silakan Lakukan Deteksi Kembali</string>
 
     <integer-array name="id_item">
         <item>1</item>

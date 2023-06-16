@@ -2,29 +2,29 @@ package com.dicoding.plasticode.response
 
 import com.google.gson.annotations.SerializedName
 
-data class Login(
+data class PostLoginResponse(
 
 	@field:SerializedName("data")
-	val data: LoginResponse,
+	val data: Data,
 
 	@field:SerializedName("error")
 	val error: Boolean,
 
 	@field:SerializedName("message")
 	val message: String
-)
+) {
+	data class Data(
 
-data class LoginResponse(
+		@field:SerializedName("name")
+		val name: String,
 
-	@field:SerializedName("name")
-	val name: String,
+		@field:SerializedName("id")
+		val id: Int,
 
-	@field:SerializedName("id")
-	val id: Int,
+		@field:SerializedName("email")
+		val email: String,
 
-	@field:SerializedName("email")
-	val email: String,
-
-	@field:SerializedName("token")
-	val token: String
-)
+		@field:SerializedName("token")
+		val token: String
+	)
+}

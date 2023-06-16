@@ -51,14 +51,14 @@ class DashboardFragment : Fragment() {
         return binding.root
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         client = LocationServices.getFusedLocationProviderClient(requireActivity())
 
-        initObserver()
+
         initLocation()
+        initObserver()
         initListener()
     }
 

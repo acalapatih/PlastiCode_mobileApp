@@ -1,4 +1,4 @@
-package com.dicoding.plasticode.service
+package com.dicoding.plasticode.network
 
 import com.dicoding.plasticode.BuildConfig
 import com.dicoding.plasticode.utils.Constant

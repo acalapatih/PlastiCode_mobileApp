@@ -1,17 +1,12 @@
 package com.dicoding.plasticode.utils
 
-import android.app.Application
 import android.content.ContentResolver
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Matrix
 import android.net.Uri
-import android.os.Build
 import android.os.Environment
-import android.view.WindowInsets
-import android.view.WindowManager
-import com.dicoding.plasticode.R
 import java.io.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -29,22 +24,10 @@ val timeStamp: String = SimpleDateFormat(
         return File.createTempFile(timeStamp, ".jpg", storageDir)
     }
 
-    fun createFile(application: Application): File {
-        val mediaDir = application.externalMediaDirs.firstOrNull()?.let {
-            File(it, application.resources.getString(R.string.app_name)).apply { mkdirs() }
-        }
-
-        val outputDirectory = if (
-            mediaDir != null && mediaDir.exists()
-        ) mediaDir else application.filesDir
-
-        return File(outputDirectory, "$timeStamp.jpg")
-    }
-
     fun rotateFile(file: File, isBackCamera: Boolean = false) {
         val matrix = Matrix()
         val bitmap = BitmapFactory.decodeFile(file.path)
-        val rotation = if (isBackCamera) 90f else -90f
+        val rotation = if (isBackCamera) 0f else -90f
         matrix.postRotate(rotation)
         if (!isBackCamera) {
             matrix.postScale(-1f, 1f, bitmap.width / 2f, bitmap.height / 2f)

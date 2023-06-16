@@ -5,15 +5,15 @@ import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.dicoding.plasticode.response.RegisterResponse
-import com.dicoding.plasticode.service.ApiConfig
+import com.dicoding.plasticode.response.PostRegisterResponse
+import com.dicoding.plasticode.network.ApiConfig
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class RegisterViewModel: ViewModel() {
-    private val _postRegister = MutableLiveData<RegisterResponse>()
-    val postRegister: LiveData<RegisterResponse> = _postRegister
+    private val _postRegister = MutableLiveData<PostRegisterResponse>()
+    val postRegister: LiveData<PostRegisterResponse> = _postRegister
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
@@ -21,10 +21,10 @@ class RegisterViewModel: ViewModel() {
     fun postRegister(context: Context, name: String, email: String, password: String) {
         _isLoading.value = true
         val client = ApiConfig.getApiService().registerAccount(name, email, password)
-        client.enqueue(object: Callback<RegisterResponse> {
+        client.enqueue(object: Callback<PostRegisterResponse> {
             override fun onResponse(
-                call: Call<RegisterResponse>,
-                response: Response<RegisterResponse>
+                call: Call<PostRegisterResponse>,
+                response: Response<PostRegisterResponse>
             ) {
                 if(response.isSuccessful) {
                     _postRegister.value = response.body()
@@ -35,7 +35,7 @@ class RegisterViewModel: ViewModel() {
                 }
             }
 
-            override fun onFailure(call: Call<RegisterResponse>, t: Throwable) {
+            override fun onFailure(call: Call<PostRegisterResponse>, t: Throwable) {
                 _isLoading.value = false
                 Toast.makeText(context, t.message, Toast.LENGTH_LONG)
                     .show()
