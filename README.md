@@ -5,7 +5,7 @@ PlastiCode is an application that educates about the types of plastic along with
 
 ## Mock Up
 
-[![Plasti-Code-Mockup-DETECTION.png](https://i.postimg.cc/cCd6HWG4/Plasti-Code-Mockup-DETECTION.png)
+[![Plasti-Code-Mockup-DETECTION.png](https://i.postimg.cc/cCd6HWG4/Plasti-Code-Mockup-DETECTION.png)](https://postimg.cc/4H7srB7n)
 
 [![Plasti-Code-Mockup-LOCATION-AND-SETTING.png](https://i.postimg.cc/cCTCtzd7/Plasti-Code-Mockup-LOCATION-AND-SETTING.png)](https://postimg.cc/4H7srB7n)
 
