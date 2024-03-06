@@ -50,10 +50,10 @@ PlastiCode is an application that educates about the types of plastic along with
 
 ## Mock Up
 ### Detection Feature
-<img src="image/Mockup_Detection.png" alt="Detection Feature">
+<img src="image/detection_feature.png" alt="Detection Feature">
 
 ### Location and Setting Feature
-<img src="image/mockup_location.png" alt="Location and Setting Feature">
+<img src="image/location_feature.png" alt="Location and Setting Feature">
 
 ## Features
 - Splash Screen
