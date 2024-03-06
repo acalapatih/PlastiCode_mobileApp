@@ -9,10 +9,10 @@
 <br />
 <div align="center">
   <a href="https://github.com/acalapatih/PlastiCode_mobileApps">
-    <img src="images/logo_plasticode.png" alt="Logo" width="80" height="80">
+    <img src="image/logo_plasticode.png" alt="Logo" width="80" height="80">
   </a>
 
-  <h3 align="center">Best-README-Template</h3>
+  <h3 align="center">PlastiCode Mobile App</h3>
 
   <p align="center">
     A great application that can help you reduce plastic waste.!
