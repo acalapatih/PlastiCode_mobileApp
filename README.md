@@ -9,10 +9,10 @@
 <br />
 <div align="center">
   <a href="https://github.com/acalapatih/PlastiCode_mobileApps">
-    <img src="image/logo_plasticode.png" alt="Logo" width="80" height="80">
+    <img src="image/plasticode_logo.png" alt="Logo" width="200" height="200">
   </a>
 
-  <h3 align="center">PlastiCode Mobile App</h3>
+  <h1 align="center">PlastiCode Mobile App</h3>
 
   <p align="center">
     A great application that can help you reduce plastic waste.!
@@ -20,7 +20,7 @@
     <a href="https://github.com/acalapatih/PlastiCode_mobileApps"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/othneildrew/Best-README-Template">View Demo</a>
+    <a href="https://github.com/acalapatih/PlastiCode_mobileApps">View Demo</a>
     ·
     <a href="https://github.com/acalapatih/PlastiCode_mobileApps/issues">Report Bug</a>
     ·
@@ -28,24 +28,34 @@
   </p>
 </div>
 
+<!-- TABLE OF CONTENTS -->
+<details>
+  <summary>Table of Contents</summary>
+  <ol>
+    <li><a href="#introduction">Introduction</a></li>
+    <li><a href="#mock-up">Mock Up</a></li>
+    <li><a href="#features">Features</a></li>
+    <li>
+      <a href="#about-the-project">About The Project</a>
+      <ul>
+        <li><a href="#build-with">Build With</a></li>
+        <li><a href="#project-structure">Project Structure</a></li>
+      </ul>
+    </li>
+  </ol>
+</details>
+
 ## Introduction
 PlastiCode is an application that educates about the types of plastic along with their lifespan and level of danger. There are three main features in this application: plastic type detection, recommendations for plastic alternatives, and recommendations for plastic recycling locations. PlastiCode is built with Kotlin, TensorFlow Lite, and implements the Clean Code Architecture. This application was developed as the Capstone Project Bangkit 2023.
 
 ## Mock Up
+### Detection Feature
+<img src="image/Mockup_Detection.png" alt="Detection Feature">
 
-[![Plasti-Code-Mockup-DETECTION.png](https://i.postimg.cc/cCd6HWG4/Plasti-Code-Mockup-DETECTION.png)](https://postimg.cc/4H7srB7n)
-
-[![Plasti-Code-Mockup-LOCATION-AND-SETTING.png](https://i.postimg.cc/cCTCtzd7/Plasti-Code-Mockup-LOCATION-AND-SETTING.png)](https://postimg.cc/4H7srB7n)
-
-## Table Of Content
-
-- Introduction
-- Features
-- Libraries
-- Project Structure
+### Location and Setting Feature
+<img src="image/Mockup_LocationAndSetting.png" alt="Location and Setting Feature">
 
 ## Features
-
 - Splash Screen
 - Login & Register
 - Dashboard
@@ -57,8 +67,8 @@ PlastiCode is an application that educates about the types of plastic along with
 - Detection History
 - Background Mode Setting
 
-## Libraries
-
+## About The Project
+### Build With
 - [Lifecycle & Livedata](https://developer.android.com/guide/components/activities/activity-lifecycle?hl=id)
 - [Retrofit](https://square.github.io/retrofit/)
 - [Navigation Component](https://developer.android.com/guide/navigation/get-started)
@@ -72,8 +82,7 @@ PlastiCode is an application that educates about the types of plastic along with
 - [TensorFlow Lite](https://www.tensorflow.org/lite/android)
 - [RxBinding](https://github.com/JakeWharton/RxBinding)
 
-## Project Structure
-
+### Project Structure
 - data
 - factory
 - network
